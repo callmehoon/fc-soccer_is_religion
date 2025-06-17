@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>로그인</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            background-color: #fff;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 80px auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            margin: 6px 0;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 10px;
+            background-color: black;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .join {
+            margin-top: 10px;
+            background-color: white;
+            color: black;
+            border: 1px solid black;
+        }
+
+        .sns {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .sns p {
+            margin-bottom: 10px;
+        }
+
+        .sns img {
+            width: 36px;
+            margin: 0 10px;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>로그인</h2>
+    <input type="text" placeholder="아이디">
+    <input type="password" placeholder="비밀번호">
+    <label><input type="checkbox"> 아이디 저장</label>
+    <button>로그인</button>
+    <button class="join">회원가입</button>
+
+    <div class="sns">
+        <p>SNS 로그인</p>
+        <img src="https://developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png" alt="kakao">
+        <img src="https://ssl.pstatic.net/static/nid/login/naver_ico.png" alt="naver">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="facebook">
+    </div>
+</div>
+</body>
+</html>
