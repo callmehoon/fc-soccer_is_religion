@@ -5,6 +5,7 @@
     <title>상품 상세</title>
     <link rel="stylesheet" href="product_detail.css">
 </head>
+
 <body>
 <div class="product">
     <div class="product-detail">
@@ -20,7 +21,7 @@
             <h2 class="product-title">맨유 91 어웨이 저지 L/S<br>139,000원</h2>
 
             <ul class="product-info">
-                <li>사이로</li>
+                <li>사일로</li>
                 <li>성별</li>
                 <li>소재</li>
                 <li>색상</li>
@@ -68,10 +69,10 @@
         </div>
     </div>
     <ul class="tab-menu">
-        <li class="tab active">상세정보</li>
-        <li class="tab">상품후기 <span class="count">0</span></li>
+        <li class="tab active"><a href="#detail">상세정보</a></li>
+        <li class="tab"><a href="#review">상품후기</a> <span class="count">0</span></li>
 
-        <li class="tab">상품문의 <span class="count">0</span></li>
+        <li class="tab"><a href="#inquiry">상품문의</a> <span class="count">0</span></li>
     </ul>
 
     <div class="tab-content">
@@ -84,9 +85,9 @@
 
     <div class="product-tabs">
         <ul class="tab-menu">
-            <li class="tab">상세정보</li>
-            <li class="tab active">상품후기 <span class="count">1</span></li>
-            <li class="tab">상품문의 <span class="count">4</span></li>
+            <li class="tab"><a href="#detail">상세정보</a></li>
+            <li class="tab active"><a href="#review">상품후기</a>  <span class="count">1</span></li>
+            <li class="tab"><a href="#inquiry">상품문의</a> <span class="count">4</span></li>
         </ul>
 
         <div class="review-summary">
@@ -115,9 +116,9 @@
     </div>
     <!-- 탭 메뉴 -->
     <ul class="tab-menu">
-        <li class="tab">상세정보</li>
-        <li class="tab">상품후기 <span class="count">1</span></li>
-        <li class="tab active">상품문의 <span class="count">4</span></li>
+        <li class="tab"><a href="#detail">상세정보</a></li>
+        <li class="tab"><a href="#review">상품후기</a> <span class="count">1</span></li>
+        <li class="tab active"><a href="#inquiry">상품문의</a> <span class="count">4</span></li>
     </ul>
 
     <!-- 상품문의 테이블 -->
@@ -158,6 +159,15 @@
             sizeButtons.forEach(b => b.classList.remove('active')); // 모든 버튼 비활성화
             btn.classList.add('active'); // 클릭된 버튼만 활성화
         });
+    });
+
+    $(document).ready(function($) {
+        $(".scroll_move").click(function(event){
+            console.log(".scroll_move");
+            event.preventDefault();
+            $('html,body').animate({scrollTop:$(this.hash).offset().top}, 500);
+        });
+
     });
 </script>
 

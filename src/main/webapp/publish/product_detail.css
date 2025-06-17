@@ -4,7 +4,10 @@ body {
     padding: 0;
     color: #333;
 }
-
+a{
+    text-decoration: none;
+    color: black;
+}
 .product{
 
     padding: 30px;
