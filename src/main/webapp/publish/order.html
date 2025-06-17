@@ -8,14 +8,53 @@
             display: block;
             font-weight: bold;
         }
+
+        .btn-black {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            font-size: 14px;
+            cursor: pointer;
+            border-radius: 4px;
+            border: none;
+            background: #000;
+            color: #fff;
+        }
+
+        .btn-gray {
+            width: 10%;
+            padding: 8px;
+            margin-bottom: 10px;
+            font-size: 14px;
+            cursor: pointer;
+            border-radius: 4px;
+            border: none;
+            background: #f9f9f9;
+            color: #000;
+        }
+
+        .total-price {
+            font-size: 18px;
+            flex: 1;
+            border: 1px solid #ddd;
+            padding: 20px;
+            background: #f9f9f9;
+        }
+
+        .summary-box {
+            flex: 1;
+            border: 1px solid #ddd;
+            padding: 20px;
+            background: #f9f9f9;
+        }
     </style>
 </head>
 <body>
 <form>
     <h1>주문하기</h1>
-    <h3>상품 정보</h3>
+    <h2>상품 정보</h2>
 
-    <h3>주문자 정보</h3>
+    <h2>주문자 정보</h2>
     <label for="order_member">
         주문하시는 분<input type="text" id="order_member" name="order_member" class="input-field" required>
     </label>
@@ -29,22 +68,20 @@
         이메일<input type="text" id="email" name="email" class="input-field" required>
     </label>
 
-    <h3>배송 정보</h3>
+    <h2>배송 정보</h2>
     <label for="address_check">
         배송지 확인
-        <select id="address_check" name="address_check">
-            <option value="1">기본 배송지</option>
-            <option value="2">최근 배송지</option>
-            <option value="3">직접 입력</option>
-            <option value="4">주문자 정보와 동일</option>
-        </select>
+        <input type="radio" id="default_address" name="address_check" class="choices">기본 배송지
+        <input type="radio" id="recent_address" name="address_check" class="choices">최근 배송지
+        <input type="radio" id="custom_address" name="address_check" class="choices">직접 입력
+        <input type="radio" id="same_as_order_member" name="address_check" class="choices">주문자 정보와 동일
     </label>
     <label for="receiver">
         받으실 분<input type="text" id="receiver" name="receiver" class="input-field" required>
     </label>
     <label for="receiver_address">
         받으실 곳<input type="text" id="receiver_address" name="receiver_address" class="input-field" required>
-        <button type="button">우편번호검색</button>
+        <button type="button" class="btn-gray">우편번호 검색</button>
     </label>
     <label for="receiver_phone_number">
         휴대폰번호<input type="text" id="receiver_phone_number" name="receiver_phone_number" class="input-field" required>
@@ -53,7 +90,7 @@
         남기실 말씀<input type="text" id="delivery_message" name="delivery_message" class="input-field">
     </label>
 
-    <h3>결제 정보</h3>
+    <h2>결제 정보</h2>
     <div>
         <label>
             할인 및 적립
@@ -62,7 +99,7 @@
         <div>발생 적립금: 10,000원</div>
     </div>
     <label for="coupon_check">
-        쿠폰 사용<button type="button" id="coupon_check" name="coupon_check">쿠폰 조회 및 적용</button>
+        쿠폰 사용<button type="button" id="coupon_check" name="coupon_check" class="btn-gray">쿠폰 조회 및 적용</button>
     </label>
     <label for="use_bonuspoint">
         적립금 사용<input type="text" id="use_bonuspoint" name="use_bonuspoint" class="input-field">원
@@ -73,22 +110,20 @@
         총 결제 금액 10,000원
     </label>
 
-    <h3>결제 수단 선택</h3>
+    <h2>결제 수단 선택</h2>
     <label for="payment_method">
         결제수단
-        <select id="payment_method" name="payment_method">
-            <option value="1">간편결제</option>
-            <option value="2">무통장 입금</option>
-            <option value="3">신용카드</option>
-            <option value="4">휴대폰 결제</option>
-        </select>
+        <input type="radio" id="payment_by_brief_payment" name="payment_method" class="choices">간편결제
+        <input type="radio" id="payment_by_account" name="payment_method" class="choices">무통장 입금
+        <input type="radio" id="payment_by_credit_card" name="payment_method" class="choices">신용카드
+        <input type="radio" id="payment_by_phone" name="payment_method" class="choices">휴대폰 결제
     </label>
 
-    <h3>총 결제 금액 10,000원</h3>
+    <div class="total-price"><h3>총 결제 금액 10,000원</h3></div>
 </form>
 
 <form>
-    <div>
+    <div class="summary-box">
         <label>
             총 개의 상품
         </label>
@@ -98,11 +133,15 @@
         <label>
             최종 결제 금액: 10,000원
         </label>
+        <label for="order_agree">
+            <input type="checkbox" id="order_agree" name="order_agree" value="is_agree"/>(필수) 구매하실 상품의 결제정보를 확인하였으며, 구매진행에 동의합니다.
+        </label>
+        <button type="submit" class="btn-black">결제하기</button>
     </div>
-    <label for="order_agree">
-        <input type="checkbox" id="order_agree" name="order_agree" value="is_agree"/>(필수) 구매하실 상품의 결제정보를 확인하였으며, 구매진행에 동의합니다.
-    </label>
-    <button type="submit">결제하기</button>
+<!--    <label for="order_agree">-->
+<!--        <input type="checkbox" id="order_agree" name="order_agree" value="is_agree"/>(필수) 구매하실 상품의 결제정보를 확인하였으며, 구매진행에 동의합니다.-->
+<!--    </label>-->
+<!--    <button type="submit" class="btn-black">결제하기</button>-->
 </form>
 
 </body>
