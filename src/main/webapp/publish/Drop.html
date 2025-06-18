@@ -1,0 +1,264 @@
+<!-- header.html -->
+<header>
+    <style>
+        /* 공통 드롭다운 스타일 */
+        .dropdown, .brand-dropdown {
+            display: none;
+            position: absolute;
+            top: 100%;
+            background: white;
+            border: 1px solid #ddd;
+            box-sizing: border-box;
+            z-index: 1000;
+        }
+        .nav-list li {
+            position: relative;
+        }
+        .nav-list li:hover > .dropdown,
+        .nav-list li:hover > .brand-dropdown {
+            display: flex;
+            gap: 40px;
+            justify-content: center;
+            padding: 20px;
+        }
+        /* 브랜드 드롭다운 스타일 */
+        .brand-dropdown {
+            width: calc(100% + 100px);
+            left: -50px;
+            padding: 60px 100px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .brand-dropdown .brand-grid {
+            display: flex;
+            gap: 60px;
+        }
+        .brand-dropdown .brand-grid button img {
+            width: 260px;
+            height: auto;
+            border-radius: 4px;
+        }
+        /* 일반 드롭다운 (축구화, 의류, 용품) */
+        .dropdown {
+            width: 1200px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .dropdown-group {
+            min-width: 180px;
+        }
+        .dropdown-group h4 {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 5px;
+        }
+        .dropdown-group ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .dropdown-group ul li button {
+            background: none;
+            border: none;
+            padding: 0;
+            margin: 4px 0;
+            cursor: pointer;
+            font-size: 14px;
+            white-space: nowrap;
+        }
+    </style>
+    <nav class="main-nav">
+        <ul class="nav-list">
+            <li><a href="#">NEW</a></li>
+            <li class="brand-menu">
+                <a href="#">BRAND</a>
+                <div class="brand-dropdown">
+                    <div class="brand-grid">
+                        <button onclick="location.href='nike.html'"><img src="https://via.placeholder.com/260x330?text=Nike" alt="Nike"></button>
+                        <button onclick="location.href='adidas.html'"><img src="https://via.placeholder.com/260x330?text=Adidas" alt="Adidas"></button>
+                        <button onclick="location.href='puma.html'"><img src="https://via.placeholder.com/260x330?text=Puma" alt="Puma"></button>
+                        <button onclick="location.href='mizuno.html'"><img src="https://via.placeholder.com/260x330?text=Mizuno" alt="Mizuno"></button>
+                        <button onclick="location.href='asics.html'"><img src="https://via.placeholder.com/260x330?text=Asics" alt="Asics"></button>
+                        <button onclick="location.href='underarmour.html'"><img src="https://via.placeholder.com/260x330?text=UnderArmour" alt="Under Armour"></button>
+                        <button onclick="location.href='skechers.html'"><img src="https://via.placeholder.com/260x330?text=Skechers" alt="Skechers"></button>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <a href="#">축구화</a>
+                <div class="dropdown">
+                    <div class="dropdown-group">
+                        <h4>런칭캘린더</h4>
+                        <ul>
+                            <li><button onclick="location.href='launch-calendar.html'">런칭캘린더</button></li>
+                            <li><button onclick="location.href='new-arrivals.html'">신상품</button></li>
+                            <li><button onclick="location.href='special-edition.html'">스페셜에디션</button></li>
+                            <li><button onclick="location.href='youth-cleats.html'">유소년축구화</button></li>
+                            <li><button onclick="location.href='sneakers.html'">운동화</button></li>
+                            <li><button onclick="location.href='slippers.html'">슬리퍼</button></li>
+                        </ul>
+                    </div>
+                    <div class="dropdown-group">
+                        <h4>브랜드</h4>
+                        <ul>
+                            <li><button onclick="location.href='nike-cleats.html'">나이키</button></li>
+                            <li><button onclick="location.href='adidas-cleats.html'">아디다스</button></li>
+                            <li><button onclick="location.href='puma-cleats.html'">푸마</button></li>
+                            <li><button onclick="location.href='mizuno-cleats.html'">미즈노</button></li>
+                            <li><button onclick="location.href='asics-cleats.html'">아식스</button></li>
+                            <li><button onclick="location.href='underarmour-cleats.html'">언더아머</button></li>
+                            <li><button onclick="location.href='skechers-cleats.html'">스케쳐스</button></li>
+                        </ul>
+                    </div>
+                    <div class="dropdown-group">
+                        <h4>사일로</h4>
+                        <ul>
+                            <li><button onclick="location.href='mercurial.html'">머큐리얼</button></li>
+                            <li><button onclick="location.href='phantom.html'">팬텀</button></li>
+                            <li><button onclick="location.href='tiempo.html'">티엠포</button></li>
+                        </ul>
+                    </div>
+                    <div class="dropdown-group">
+                        <h4>그라운드</h4>
+                        <ul>
+                            <li><button onclick="location.href='natural-grass.html'">천연잔디</button></li>
+                            <li><button onclick="location.href='artificial-turf.html'">인조잔디</button></li>
+                            <li><button onclick="location.href='hard-ground.html'">하드그라운드</button></li>
+                            <li><button onclick="location.href='futsal.html'">풋살화</button></li>
+                        </ul>
+                    </div>
+                    <div class="dropdown-group">
+                        <h4>컬렉션</h4>
+                        <ul>
+                            <li><button onclick="location.href='km.html'">KM</button></li>
+                            <li><button onclick="location.href='messi.html'">MESSI</button></li>
+                            <li><button onclick="location.href='lights-out.html'">LIGHTS OUT</button></li>
+                            <li><button onclick="location.href='chromatic.html'">CHROMATIC</button></li>
+                            <li><button onclick="location.href='united.html'">UNITED</button></li>
+                            <li><button onclick="location.href='mad-energy.html'">MAD ENERGY</button></li>
+                            <li><button onclick="location.href='mad-voltage.html'">MAD VOLTAGE</button></li>
+                        </ul>
+                    </div>
+                </div>
+            </li>
+            <li><a href="#">팀 컬렉션</a></li>
+            <li><a href="#">팀 유니폼</a></li>
+            <li>
+                <a href="#">의류</a>
+                <div class="dropdown">
+                    <div class="dropdown-group">
+                        <h4>브랜드</h4>
+                        <ul>
+                            <li><button onclick="location.href='nike-apparel.html'">나이키</button></li>
+                            <li><button onclick="location.href='adidas-apparel.html'">아디다스</button></li>
+                            <li><button onclick="location.href='puma-apparel.html'">푸마</button></li>
+                            <li><button onclick="location.href='mizuno-apparel.html'">미즈노</button></li>
+                            <li><button onclick="location.href='asics-apparel.html'">아식스</button></li>
+                            <li><button onclick="location.href='underarmour-apparel.html'">언더아머</button></li>
+                        </ul>
+                    </div>
+                    <div class="dropdown-group">
+                        <h4>상의</h4>
+                        <ul>
+                            <li><button onclick="location.href='short-sleeve.html'">반팔티/폴로</button></li>
+                            <li><button onclick="location.href='long-sleeve.html'">긴팔티/폴로</button></li>
+                            <li><button onclick="location.href='hoodies.html'">후드/후드자켓</button></li>
+                            <li><button onclick="location.href='training-tops.html'">트레이닝 탑/자켓</button></li>
+                            <li><button onclick="location.href='padding.html'">다운&패딩 조끼/자켓</button></li>
+                        </ul>
+                    </div>
+                    <div class="dropdown-group">
+                        <h4>하의</h4>
+                        <ul>
+                            <li><button onclick="location.href='training-pants.html'">트레이닝 팬츠</button></li>
+                            <li><button onclick="location.href='training-shorts.html'">트레이닝 쇼트</button></li>
+                            <li><button onclick="location.href='3-4-pants.html'">트레이닝 3/4팬츠</button></li>
+                            <li><button onclick="location.href='inners.html'">기능성 이너웨어</button></li>
+                        </ul>
+                    </div>
+                    <div class="dropdown-group">
+                        <h4>세트</h4>
+                        <ul>
+                            <li><button onclick="location.href='knit-suit.html'">니트 트레이닝 수트</button></li>
+                            <li><button onclick="location.href='woven-suit.html'">우븐 트레이닝 수트</button></li>
+                        </ul>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <a href="#">용품</a>
+                <div class="dropdown">
+                    <div class="dropdown-group">
+                        <h4>신상품</h4>
+                        <ul>
+                            <li><button onclick="location.href='new-products.html'">신상품</button></li>
+                            <li><button onclick="location.href='referee-equipment.html'">심판용품</button></li>
+                            <li><button onclick="location.href='bogo.html'">1+1</button></li>
+                        </ul>
+                    </div>
+                    <div class="dropdown-group">
+                        <h4>축구공</h4>
+                        <ul>
+                            <li><button onclick="location.href='match-ball.html'">매치볼</button></li>
+                            <li><button onclick="location.href='futsal-ball.html'">풋살볼</button></li>
+                            <li><button onclick="location.href='skill-ball.html'">미니볼/스킬볼</button></li>
+                            <li><button onclick="location.href='pump.html'">볼펌프/볼백</button></li>
+                        </ul>
+                    </div>
+                    <div class="dropdown-group">
+                        <h4>축구스타킹</h4>
+                        <ul>
+                            <li><button onclick="location.href='stockings.html'">축구스타킹</button></li>
+                        </ul>
+                    </div>
+                    <div class="dropdown-group">
+                        <h4>신가드</h4>
+                        <ul>
+                            <li><button onclick="location.href='shin-guards.html'">신가드</button></li>
+                        </ul>
+                    </div>
+                    <div class="dropdown-group">
+                        <h4>글러브</h4>
+                        <ul>
+                            <li><button onclick="location.href='gk-gloves.html'">GK글러브</button></li>
+                            <li><button onclick="location.href='field-gloves.html'">필드글러브</button></li>
+                            <li><button onclick="location.href='fitness-gloves.html'">피트니스글러브</button></li>
+                        </ul>
+                    </div>
+                    <div class="dropdown-group">
+                        <h4>가방</h4>
+                        <ul>
+                            <li><button onclick="location.href='team-bag.html'">팀백</button></li>
+                            <li><button onclick="location.href='backpack.html'">백팩</button></li>
+                            <li><button onclick="location.href='shoe-bag.html'">슈즈백/짐색/볼백</button></li>
+                            <li><button onclick="location.href='waist-bag.html'">웨이스트백/기타가방</button></li>
+                        </ul>
+                    </div>
+                    <div class="dropdown-group">
+                        <h4>보호대/밴드</h4>
+                        <ul>
+                            <li><button onclick="location.href='guards-bands.html'">보호대/밴드</button></li>
+                        </ul>
+                    </div>
+                    <div class="dropdown-group">
+                        <h4>기타용품</h4>
+                        <ul>
+                            <li><button onclick="location.href='winter-gear.html'">동계용품</button></li>
+                            <li><button onclick="location.href='smellwell.html'">스멜웰</button></li>
+                            <li><button onclick="location.href='shokivi.html'">사커비</button></li>
+                            <li><button onclick="location.href='game-gear.html'">경기용품</button></li>
+                            <li><button onclick="location.href='training-gear.html'">훈련용품</button></li>
+                            <li><button onclick="location.href='socks.html'">양말</button></li>
+                            <li><button onclick="location.href='hats.html'">모자</button></li>
+                            <li><button onclick="location.href='first-aid.html'">구급용품</button></li>
+                        </ul>
+                    </div>
+                </div>
+            </li>
+            <li><a href="#">레프리킷</a></li>
+            <li><a href="#">우먼스</a></li>
+            <li><a href="#">유소년</a></li>
+        </ul>
+    </nav>
+</header>
