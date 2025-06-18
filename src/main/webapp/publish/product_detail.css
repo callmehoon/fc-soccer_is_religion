@@ -9,7 +9,6 @@ a{
     color: black;
 }
 .product{
-
     padding: 30px;
     max-width: 1000px;
     margin: auto;
@@ -292,13 +291,15 @@ a{
     justify-content: flex-end;
     gap: 10px;
     margin-top: 30px;
-    margin-bottom: 100px;
+    margin-bottom: 40px;
 }
 
 .review-buttons .btn {
     padding: 6px 12px;
     font-size: 13px;
-    min-width: 80px; /* 가로 폭 줄이기 */
+    min-width: unset; /* 가로 폭 줄이기 */
+    max-width: 120px;
+    width: auto;
     border: 1px solid #000;
     background: #fff;
     cursor: pointer;
@@ -369,7 +370,7 @@ a{
 /* 문의하기 버튼 */
 .inquiry-footer {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
     margin-top: 20px;
 }
@@ -383,6 +384,7 @@ a{
     padding: 6px 14px;
     font-size: 13px;
     background: #000;
+    max-width: 120px;
     color: #fff;
     border: none;
     cursor: pointer;
