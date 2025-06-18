@@ -12,6 +12,8 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @EnableWebMvc
 @ComponentScan(basePackages = "toyproject.controller")
 public class WebConfig implements WebMvcConfigurer {
+
+
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         // 정적 리소스(css, js 등) 경로 매핑
