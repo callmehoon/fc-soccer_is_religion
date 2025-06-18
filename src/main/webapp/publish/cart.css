@@ -1,127 +1,136 @@
 body {
-  font-size : 14px;
-  font-family: 'Arial', sans-serif;
-  background: #fff;
-  margin: 0;
-  padding: 0;
+    font-size: 14px;
+    font-family: 'Arial', sans-serif;
+    background: #fff;
+    margin: 0;
+    padding: 0;
 }
 
 .container {
-  max-width: 1200px;
-  margin: 40px auto;
-  padding: 0 20px;
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
 }
 
 .title {
-  text-align: center;
-  font-size: 24px;
-  margin-bottom: 30px;
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 30px;
 }
 
 .cart-wrapper {
-  display: flex;
-  gap: 30px;
+    display: flex;
+    gap: 30px;
 }
 
 .cart-items {
-  flex: 2;
+    flex: 2;
 }
 
 .cart-table {
-  width: 100%;
-  border-collapse: collapse;
+    width: 100%;
+    border-collapse: collapse;
 }
 
-.cart-table th,
+.cart-table thead {
+    background-color: #f0f0f0; /* 연한 회색 */
+}
+
+.cart-table thead td {
+    text-align: center;
+    padding: 12px 8px;
+    font-weight: bold;
+}
+
 .cart-table td {
-  border-bottom: 1px solid #ddd;
-  padding: 15px;
-  text-align: left;
-  vertical-align: top;
+    border-bottom: 1px solid #ddd;
+    padding: 15px;
+    text-align: left;
+    vertical-align: top;
 }
 
 .product-info {
-  display: flex;
-  gap: 10px;
-  align-items: center;
+    display: flex;
+    gap: 10px;
+    align-items: center;
 }
 
 .product-info img {
-  width: 80px;
-  height: 80px;
-  object-fit: cover;
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
 }
 
 .badge {
-  display: inline-block;
-  background: black;
-  color: white;
-  font-size: 12px;
-  padding: 2px 6px;
-  border-radius: 4px;
-  margin-bottom: 5px;
+    display: inline-block;
+    background: black;
+    color: white;
+    font-size: 12px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin-bottom: 5px;
 }
 
 .summary-box {
-  flex: 1;
-  border: 1px solid #ddd;
-  padding: 20px;
-  background: #f9f9f9;
+    flex: 1;
+    border: 1px solid #ddd;
+    padding: 20px;
+    background: #f9f9f9;
 }
 
 .summary-box h3 {
-  font-size: 18px;
-  margin-bottom: 15px;
+    font-size: 18px;
+    margin-bottom: 15px;
 }
 
 .summary-row {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
 }
 
 .total-price {
-  font-size: 18px;
-  margin: 20px 0;
-  font-weight: bold;
-  display: flex;
-  justify-content: space-between;
+    font-size: 18px;
+    margin: 20px 0;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
 }
 
 .btn {
-  width: 100%;
-  padding: 12px;
-  margin-bottom: 10px;
-  font-size: 16px;
-  cursor: pointer;
-  border-radius: 4px;
-  border: none;
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 4px;
+    border: none;
 }
 
 .btn.black {
-  background: #000;
-  color: #fff;
+    background: #000;
+    color: #fff;
 }
 
 .btn.white {
-  background: #fff;
-  border: 1px solid #000;
-  color: #000;
+    background: #fff;
+    border: 1px solid #000;
+    color: #000;
 }
 
 .btn.green {
-  background: #00c73c;
-  color: #fff;
+    background: #00c73c;
+    color: #fff;
 }
 
 .info-text {
-  font-size: 12px;
-  color: #555;
-  margin-top: 10px;
+    font-size: 12px;
+    color: #555;
+    margin-top: 10px;
 }
 
 /* 모달 스타일 */
-  .modal {
+.modal {
     display: none;
     position: fixed;
     z-index: 1000;
@@ -132,13 +141,13 @@ body {
     background: rgba(0, 0, 0, 0.4);
     justify-content: center;
     align-items: center;
-  }
+}
 
-  .modal.show {
+.modal.show {
     display: flex;
-  }
+}
 
-  .modal-content {
+.modal-content {
     background: white;
     padding: 20px;
     border-radius: 8px;
@@ -146,9 +155,9 @@ body {
     max-height: 90%;
     overflow-y: auto;
     position: relative;
-  }
+}
 
-  .close-btn {
+.close-btn {
     position: absolute;
     top: 12px;
     right: 16px;
@@ -156,106 +165,101 @@ body {
     background: none;
     border: none;
     cursor: pointer;
-  }
+}
+
 .popup-title {
-  font-size: 18px;
-  margin-bottom: 16px;
+    font-size: 18px;
+    margin-bottom: 16px;
 }
 
 .product-info {
-  display: flex;
-  gap: 15px;
+    cursor: pointer;
+    display: flex;
+    gap: 15px;
 }
 
 .product-info img {
-  width: 80px;
-  height: 80px;
+    width: 80px;
+    height: 80px;
 }
 
 .info-text {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 .delivery select {
-  width: 100%;
-  margin-top: 5px;
-  padding: 5px;
+    width: 100%;
+    margin-top: 5px;
+    padding: 5px;
 }
 
 .delivery-method {
-  font-size: 12px;
-  margin-top: 5px;
+    font-size: 12px;
+    margin-top: 5px;
 }
 
 .option-select {
-  margin: 20px 0 10px;
+    margin: 20px 0 10px;
 }
 
 .size-btn {
-  padding: 6px 12px;
-  border: 1px solid #aaa;
-  border-radius: 4px;
-  background: white;
-  cursor: pointer;
+    padding: 6px 12px;
+    border: 1px solid #aaa;
+    border-radius: 4px;
+    background: white;
+    cursor: pointer;
 }
 
 .size-btn.selected {
-  border: 2px solid black;
-  font-weight: bold;
+    border: 2px solid black;
+    font-weight: bold;
 }
 
 .selected-option {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: #f5f5f5;
-  padding: 12px;
-  border-radius: 6px;
-  margin-top: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f5f5f5;
+    padding: 12px;
+    border-radius: 6px;
+    margin-top: 15px;
 }
 
 .quantity {
-  display: flex;
-  align-items: center;
+    display: flex;
+    align-items: center;
 }
 
 .qty-btn {
-  width: 28px;
-  height: 28px;
-  border: 1px solid #ccc;
-  background: white;
-  cursor: pointer;
+    width: 28px;
+    height: 28px;
+    border: 1px solid #ccc;
+    background: white;
+    cursor: pointer;
 }
 
 .quantity input {
-  width: 30px;
-  text-align: center;
-  margin: 0 5px;
-  border: 1px solid #ccc;
-  height: 28px;
+    width: 30px;
+    text-align: center;
+    margin: 0 5px;
+    border: 1px solid #ccc;
+    height: 28px;
 }
 
 .popup-footer {
-  display: flex;
-  justify-content: flex-end;
-  gap: 10px;
-  margin-top: 20px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
 }
 
-.btn {
-  padding: 8px 16px;
-  border-radius: 4px;
-  font-size: 14px;
-  cursor: pointer;
-  border: none;
-}
 
 .btn.cancel {
-  background: white;
-  border: 1px solid #ccc;
+    background: white;
+    border: 1px solid #ccc;
 }
 
 .btn.confirm {
-  background: #333;
-  color: white;
+    background: #333;
+    color: white;
 }
