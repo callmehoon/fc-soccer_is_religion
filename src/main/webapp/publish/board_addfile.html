@@ -64,9 +64,14 @@
     <label for="captcha">자동등록방지</label>
     <input type="text" id="captcha" name="captcha" placeholder="보안문자 입력" required>
     <!-- 실제 서비스에서는 CAPTCHA 이미지나 reCAPTCHA를 연동해야 합니다 -->
-
-    <button type="submit">저장</button>
+     <form action="게시판_list.html" method="get">
+    <button id="saveBtn" type="submit">저장</button>
+    </form>
   </form>
-
+<script>
+  document.getElementById("saveBtn").onclick = function () {
+    window.location.href = "게시판_list.html"; // 페이지 이동
+  };
+</script>
 </body>
 </html>
