@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>용품</title>
+    <link rel="stylesheet" href="new.css">
+    <style>
+        .main-nav {
+            position: relative;
+            z-index: 100;
+        }
+        .nav-list {
+            display: flex;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            gap: 20px;
+            background: white;
+            justify-content: center;
+            font-size: 16px;
+        }
+        .nav-list li {
+            position: relative;
+        }
+        .dropdown {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            border: 1px solid #ddd;
+            width: 1200px;
+            padding: 40px;
+            box-sizing: border-box;
+            z-index: 999;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 40px;
+        }
+        .nav-list li:hover .dropdown {
+            display: grid;
+        }
+        .dropdown-group h4 {
+            font-size: 15px;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #ccc;
+            font-weight: bold;
+        }
+        .dropdown-group ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .dropdown-group ul li {
+            font-size: 14px;
+            line-height: 1.6;
+            margin: 0;
+            white-space: nowrap;
+        }
+        .dropdown-group ul li:first-child {
+            color: #c00;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <nav class="main-nav">
+        <ul class="nav-list">
+            <li><a href="#">NEW</a></li>
+            <li><a href="#">BRAND</a></li>
+            <li>
+                <a href="#">축구화</a>
+                <div class="dropdown">
+                    <!-- 축구화 드롭다운 내용 생략 -->
+                </div>
+            </li>
+            <li><a href="#">팀 컬렉션</a></li>
+            <li><a href="#">팀 유니폼</a></li>
+            <li>
+                <a href="#">의류</a>
+                <div class="dropdown">
+                    <div class="dropdown-group">
+                        <h4>NIKE SPORTSWEAR</h4>
+                        <ul>
+                            <li>신상품</li>
+                            <li>심판의류</li>
+                        </ul>
+                    </div>
+                    <div class="dropdown-group">
+                        <h4>상의</h4>
+                        <ul>
+                            <li>반팔티/폴로</li>
+                            <li>긴팔티/폴로</li>
+                            <li>후드/후드자켓</li>
+                            <li>트레이닝 탑/자켓</li>
+                            <li>다운&패딩 조끼/자켓</li>
+                            <li>기능성 이너웨어</li>
+                        </ul>
+                    </div>
+                    <div class="dropdown-group">
+                        <h4>하의</h4>
+                        <ul>
+                            <li>트레이닝 팬츠</li>
+                            <li>트레이닝 쇼트</li>
+                            <li>트레이닝 3/4팬츠</li>
+                            <li>기능성 이너웨어</li>
+                        </ul>
+                    </div>
+                    <div class="dropdown-group">
+                        <h4>세트</h4>
+                        <ul>
+                            <li>니트 트레이닝 수트</li>
+                            <li>우븐 트레이닝 수트</li>
+                        </ul>
+                    </div>
+                    <div class="dropdown-group">
+                        <h4>기능성 이너웨어</h4>
+                        <ul>
+                            <li>반팔</li>
+                            <li>긴팔</li>
+                            <li>민소매(브라탑)</li>
+                            <li>팬츠(타이츠)</li>
+                            <li>숏트</li>
+                        </ul>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <a href="#">용품</a>
+                <div class="dropdown">
+                    <div class="dropdown-group">
+                        <h4>신상품</h4>
+                        <ul>
+                            <li>심판용품</li>
+                            <li>1+1</li>
+                        </ul>
+                    </div>
+                    <div class="dropdown-group">
+                        <h4>축구공</h4>
+                        <ul>
+                            <li>매치볼</li>
+                            <li>풋살볼</li>
+                            <li>미니볼/스킬볼</li>
+                            <li>볼펌프/볼백</li>
+                        </ul>
+                    </div>
+                    <div class="dropdown-group">
+                        <h4>축구스타킹</h4>
+                        <ul></ul>
+                    </div>
+                    <div class="dropdown-group">
+                        <h4>신가드</h4>
+                        <ul></ul>
+                    </div>
+                    <div class="dropdown-group">
+                        <h4>글러브</h4>
+                        <ul>
+                            <li>GK글러브</li>
+                            <li>필드글러브</li>
+                            <li>피트니스글러브</li>
+                        </ul>
+                    </div>
+                    <div class="dropdown-group">
+                        <h4>가방</h4>
+                        <ul>
+                            <li>팀백</li>
+                            <li>백팩</li>
+                            <li>슈즈백/짐색/볼백</li>
+                            <li>웨이스트백/기타가방</li>
+                        </ul>
+                    </div>
+                    <div class="dropdown-group">
+                        <h4>보호대/밴드</h4>
+                        <ul></ul>
+                    </div>
+                    <div class="dropdown-group">
+                        <h4>기타용품</h4>
+                        <ul>
+                            <li>동계용품</li>
+                            <li>스멜웰</li>
+                            <li>사커비</li>
+                            <li>경기용품</li>
+                            <li>훈련용품</li>
+                            <li>양말</li>
+                            <li>모자</li>
+                            <li>구급용품</li>
+                        </ul>
+                    </div>
+                </div>
+            </li>
+            <li><a href="#">레프리킷</a></li>
+            <li><a href="#">우먼스</a></li>
+            <li><a href="#">유소년</a></li>
+        </ul>
+    </nav>
+</header>
+</body>
+</html>
