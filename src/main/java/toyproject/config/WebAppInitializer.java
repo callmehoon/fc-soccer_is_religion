@@ -15,7 +15,11 @@ public class WebAppInitializer implements WebApplicationInitializer {
     public void onStartup(ServletContext servletContext) throws ServletException {
         // 루트 설정
         AnnotationConfigWebApplicationContext rootContext = new AnnotationConfigWebApplicationContext();
-        rootContext.register(RootConfig.class);
+            rootContext.register(
+        toyproject.config.DataSourceConfig.class,
+        toyproject.config.MyBatisConfig.class,
+        toyproject.config.TxConfig.class
+    );
         servletContext.addListener(new ContextLoaderListener(rootContext));
 
         // 서블릿 설정

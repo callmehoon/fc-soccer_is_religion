@@ -16,6 +16,13 @@
   gap: 40px;
 }
 
+.required-label::after {
+  content: "*";
+  color: red;
+  font-weight: bold;
+  margin-left: 1px;
+}
+
 .main_content {
   width: 70%;
 }
@@ -81,7 +88,7 @@
   white-space: nowrap; /* 줄바꿈 없애기 */
   overflow: hidden;
   text-overflow: ellipsis;
-  vertical-align: top;
+  vertical-align: middle; /* top에서 middle로 변경 */
   font-size: 15px;
 }
 
@@ -91,10 +98,15 @@
   text-align: left;
 }
 
+/* 상품 정보를 제외한 나머지 셀들을 가운데 정렬 */
+.order_items_table td:not(.product-info) {
+  text-align: center;
+}
+
 .product-info {
   display: flex;
   gap: 10px;
-  align-items: flex-start;
+  align-items: center; /* flex-start에서 center로 변경 */
 }
 
 .product-info img {
@@ -117,16 +129,23 @@
 
 .center {
   text-align: center;
+  align-content: center;
 }
 
 .info-line {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .val {
   font-weight: bold;
   color: #333;
+}
+
+.shipping-fee {
+  text-align: center;
+  vertical-align: middle;
 }
 
 .input-wrapper {
