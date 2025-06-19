@@ -1,12 +1,25 @@
 package toyproject.controller;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
+@RequestMapping("/order")
+@RequiredArgsConstructor
 public class OrderController {
-    @GetMapping("/order")
+
+    private final OrderService orderService;
+
+
+    @GetMapping("")
     public String order(){
+
+
+
+
+
         return "order";
     }
 }

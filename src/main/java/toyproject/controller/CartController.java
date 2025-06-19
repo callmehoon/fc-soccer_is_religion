@@ -23,10 +23,15 @@ public class CartController {
     @GetMapping("")
     public String cart(@ModelAttribute CartRequestDto cartRequestDto, Model model) {
 
+        System.out.println("카트 컨트롤러 진입");;
+
         CartRequestDto dummy = new CartRequestDto();
         dummy.setUserId("U01357");
 
         List<CartResponseDto> cartResponseDtoList = cartService.searchCart(dummy);
+
+        System.out.printf("서비스단 완료, 리스트값 가지고 컨트롤러 돌아옴");
+
         CartListViewModel cartListViewModel = CartListViewModel.builder().cartList(cartResponseDtoList)
                 .build();
 
