@@ -10,17 +10,15 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = "toyproject.controller")
+@ComponentScan(basePackages = "toyproject")
 public class WebConfig implements WebMvcConfigurer {
-
-
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         // 정적 리소스(css, js 등) 경로 매핑
-        registry.addResourceHandler("/static/**")
-                .addResourceLocations("/resources/static/");
-    }
+        registry.addResourceHandler("/publish/**")
+                .addResourceLocations("/publish/");
 
+    }
     @Bean
     public InternalResourceViewResolver viewResolver() {
         InternalResourceViewResolver resolver = new InternalResourceViewResolver();
@@ -28,4 +26,5 @@ public class WebConfig implements WebMvcConfigurer {
         resolver.setSuffix(".jsp");
         return resolver;
     }
+
 }

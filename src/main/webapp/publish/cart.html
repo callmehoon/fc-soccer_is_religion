@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+    <title>축구는 종교다</title>
+
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>장바구니</title>
@@ -49,7 +51,7 @@
                         </div>
                     </div>
                 </td>
-                    <td>1개<br/><a href="#" onclick="openModal(event)">옵션/수정변경</a></td>
+                <td>1개<br/><a href="#" onclick="openModal(event)">옵션/수정변경</a></td>
                 <td><strong>17,400원</strong></td>
                 <td>할인 -170원<br/>적립 +170원</td>
                 </tr>
@@ -63,7 +65,7 @@
                         </div>
                     </div>
                 </td>
-                    <td>1개<br/><a href="#" onclick="openModal(event)">옵션/수정변경</a></td>
+                <td>1개<br/><a href="#" onclick="openModal(event)">옵션/수정변경</a></td>
                 <td><strong>14,200원</strong></td>
                 <td>할인 -140원<br/>적립 +140원</td>
                 </tr>
@@ -82,7 +84,6 @@
             <div class="total-price">결제예상금액 <strong>528,220원</strong></div>
             <button class="btn black">전체상품 구매하기</button>
             <button class="btn white">선택상품 구매하기</button>
-            <p class="info-text">주문서 작성단계에서 할인/적립금 적용을 하실 수 있습니다.</p>
         </div>
     </div>
 </div>
@@ -99,49 +100,39 @@
             </div>
         </div>
 
-    <hr/>
+        <hr/>
 
-    <div class="option-select">
-        <label>사이즈</label>
-        <button class="size-btn ">L</button>
-        <button class="size-btn ">XL</button>
-        <button class="size-btn selected">2XL</button>
-    </div>
-
-    <div class="selected-option">
-
-        <span>2XL</span>
-
-        <div class="quantity">
-            <button class="qty-btn">-</button>
-            <input type="text" value="1"/>
-            <button class="qty-btn">+</button>
+        <div class="option-select">
+            <label>사이즈</label>
+            <button class="size-btn ">L</button>
+            <button class="size-btn ">XL</button>
+            <button class="size-btn selected">2XL</button>
         </div>
-        <span class="price">27,300원</span>
-    </div>
 
-    <div class="popup-footer">
-        <button class="btn cancel">취소</button>
-        <button class="btn confirm">확인</button>
-    </div>
+        <div class="selected-option">
+
+            <span>2XL</span>
+
+            <div class="quantity">
+                <button class="qty-btn">-</button>
+                <input type="text" value="1"/>
+                <button class="qty-btn">+</button>
+            </div>
+            <span class="price">27,300원</span>
+        </div>
+
+        <div class="popup-footer">
+            <button class="btn cancel">취소</button>
+            <button class="btn confirm">확인</button>
+        </div>
     </div>
 
 </div>
 
+
+<script src="cart.js" defer></script>
+
+
 </body>
-
-<script>
-    function openModal(e) {
-        e.preventDefault(); // 링크 이동 방지
-        const modal = document.getElementById("optionModal");
-        modal.classList.add("show");
-    }
-
-    function closeModal() {
-        const modal = document.getElementById("optionModal");
-        modal.classList.remove("show");
-    }
-</script>
-
 
 </html>
