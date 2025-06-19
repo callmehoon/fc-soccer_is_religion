@@ -81,6 +81,7 @@
             <div class="content-form">
                 <label for="email-id" class="required-label">이메일</label>
                 <input type="text" id="email-id" name="email-id" class="input-field-flex" required>@
+<%--suppress HtmlFormInputWithoutLabel --%>
                 <input list="email-domains" id="email-domain" name="email-domain" class="input-field-flex" required>
                 <datalist id="email-domains">
                     <option value="naver.com">
