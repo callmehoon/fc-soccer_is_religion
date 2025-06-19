@@ -1,7 +1,10 @@
 package toyproject.dto;
 
+import lombok.Data;
+
 import java.util.List;
 
+@Data
 public class OrderRequestDto {
-    private List<String> productId;
+    private List<Integer> productId;
 }

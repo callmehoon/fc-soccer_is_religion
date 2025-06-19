@@ -1,8 +1,10 @@
 package toyproject.mapper;
 
+import toyproject.dto.OrderResponseDto;
+
 import java.util.List;
 
 public interface OrderMapper {
-    public searchProducts(List<String> productIds);
+    public List<OrderResponseDto> searchProducts(List<Integer> productIds);
 
 }

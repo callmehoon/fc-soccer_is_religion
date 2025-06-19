@@ -31,39 +31,27 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td class="product-info">
-                                <img src="https://capostoreimg.godohosting.com/store5/NKS/NNKSFJ2554800.jpg"
-                                     alt="상품이미지">
-                                <div class="info-text">
-                                    <span class="name">팬텀 GX II 엘리트 AG-PRO (FJ2554800)</span>
-                                    <span class="option">사이즈: 275</span>
-                                </div>
-                            </td>
-                            <td class="center">1개</td>
-                            <td class="center">299,900원</td>
-                            <td>
-                                <div class="info-line">할인 <span class="val">-2,990원</span></div>
-                                <div class="info-line">적립 <span class="val">+2,990원</span></div>
-                            </td>
-                            <td class="center shipping-fee" rowspan="">고정 배송비<br>3,000원</td>
-                        </tr>
-                        <tr>
-                            <td class="product-info">
-                                <img src="https://capostoreimg.godohosting.com/store5/NKR/NNKRHJ4547411.jpg"
-                                     alt="상품이미지">
-                                <div class="info-text">
-                                    <span class="name">파리 생제르망 25-26 나이키 드라이 ADV 매치 홈 저지 S/S (HJ4547411)</span>
-                                    <span class="option">사이즈: XL(110)</span>
-                                </div>
-                            </td>
-                            <td class="center">2개</td>
-                            <td class="center">398,000원</td>
-                            <td>
-                                <div class="info-line">할인 <span class="val">-3,980원</span></div>
-                                <div class="info-line">적립 <span class="val">+3,980원</span></div>
-                            </td>
-                        </tr>
+                        <c:forEach var="orderList" items="${orderListViewModel.orderList}">
+                            <tr>
+                                <td class="product-info">
+                                    <img src="${orderList.productImg}"
+                                         alt="상품이미지">
+                                    <div class="info-text">
+                                        <span class="name">${orderList.productName}</span>
+                                        <span class="option">사이즈: 275</span>
+                                    </div>
+                                </td>
+                                <td class="center">1개</td>
+                                <td class="center">${orderList.productPrice}원</td>
+                                <td>
+                                    <div class="info-line">할인 <span class="val">-${orderList.productPrice * 0.01}원</span></div>
+                                    <div class="info-line">적립 <span class="val">+${orderList.productPrice * 0.01}원</span></div>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                            <tr>
+                                <td class="center shipping-fee" rowspan="">고정 배송비<br>3,000원</td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
