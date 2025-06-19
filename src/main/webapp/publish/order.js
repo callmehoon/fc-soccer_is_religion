@@ -20,6 +20,87 @@ function formatPrice(price) {
     return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 }
 
+// 동적 rowspan 설정 함수
+function setDynamicRowspan() {
+    // 모든 rowspan이 비어있는 셀들 찾기
+    const emptyRowspanCells = document.querySelectorAll('td[rowspan=""], th[rowspan=""]');
+
+    emptyRowspanCells.forEach(cell => {
+        const table = cell.closest('table');
+        const tbody = cell.closest('tbody') || table;
+        const allRows = tbody.querySelectorAll('tr');
+
+        // 해당 셀이 있는 행의 인덱스 찾기
+        let cellRowIndex = -1;
+        allRows.forEach((row, index) => {
+            if (row.contains(cell)) {
+                cellRowIndex = index;
+            }
+        });
+
+        // 해당 행부터 마지막까지의 행 개수 계산
+        const rowspanValue = allRows.length - cellRowIndex;
+        cell.setAttribute('rowspan', rowspanValue);
+    });
+}
+
+// 주문 상품 정보 분석 (중복 제거된 핵심 함수)
+function analyzeOrderItems() {
+    const productRows = document.querySelectorAll('.order_items_table tbody tr');
+    const totalItemCount = productRows.length;
+    let totalProductAmount = 0;
+    let totalDiscountAmount = 0;
+    let totalEarnedPoints = 0;
+    let totalShippingFee = 0;
+
+    productRows.forEach((row, index) => {
+        // 상품 금액
+        const priceCell = row.querySelector('td:nth-child(3)');
+        if (priceCell) {
+            totalProductAmount += extractNumber(priceCell.textContent);
+        }
+
+        // 할인/적립 정보
+        const discountCell = row.querySelector('td:nth-child(4)');
+        if (discountCell) {
+            const discountSpans = discountCell.querySelectorAll('.info-line .val');
+            discountSpans.forEach(span => {
+                const text = span.textContent;
+                if (text.includes('-')) {
+                    totalDiscountAmount += extractNumber(text);
+                } else if (text.includes('+')) {
+                    totalEarnedPoints += extractNumber(text);
+                }
+            });
+        }
+
+        // 배송비는 첫 번째 상품에서만 추출 (셀병합으로 인해)
+        if (index === 0) {
+            const shippingCell = row.querySelector('td:nth-child(5)');
+            if (shippingCell) {
+                totalShippingFee = extractNumber(shippingCell.textContent);
+            }
+        }
+    });
+
+    // 적립금 사용액 추가
+    const useBonusPointInput = document.getElementById('use_bonuspoint');
+    const bonusPointUsed = parseInt(useBonusPointInput?.value) || 0;
+    totalDiscountAmount += bonusPointUsed;
+
+    const finalAmount = totalProductAmount - totalDiscountAmount + totalShippingFee;
+
+    return {
+        totalItemCount,
+        totalProductAmount,
+        totalDiscountAmount,
+        totalEarnedPoints,
+        totalShippingFee,
+        finalAmount,
+        amountExcludingShipping: totalProductAmount - totalDiscountAmount
+    };
+}
+
 // 이메일 도메인 선택 이벤트
 document.getElementById('email_type').addEventListener('change', function () {
     const selected = this.value;
@@ -34,57 +115,23 @@ document.getElementById('email_type').addEventListener('change', function () {
     }
 });
 
-// 주문 요약 계산
+// 주문 요약 계산 (리팩토링됨)
 function calculateOrderSummary() {
-    const productRows = document.querySelectorAll('.order_items_table tbody tr');
-    const totalItemCount = productRows.length;
-    let totalProductAmount = 0;
-    let totalDiscountAmount = 0;
-    let totalEarnedPoints = 0;
-    let totalShippingFee = 0;
+    const orderInfo = analyzeOrderItems();
 
-    productRows.forEach(row => {
-        const priceCell = row.querySelector('td:nth-child(3)');
-        if (priceCell) {
-            totalProductAmount += extractNumber(priceCell.textContent);
-        }
-
-        const discountCell = row.querySelector('td:nth-child(4)');
-        if (discountCell) {
-            const discountSpans = discountCell.querySelectorAll('.info-line .val');
-            discountSpans.forEach(span => {
-                const text = span.textContent;
-                if (text.includes('-')) {
-                    totalDiscountAmount += extractNumber(text);
-                } else if (text.includes('+')) {
-                    totalEarnedPoints += extractNumber(text);
-                }
-            });
-        }
-
-        const shippingCell = row.querySelector('td:nth-child(5)');
-        if (shippingCell) {
-            totalShippingFee += extractNumber(shippingCell.textContent);
-        }
-    });
-
-    const useBonusPointInput = document.getElementById('use_bonuspoint');
-    const bonusPointUsed = parseInt(useBonusPointInput?.value) || 0;
-    totalDiscountAmount += bonusPointUsed;
-
-    const finalAmount = totalProductAmount - totalDiscountAmount + totalShippingFee;
-
-    updateSummaryBox(totalItemCount, totalProductAmount, totalDiscountAmount, totalShippingFee, finalAmount);
-    updateTotalPriceSection(totalProductAmount - totalDiscountAmount);
-    updateDiscountAndPointsSection(totalDiscountAmount, totalEarnedPoints);
+    updateSummaryBox(orderInfo);
+    updateTotalPriceSection(orderInfo.amountExcludingShipping);
+    updateDiscountAndPointsSection(orderInfo.totalDiscountAmount, orderInfo.totalEarnedPoints);
 }
 
 // 요약 박스 업데이트
-function updateSummaryBox(itemCount, productAmount, discountAmount, shippingFee, finalAmount) {
-    updateDOM('.summary-line_item div', `총 ${itemCount}개의 상품`);
-    updateDOM('.summary-line:nth-child(2) div:last-child', `${formatPrice(productAmount)}원`);
-    updateDOM('.summary-line:nth-child(3) div:last-child', `-${formatPrice(discountAmount)}원`);
-    updateDOM('.summary-line:nth-child(4) div:last-child', `+${formatPrice(shippingFee)}원`);
+function updateSummaryBox(orderInfo) {
+    const { totalItemCount, totalProductAmount, totalDiscountAmount, totalShippingFee, finalAmount } = orderInfo;
+
+    updateDOM('.summary-line_item div', `총 ${totalItemCount}개의 상품`);
+    updateDOM('.summary-line:nth-child(2) div:last-child', `${formatPrice(totalProductAmount)}원`);
+    updateDOM('.summary-line:nth-child(3) div:last-child', `-${formatPrice(totalDiscountAmount)}원`);
+    updateDOM('.summary-line:nth-child(4) div:last-child', `+${formatPrice(totalShippingFee)}원`);
     updateDOM('.summary-line_total div:last-child', `${formatPrice(finalAmount)}원`);
 }
 
@@ -158,13 +205,15 @@ function clearReceiverInfo() {
     });
 }
 
-// 주문 정보 수집
+// 주문 정보 수집 (리팩토링됨)
 function collectOrderData() {
+    // 상품 정보
     const productName = document.querySelector('.product-info .name')?.textContent || '';
     const productOption = document.querySelector('.product-info .option')?.textContent || '';
     const productPrice = document.querySelector('.order_items_table tbody tr td:nth-child(3)')?.textContent || '';
     const productQuantity = document.querySelector('.order_items_table tbody tr td:nth-child(2)')?.textContent || '';
 
+    // 주문자 정보
     const ordererName = document.getElementById('order_member')?.value || '';
     const ordererAddress = document.getElementById('address')?.value || '';
     const ordererDetailAddress = document.getElementById('detail_address')?.value || '';
@@ -173,12 +222,14 @@ function collectOrderData() {
     const emailDomain = document.getElementById('email-domain')?.value || '';
     const ordererEmail = emailId && emailDomain ? `${emailId}@${emailDomain}` : '';
 
+    // 수령자 정보
     const receiverName = document.getElementById('receiver')?.value || '';
     const receiverAddress = document.getElementById('receiver_address')?.value || '';
     const receiverDetailAddress = document.getElementById('receiver_detail_address')?.value || '';
     const receiverPhone = document.getElementById('receiver_phone_number')?.value || '';
     const deliveryMessage = document.getElementById('delivery_message')?.value || '';
 
+    // 결제 방법
     const selectedPaymentMethod = document.querySelector('input[name="payment_method"]:checked');
     let paymentMethod = '';
     if (selectedPaymentMethod) {
@@ -191,46 +242,19 @@ function collectOrderData() {
         paymentMethod = paymentMethods[selectedPaymentMethod.id] || '';
     }
 
+    // 적립금 사용 정보
     const useBonusPoint = document.getElementById('use_bonuspoint')?.value || '';
     const useAllPoint = document.getElementById('use_all_point')?.checked || false;
 
-    // 결제 금액 정보 추가
-    const productRows = document.querySelectorAll('.order_items_table tbody tr');
-    let totalProductAmount = 0;
-    let totalDiscountAmount = 0;
-    let totalShippingFee = 0;
-
-    productRows.forEach(row => {
-        const priceCell = row.querySelector('td:nth-child(3)');
-        if (priceCell) {
-            totalProductAmount += extractNumber(priceCell.textContent);
-        }
-        const discountCell = row.querySelector('td:nth-child(4)');
-        if (discountCell) {
-            const discountSpans = discountCell.querySelectorAll('.info-line .val');
-            discountSpans.forEach(span => {
-                const text = span.textContent;
-                if (text.includes('-')) {
-                    totalDiscountAmount += extractNumber(text);
-                }
-            });
-        }
-        const shippingCell = row.querySelector('td:nth-child(5)');
-        if (shippingCell) {
-            totalShippingFee += extractNumber(shippingCell.textContent);
-        }
-    });
-
-    const bonusPointUsed = parseInt(useBonusPoint) || 0;
-    totalDiscountAmount += bonusPointUsed;
-    const finalAmount = totalProductAmount - totalDiscountAmount + totalShippingFee;
+    // 결제 금액 정보 (중복 제거 - analyzeOrderItems 사용)
+    const orderInfo = analyzeOrderItems();
 
     return {
         productName, productOption, productPrice, productQuantity,
         ordererName, ordererAddress, ordererDetailAddress, ordererPhone, ordererEmail,
         receiverName, receiverAddress, receiverDetailAddress, receiverPhone, deliveryMessage,
         paymentMethod, useBonusPoint, useAllPoint: useAllPoint ? 'true' : 'false',
-        totalProductAmount, totalDiscountAmount, totalShippingFee, finalAmount
+        ...orderInfo
     };
 }
 
@@ -284,8 +308,16 @@ function focusField(fieldId) {
     }
 }
 
+// 테이블이 동적으로 변경될 때 호출할 수 있는 함수
+function updateAllRowspans() {
+    setDynamicRowspan();
+}
+
 // DOM 로드 후 이벤트 설정
 document.addEventListener('DOMContentLoaded', function() {
+    // 동적 rowspan 설정
+    setDynamicRowspan();
+
     calculateOrderSummary();
 
     const useBonusPointInput = document.getElementById('use_bonuspoint');
