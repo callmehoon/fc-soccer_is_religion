@@ -64,19 +64,34 @@
                 <input type="text" id="address" name="address" class="input-field-flex" required>
             </div>
             <div class="content-form">
-                <label for="phone_number">휴대폰 번호*</label>
-                <input type="text" id="phone_number" name="phone_number" class="input-field-flex" required>
+                <label for="detail_address">상세주소</label>
+                <input type="text" id="detail_address" name="detail_address" class="input-field-flex">
             </div>
             <div class="content-form">
-                <label for="email">이메일*</label>
-                <input type="text" id="email" name="email" class="input-field-flex" required>
+                <label for="phone_number">휴대폰 번호*</label>
+                <input type="tel" id="phone_number" name="phone_number" class="input-field-flex" required>
+            </div>
+            <div class="content-form">
+                <label for="email-id">이메일*</label>
+                <input type="text" id="email-id" name="email-id" class="input-field-flex" required>@
+                <input list="email-domains" id="email-domain" name="email-domain" class="input-field-flex" required>
+                <datalist id="email-domains">
+                    <option value="naver.com">
+                    <option value="hanmail.net">
+                    <option value="nate.com">
+                    <option value="gmail.com">
+                    <option value="hotmail.com">
+                    <option value="yahoo.com">
+                </datalist>
                 <label for="email_type">
                     <select id="email_type" name="email_type" class="input-field-flex">
                         <option value="custom">직접 입력</option>
-                        <option value="naver">@naver.com</option>
-                        <option value="hanmail">@hanmail.net</option>
-                        <option value="nate">@nate.com</option>
-                        <option value="gmail">@gmail.com</option>
+                        <option value="naver.com">naver.com</option>
+                        <option value="hanmail.net">hanmail.net</option>
+                        <option value="nate.com">nate.com</option>
+                        <option value="gmail.com">gmail.com</option>
+                        <option value="hotmail.com">hotmail.com</option>
+                        <option value="yahoo.com">yahoo.com</option>
                     </select>
                 </label>
             </div>
@@ -109,12 +124,16 @@
             </div>
             <div class="content-form">
                 <label for="receiver_address">받으실 곳*</label>
-                <input type="text" id="receiver_address" name="receiver_address" class="input-field-flex" required>
+                <input type="text" id="receiver_address" name="receiver_address" class="input-field-flex" required readonly>
                 <button type="button" class="btn-gray">우편번호 검색</button>
             </div>
             <div class="content-form">
-                <label for="receiver_phone_number">휴대폰번호*</label>
-                <input type="text" id="receiver_phone_number" name="receiver_phone_number" class="input-field-flex" required>
+                <label for="receiver_detail_address">상세주소</label>
+                <input type="text" id="receiver_detail_address" name="receiver_detail_address" class="input-field-flex" placeholder="상세주소를 입력하세요.">
+            </div>
+            <div class="content-form">
+                <label for="receiver_phone_number">휴대폰 번호*</label>
+                <input type="tel" id="receiver_phone_number" name="receiver_phone_number" class="input-field-flex" required>
             </div>
             <div class="content-form">
                 <label for="delivery_message">남기실 말씀</label>
@@ -130,10 +149,10 @@
                 <label>할인 및 적립</label>
                 <div class="discount-info">
                     <div>
-                        적용된 할인: 10,000원
+                        적용된 할인: 0원
                     </div>
                     <div>
-                        발생 적립금: 10,000원
+                        발생 적립금: 0원
                     </div>
                 </div>
             </div>
@@ -147,7 +166,7 @@
                 <label for="use_bonuspoint">적립금 사용</label>
                 <div class="point-info">
                     <div>
-                        <input type="text" id="use_bonuspoint" name="use_bonuspoint" class="input-field-flex">
+                        <input type="number" id="use_bonuspoint" name="use_bonuspoint" class="input-field-flex">
                         <div style="width: 45%">
                             <span>원</span>
                             <input type="checkbox" id="use_all_point" name="use_all_point" value="is_all">
@@ -162,7 +181,7 @@
             <div class="content-form">
                 <label>총 결제 금액</label>
                 <div class="pre_total_price">
-                    10,000원
+                    0원
                 </div>
             </div>
         </div>
@@ -191,7 +210,7 @@
         </div>
 
         <div class="total_price">
-            총 결제 금액 10,000원
+            총 결제 금액(배송비 제외) 0원
         </div>
     </div>
 
@@ -202,19 +221,19 @@
             </div>
             <div class="summary-line">
                 <div>총 상품 금액</div>
-                <div>10,000원</div>
+                <div>0원</div>
             </div>
             <div class="summary-line">
                 <div>총 할인 금액</div>
-                <div>-10,000원</div>
+                <div>0원</div>
             </div>
             <div class="summary-line">
-                <div>총 배송액</div>
-                <div>+3,000원</div>
+                <div>총 배송비</div>
+                <div>0원</div>
             </div>
             <div class="summary-line_total">
                 <div>최종 결제 금액</div>
-                <div>10,000원</div>
+                <div>0원</div>
             </div>
             <label for="order_agree">
                 <input type="checkbox" id="order_agree" name="order_agree" value="is_agree"/>
@@ -224,5 +243,7 @@
         </form>
     </div>
 </div>
+<script src="order.js"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </body>
 </html>
