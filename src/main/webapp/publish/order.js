@@ -82,9 +82,9 @@ function calculateOrderSummary() {
 // 요약 박스 업데이트
 function updateSummaryBox(itemCount, productAmount, discountAmount, shippingFee, finalAmount) {
     updateDOM('.summary-line_item div', `총 ${itemCount}개의 상품`);
-    updateDOM('.summary-line:nth-child(1) div:last-child', `${formatPrice(productAmount)}원`);
-    updateDOM('.summary-line:nth-child(2) div:last-child', `-${formatPrice(discountAmount)}원`);
-    updateDOM('.summary-line:nth-child(3) div:last-child', `+${formatPrice(shippingFee)}원`);
+    updateDOM('.summary-line:nth-child(2) div:last-child', `${formatPrice(productAmount)}원`);
+    updateDOM('.summary-line:nth-child(3) div:last-child', `-${formatPrice(discountAmount)}원`);
+    updateDOM('.summary-line:nth-child(4) div:last-child', `+${formatPrice(shippingFee)}원`);
     updateDOM('.summary-line_total div:last-child', `${formatPrice(finalAmount)}원`);
 }
 

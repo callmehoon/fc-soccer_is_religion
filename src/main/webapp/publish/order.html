@@ -56,11 +56,11 @@
         </div>
         <div class="order_info_content">
             <div class="content-form">
-                <label for="order_member">주문하시는 분*</label>
+                <label for="order_member" class="required-label">주문하시는 분</label>
                 <input type="text" id="order_member" name="order_member" class="input-field-flex" required>
             </div>
             <div class="content-form">
-                <label for="address">주소*</label>
+                <label for="address" class="required-label">주소</label>
                 <input type="text" id="address" name="address" class="input-field-flex" required>
             </div>
             <div class="content-form">
@@ -68,11 +68,11 @@
                 <input type="text" id="detail_address" name="detail_address" class="input-field-flex">
             </div>
             <div class="content-form">
-                <label for="phone_number">휴대폰 번호*</label>
+                <label for="phone_number" class="required-label">휴대폰 번호</label>
                 <input type="tel" id="phone_number" name="phone_number" class="input-field-flex" required>
             </div>
             <div class="content-form">
-                <label for="email-id">이메일*</label>
+                <label for="email-id" class="required-label">이메일</label>
                 <input type="text" id="email-id" name="email-id" class="input-field-flex" required>@
                 <input list="email-domains" id="email-domain" name="email-domain" class="input-field-flex" required>
                 <datalist id="email-domains">
@@ -119,11 +119,11 @@
                 </div>
             </div>
             <div class="content-form">
-                <label for="receiver">받으실 분*</label>
+                <label for="receiver" class="required-label">받으실 분</label>
                 <input type="text" id="receiver" name="receiver" class="input-field-flex" required>
             </div>
             <div class="content-form">
-                <label for="receiver_address">받으실 곳*</label>
+                <label for="receiver_address" class="required-label">받으실 곳</label>
                 <input type="text" id="receiver_address" name="receiver_address" class="input-field-flex" required readonly>
                 <button type="button" class="btn-gray">우편번호 검색</button>
             </div>
@@ -132,7 +132,7 @@
                 <input type="text" id="receiver_detail_address" name="receiver_detail_address" class="input-field-flex" placeholder="상세주소를 입력하세요.">
             </div>
             <div class="content-form">
-                <label for="receiver_phone_number">휴대폰 번호*</label>
+                <label for="receiver_phone_number" class="required-label">휴대폰 번호</label>
                 <input type="tel" id="receiver_phone_number" name="receiver_phone_number" class="input-field-flex" required>
             </div>
             <div class="content-form">
@@ -191,7 +191,7 @@
         </div>
         <div class="order_info_content">
             <div class="content-form">
-                <label>결제 수단</label>
+                <label class="required-label">결제 수단</label>
                 <div class="radio-group">
                     <label for="payment_by_brief_payment" class="choice_label">
                         <input type="radio" id="payment_by_brief_payment" name="payment_method" class="choices">간편결제
