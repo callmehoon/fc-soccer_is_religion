@@ -6,6 +6,7 @@
     <title>축구는 종교다</title>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+    <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
     <link rel="stylesheet" href="<%= request.getContextPath() %>/publish/reset.css"/>
     <link rel="stylesheet" href="<%= request.getContextPath() %>/publish/order.css"/>
 </head>
@@ -31,27 +32,27 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <c:forEach var="orderList" items="${orderListViewModel.orderList}">
+                        <c:forEach var="orderList" items="${orderListViewModel.orderList}" varStatus="status">
                             <tr>
                                 <td class="product-info">
-                                    <img src="${orderList.productImg}"
-                                         alt="상품이미지">
+                                    <img src="${orderList.productImg}" alt="상품이미지">
                                     <div class="info-text">
                                         <span class="name">${orderList.productName}</span>
                                         <span class="option">사이즈: 275</span>
                                     </div>
                                 </td>
                                 <td class="center">1개</td>
-                                <td class="center">${orderList.productPrice}원</td>
-                                <td>
-                                    <div class="info-line">할인 <span class="val">-${orderList.productPrice * 0.01}원</span></div>
-                                    <div class="info-line">적립 <span class="val">+${orderList.productPrice * 0.01}원</span></div>
+                                <td class="center"><fmt:formatNumber value="${orderList.productPrice}" type="number"/>원</td>
+                                <td style="width: 110px">
+                                    <div class="info-line">할인 <span class="val">-<fmt:formatNumber value="${orderList.productPrice * 0.01}" type="number" maxFractionDigits="0"/>원</span></div>
+                                    <div class="info-line">적립 <span class="val">+<fmt:formatNumber value="${orderList.productPrice * 0.01}" type="number" maxFractionDigits="0"/>원</span></div>
                                 </td>
+
+                                <c:if test="${status.first}">
+                                    <td class="center shipping-fee" rowspan="${fn:length(orderListViewModel.orderList)}">고정 배송비<br>3,000원</td>
+                                </c:if>
                             </tr>
                         </c:forEach>
-                            <tr>
-                                <td class="center shipping-fee" rowspan="">고정 배송비<br>3,000원</td>
-                            </tr>
                         </tbody>
                     </table>
                 </div>

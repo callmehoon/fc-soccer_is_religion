@@ -3,9 +3,7 @@ package toyproject.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import toyproject.dto.OrderRequestDto;
 import toyproject.dto.OrderResponseDto;
 import toyproject.service.OrderService;
@@ -13,6 +11,7 @@ import toyproject.viewmodel.OrderListViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/order")
@@ -40,5 +39,14 @@ public class OrderController {
         model.addAttribute("orderListViewModel", orderListViewModel);
 
         return "order";
+    }
+
+    @PostMapping("/ordersummary")
+    public String orderSummary(@RequestParam Map<String, String> params, Model model) {
+        // params에 JSON 문자열로 넘어온 'products'가 포함되어 있습니다.
+        // 이 'products'를 파싱해서 View로 넘겨주어야 합니다.
+        // 여기서는 JSP/Thymeleaf에서 직접 처리할 수 있도록 그대로 넘깁니다.
+        model.addAttribute("orderSummary", params);
+        return "order_summary";
     }
 }
