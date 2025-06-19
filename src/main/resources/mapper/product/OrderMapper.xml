@@ -3,16 +3,19 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
+<!--suppress SqlNoDataSourceInspection -->
 <mapper namespace="toyproject.mapper.OrderMapper">
 
-        <select id="searchProducts" parameterType="java.util.List" resultType="OrderResponseDto">
-        SELECT PRODUCT_ID AS productId,
-               IMG AS productImg,
-               PRODUCT_NAME AS productName,
-               PRICE AS productPrice
-        FROM PRODUCT
-        WHERE PRODUCT_ID IN
-        <foreach item="id" collection="list" open="(" separator="," close=")">
+        <select id="searchProducts" parameterType="java.util.List" resultType="OrderResponseDto">-- noinspection
+            SqlNoDataSourceInspectionForFile
+
+            SELECT PRODUCT_ID AS productId,
+            IMG AS productImg,
+            PRODUCT_NAME AS productName,
+            PRICE AS productPrice
+            FROM PRODUCT
+            WHERE PRODUCT_ID IN
+            <foreach item="id" collection="list" open="(" separator="," close=")">
             #{id}
         </foreach>
     </select>

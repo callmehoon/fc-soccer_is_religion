@@ -7,7 +7,6 @@ import toyproject.dto.CartResponseDto;
 import toyproject.mapper.CartMapper;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
