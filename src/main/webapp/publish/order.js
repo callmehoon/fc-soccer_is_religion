@@ -315,7 +315,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 alert(`최대 사용 가능 적립금은 ${MAX_USABLE_POINT.toLocaleString()}원입니다.`);
                 useBonusPointInput.value = '';
                 useBonusPointInput.focus();
-                return;
             }
         });
     }
@@ -376,16 +375,3 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
-
-// 상품 추가/삭제 및 쿠폰 적용 (확장용)
-function addProduct(productData) {
-    calculateOrderSummary();
-}
-
-function removeProduct(productIndex) {
-    calculateOrderSummary();
-}
-
-function applyCoupon(couponData) {
-    calculateOrderSummary();
-}
