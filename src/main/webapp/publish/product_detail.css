@@ -126,7 +126,7 @@ a{
 
 /* 사이즈 선택 후 표시되는 선택 정보 */
 .selected-product {
-    border: 1px solid #ccc;
+
     padding: 10px;
     margin-bottom: 20px;
 }

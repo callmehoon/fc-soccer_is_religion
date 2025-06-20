@@ -25,4 +25,12 @@
         WHERE P.PRODUCT_ID=#{productID}
     </select>
 
+    <select id="productSize" parameterType="int" resultType="map">
+        select i.size,
+                i.CURRENT_QUANTITY AS stock
+        from PRODUCT p
+                 inner join INVENTORY i on i.PRODUCT_ID = p.PRODUCT_ID
+        WHERE p.PRODUCT_ID=#{productID}
+
+    </select>
 </mapper>

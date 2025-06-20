@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import toyproject.dto.ProductResponseDto;
 import toyproject.service.ProductService;
 
+import java.util.List;
+import java.util.Map;
+
 @Controller
 @RequestMapping("/product")
 @RequiredArgsConstructor
@@ -25,8 +28,13 @@ public class ProductController {
             System.out.println("넘어온 productId = " + productId);
 
             ProductResponseDto productDto = productService.productDetail(paramDto);
+            List<Map<String,Object>> sizeList=productService.productSize(paramDto);
             System.out.println("가져온 productDto = " + productDto);
             m.addAttribute("productDto", productDto);
+            m.addAttribute("sizeList", sizeList);
+            System.out.println(">> sizeList = " + sizeList);
+            System.out.println(">> productDto = " + productDto);
+
 
         }catch(Exception e){
             e.printStackTrace();

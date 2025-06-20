@@ -19,4 +19,5 @@ public class ProductResponseDto {
     private int    productScore;
     private String productInfo;
     private int    productPrice;
+
 }
