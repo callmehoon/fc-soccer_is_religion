@@ -1,18 +1,37 @@
 function openModal(e) {
+
+    console.log("===");
+
     e.preventDefault(); // 링크 이동 방지
     const modal = document.getElementById("optionModal");
-    currentRow = event.target.closest('tr');
+    currentRow = e.target.closest('tr');
 
+    // 이미지 동기화
     const productImg = currentRow.querySelector('.product-info img');
-    const modalImg = document.querySelector('#optionModal .product-info img');
+    const modalImg = modal.querySelector('.product-info img');
 
     if (productImg && modalImg) {
         modalImg.src = productImg.src;
         modalImg.alt = productImg.alt;
     }
 
+    const productId = e.target.getAttribute("data-product-id");
 
-    modal.classList.add("show");
+    if (!productId) {
+        alert("상품 정보를 불러올 수 없습니다.");
+        return;
+    }
+
+    fetch(`/cart/option/size?productId=${productId}`)
+        .then(res => res.json())
+        .then(data => {
+            renderSizeButtons(data.sizes); // 사이즈 버튼 생성
+            modal.classList.add("show");
+        })
+        .catch(err => {
+            console.error("사이즈 요청 실패", err);
+            alert("옵션 정보를 불러오는 데 실패했습니다.");
+        });
 }
 
 function closeModal() {
@@ -78,3 +97,22 @@ document.querySelector('.btn.confirm').addEventListener('click', () => {
 
     closeModal();
 });
+
+function renderSizeButtons(sizes) {
+    const container = document.querySelector("#optionModal .option-select");
+    container.innerHTML = "<label>사이즈</label>"; // 초기화
+
+    sizes.forEach(size => {
+        const btn = document.createElement("button");
+        btn.classList.add("size-btn");
+        btn.textContent = size;
+        btn.addEventListener('click', function () {
+            document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('selected'));
+            this.classList.add('selected');
+
+            document.querySelector('.selected-option span').textContent = size;
+            document.querySelector('.selected-option .quantity input').value = 1;
+        });
+        container.appendChild(btn);
+    });
+}

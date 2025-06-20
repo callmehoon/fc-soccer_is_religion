@@ -1,10 +1,13 @@
 package toyproject.mapper;
 
-import toyproject.dto.CartResponseDto;
+import toyproject.mapper.queryparam.CartQueryParam;
+import toyproject.mapper.result.CartResult;
 
 import java.util.List;
 
 public interface CartMapper {
-    public List<CartResponseDto> searchUserCart(String userId);
+    public List<Integer> findAvailableSizesByProductId(int productId);
+    public int findCartItemsCountByUserId(CartQueryParam cartQueryParam);
+    public List<CartResult> findCartItemsByUserId(CartQueryParam cartQueryParam);
 
 }

@@ -28,7 +28,7 @@
                 <tbody>
                 <c:forEach var="cart" items="${cartListViewModel.cartList}">
                     <tr>
-                        <td><input type="checkbox" checked/></td>
+                        <td><input type="checkbox"/></td>
                         <td>
                             <div class="product-info">
                                 <img src="${cart.productImg}" alt="상품 이미지">
@@ -44,7 +44,7 @@
                         </td>
                         <td>
                             <c:out value="${cart.productQuantity}"/>개<br/>
-                            <a href="#" onclick="openModal(event)">옵션/수정변경</a>
+                            <a href="#" onclick="openModal(event)"  data-product-id="${cart.productId}">옵션/수정변경</a>
                         </td>
                         <td>
                             <strong>
@@ -62,6 +62,14 @@
                 </c:forEach>
                 </tbody>
             </table>
+            <div class="pagination">
+                <c:forEach begin="1" end="${cartListViewModel.pageInfo.totalPage}" var="i">
+                    <a href="?page=${i}&size=${cartListViewModel.pageInfo.size}"
+                       class="${i == cartListViewModel.pageInfo.page ? 'active' : ''}">
+                            ${i}
+                    </a>
+                </c:forEach>
+            </div>
         </div>
 
         <!-- 결제 정보 -->
@@ -75,6 +83,7 @@
             <button class="btn black">전체상품 구매하기</button>
             <button class="btn white">선택상품 구매하기</button>
         </div>
+
     </div>
 </div>
 

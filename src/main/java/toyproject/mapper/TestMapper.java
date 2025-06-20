@@ -1,8 +1,8 @@
 package toyproject.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
-import toyproject.dto.TestReponseDto;
-import toyproject.dto.TestRequestDto;
+import toyproject.controller.dto.TestReponseDto;
+import toyproject.controller.dto.TestRequestDto;
 
 import java.util.List;
 

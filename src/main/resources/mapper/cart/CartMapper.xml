@@ -5,7 +5,14 @@
 
 <mapper namespace="toyproject.mapper.CartMapper">
 
-    <select id="searchUserCart" parameterType="String" resultType="CartResponseDto">
+    <select id="findCartItemsCountByUserId" parameterType="CartQueryParam" resultType="int">
+        SELECT count(*)
+        FROM CART c
+                 INNER JOIN PRODUCT p ON c.PRODUCT_ID = p.PRODUCT_ID
+        WHERE c.USER_ID = #{userId}
+    </select>
+
+    <select id="findCartItemsByUserId" parameterType="CartQueryParam" resultType="CartResult">
         SELECT c.PRODUCT_ID       AS productId,
                p.IMG              AS productImg,
                p.PRODUCT_NAME     AS productName,
@@ -15,6 +22,15 @@
         FROM CART c
                  INNER JOIN PRODUCT p ON c.PRODUCT_ID = p.PRODUCT_ID
         WHERE c.USER_ID = #{userId}
+        LIMIT #{size} OFFSET #{offset}
     </select>
+
+    <select id="findAvailableSizesByProductId" parameterType="int" resultType="int">
+        SELECT SIZE AS size
+        FROM INVENTORY
+        WHERE PRODUCT_ID = #{productId}
+          and CURRENT_QUANTITY > 0
+    </select>
+
 
 </mapper>

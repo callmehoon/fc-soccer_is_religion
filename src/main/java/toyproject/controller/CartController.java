@@ -1,19 +1,19 @@
 package toyproject.controller;
 
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import toyproject.dto.CartRequestDto;
-import toyproject.dto.CartResponseDto;
+import org.springframework.web.bind.annotation.*;
+import toyproject.controller.dto.*;
+import toyproject.controller.viewmodel.CartListViewModel;
 import toyproject.service.CartService;
-import toyproject.viewmodel.CartListViewModel;
 
 import java.util.List;
 
 @Controller
+@Slf4j
 @RequestMapping("/cart")
 @RequiredArgsConstructor
 public class CartController {
@@ -21,21 +21,45 @@ public class CartController {
     private final CartService cartService;
 
     @GetMapping("")
-    public String cart(@ModelAttribute CartRequestDto cartRequestDto, Model model) {
+    public String cart(@ModelAttribute CartRequestDto cartRequestDto, @ModelAttribute PageRequestDto pageRequestDto, Model model) {
 
-        CartRequestDto dummy = new CartRequestDto();
-        dummy.setUserId("U01357");
+        log.info("Cart Controller _ 기본 페이지 진입");
 
-        List<CartResponseDto> cartResponseDtoList = cartService.searchCart(dummy);
-        CartListViewModel cartListViewModel = CartListViewModel.builder().cartList(cartResponseDtoList)
+        // 우선 하드코딩
+        cartRequestDto.setUserId("U01357");
+
+        CartResponseDto cartInfo = cartService.searchCart(cartRequestDto, pageRequestDto);
+        PageResponseDto pageInfo = cartInfo.getPageResponseDto();
+
+
+        PageResponseDto cartPageInfo = PageResponseDto.builder()
+                .page(pageInfo.getPage())
+                .size(pageInfo.getSize())
+                .totalElements(pageInfo.getTotalElements())
+                .totalPage(pageInfo.getTotalPage())
+                .first(pageInfo.isFirst())
+                .last(pageInfo.isLast()).
+                build();
+
+        CartListViewModel cartListViewModel = CartListViewModel.builder().cartList(cartInfo.getCartItems())
+                .pageInfo(cartPageInfo)
                 .build();
-
-        System.out.println(cartListViewModel.toString());
 
         model.addAttribute("cartListViewModel", cartListViewModel);
 
         return "cart";
     }
+
+
+    @GetMapping(value = "/option/size" , produces = "application/json")
+    @ResponseBody
+    public SizeResponseDto getAvailableSizes(@ModelAttribute SizeRequestDto sizeRequestDto){
+
+        return cartService.getSizesByProductId(sizeRequestDto);
+
+    }
+
+
 
 
 }
