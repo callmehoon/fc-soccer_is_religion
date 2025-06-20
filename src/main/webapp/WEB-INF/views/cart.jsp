@@ -1,17 +1,19 @@
+<%--suppress ALL --%>
 <%@ page contentType="text/html; charset=UTF-8" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>축구는 종교다 - 장바구니</title>
+    <title>축구는 종교다</title>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
     <link rel="stylesheet" href="<%= request.getContextPath() %>/publish/cart.css"/>
 </head>
 <body>
 <div class="container">
-    <h1 class="title">장바구니</h1>
+    <h1 class="title">장바구니 ${cartListViewModel.cartList}</h1>
     <div class="cart-wrapper">
         <!-- 상품 목록 -->
         <div class="cart-items">
