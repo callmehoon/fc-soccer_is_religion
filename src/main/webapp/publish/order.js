@@ -207,11 +207,18 @@ function clearReceiverInfo() {
 
 // 주문 정보 수집 (리팩토링됨)
 function collectOrderData() {
-    // 상품 정보
-    const productName = document.querySelector('.product-info .name')?.textContent || '';
-    const productOption = document.querySelector('.product-info .option')?.textContent || '';
-    const productPrice = document.querySelector('.order_items_table tbody tr td:nth-child(3)')?.textContent || '';
-    const productQuantity = document.querySelector('.order_items_table tbody tr td:nth-child(2)')?.textContent || '';
+    // 상품 정보 (여러 개 수집)
+    const productRows = document.querySelectorAll('.order_items_table tbody tr');
+    const products = [];
+    productRows.forEach(row => {
+        const product = {
+            name: row.querySelector('.product-info .name')?.textContent || '',
+            option: row.querySelector('.product-info .option')?.textContent || '',
+            quantity: row.querySelector('td:nth-child(2)')?.textContent || '',
+            price: row.querySelector('td:nth-child(3)')?.textContent || ''
+        };
+        products.push(product);
+    });
 
     // 주문자 정보
     const ordererName = document.getElementById('order_member')?.value || '';
@@ -250,7 +257,7 @@ function collectOrderData() {
     const orderInfo = analyzeOrderItems();
 
     return {
-        productName, productOption, productPrice, productQuantity,
+        products: JSON.stringify(products), // 배열을 JSON 문자열로 변환
         ordererName, ordererAddress, ordererDetailAddress, ordererPhone, ordererEmail,
         receiverName, receiverAddress, receiverDetailAddress, receiverPhone, deliveryMessage,
         paymentMethod, useBonusPoint, useAllPoint: useAllPoint ? 'true' : 'false',
@@ -287,16 +294,25 @@ function validateFormSequentially() {
     return null;
 }
 
-// 주문 완료 페이지로 리다이렉트
+// 수정된: POST 방식으로 주문 요약 페이지로 데이터 전송
 function redirectToOrderSummary() {
     const orderData = collectOrderData();
-    const params = new URLSearchParams();
+
+    // 동적으로 form 생성
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = '/order/ordersummary';
+
     for (const [key, value] of Object.entries(orderData)) {
-        if (value) {
-            params.append(key, value);
-        }
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = key;
+        input.value = value;
+        form.appendChild(input);
     }
-    window.location.href = `order_summary.html?${params.toString()}`;
+
+    document.body.appendChild(form);
+    form.submit();
 }
 
 // 필드 포커스 이동

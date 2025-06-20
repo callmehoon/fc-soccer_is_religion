@@ -1,12 +1,17 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const urlParams = new URLSearchParams(window.location.search);
+// 기존 order_summary.js 파일의 내용을 아래 코드로 대체하거나 수정하세요.
 
-    generateOrderInfo();
-    displayProductInfo(urlParams);
-    displayOrdererInfo(urlParams);
-    displayShippingInfo(urlParams);
-    displayPaymentInfo(urlParams);
-    displayFinalPayment(urlParams);
+document.addEventListener('DOMContentLoaded', function() {
+    // URL 파라미터 대신 JSP에서 생성한 전역 변수 orderSummaryData를 사용합니다.
+    if (typeof orderSummaryData !== 'undefined') {
+        generateOrderInfo();
+        displayProductInfo(orderSummaryData);
+        displayOrdererInfo(orderSummaryData);
+        displayShippingInfo(orderSummaryData);
+        displayPaymentInfo(orderSummaryData);
+        displayFinalPayment(orderSummaryData);
+    } else {
+        console.error('주문 데이터를 불러오지 못했습니다.');
+    }
 });
 
 function generateOrderInfo() {
@@ -27,74 +32,72 @@ function generateOrderInfo() {
     document.getElementById('order_date').textContent = orderDate;
 }
 
-function displayProductInfo(urlParams) {
-    const productName = urlParams.get('productName') || '팬텀 GX II 엘리트 AG-PRO (FJ2554800)';
-    const productOption = urlParams.get('productOption') || '사이즈: 275';
-    const productQuantity = urlParams.get('productQuantity') || '1개';
-    const productPrice = urlParams.get('productPrice') || '299,900원';
+// [수정] 여러 상품을 동적으로 표시하는 함수
+function displayProductInfo(data) {
+    const container = document.getElementById('summary_product_list_container');
+    const template = document.getElementById('summary_product_item_template');
 
-    document.getElementById('summary_product_name').textContent = productName;
-    document.getElementById('summary_product_option').textContent = productOption;
-    document.getElementById('summary_product_quantity').textContent = productQuantity;
-    document.getElementById('summary_product_price').textContent = productPrice;
+    if (!container || !template) {
+        console.error('상품 목록을 표시할 영역을 찾을 수 없습니다.');
+        return;
+    }
+
+    // products 배열을 순회하며 템플릿을 복제하고 데이터를 채워넣습니다.
+    data.products.forEach(product => {
+        const productNode = template.content.cloneNode(true); // 템플릿 복제
+
+        productNode.querySelector('.product_name').textContent = product.name || '상품 정보 없음';
+        productNode.querySelector('.product_option').textContent = product.option || '-';
+        productNode.querySelector('.product_quantity').textContent = product.quantity || '-';
+        productNode.querySelector('.product_price').textContent = product.price || '0원';
+
+        container.appendChild(productNode); // 컨테이너에 추가
+    });
 }
 
-function displayOrdererInfo(urlParams) {
-    const ordererName = urlParams.get('ordererName') || '-';
-    const ordererAddress = urlParams.get('ordererAddress') || '';
-    const ordererDetailAddress = urlParams.get('ordererDetailAddress') || '';
-    const ordererPhone = urlParams.get('ordererPhone') || '-';
-    const ordererEmail = urlParams.get('ordererEmail') || '-';
 
-    let fullAddress = ordererAddress;
-    if (ordererDetailAddress) {
-        fullAddress += (ordererAddress ? ', ' : '') + ordererDetailAddress;
+function displayOrdererInfo(data) {
+    const ordererName = data.ordererName || '-';
+    let fullAddress = data.ordererAddress || '';
+    if (data.ordererDetailAddress) {
+        fullAddress += (fullAddress ? ', ' : '') + data.ordererDetailAddress;
     }
     if (!fullAddress) fullAddress = '-';
 
     document.getElementById('display_orderer_name').textContent = ordererName;
-    document.getElementById('summary_orderer_name').textContent = ordererName;
+    document.getElementById('summary_orderer_name').textContent = ordererName; // 주문요약 부분도 채워줌
     document.getElementById('display_orderer_address').textContent = fullAddress;
-    document.getElementById('display_orderer_phone').textContent = ordererPhone;
-    document.getElementById('display_orderer_email').textContent = ordererEmail;
+    document.getElementById('display_orderer_phone').textContent = data.ordererPhone || '-';
+    document.getElementById('display_orderer_email').textContent = data.ordererEmail || '-';
 }
 
-function displayShippingInfo(urlParams) {
-    const receiverName = urlParams.get('receiverName') || '-';
-    const receiverAddress = urlParams.get('receiverAddress') || '';
-    const receiverDetailAddress = urlParams.get('receiverDetailAddress') || '';
-    const receiverPhone = urlParams.get('receiverPhone') || '-';
-    const deliveryMessage = urlParams.get('deliveryMessage') || '-';
-
-    let fullAddress = receiverAddress;
-    if (receiverDetailAddress) {
-        fullAddress += (receiverAddress ? ', ' : '') + receiverDetailAddress;
+function displayShippingInfo(data) {
+    let fullAddress = data.receiverAddress || '';
+    if (data.receiverDetailAddress) {
+        fullAddress += (fullAddress ? ', ' : '') + data.receiverDetailAddress;
     }
     if (!fullAddress) fullAddress = '-';
 
-    document.getElementById('display_receiver_name').textContent = receiverName;
+    document.getElementById('display_receiver_name').textContent = data.receiverName || '-';
     document.getElementById('display_receiver_address').textContent = fullAddress;
-    document.getElementById('display_receiver_phone').textContent = receiverPhone;
-    document.getElementById('display_delivery_message').textContent = deliveryMessage;
+    document.getElementById('display_receiver_phone').textContent = data.receiverPhone || '-';
+    document.getElementById('display_delivery_message').textContent = data.deliveryMessage || '-';
 }
 
-function displayPaymentInfo(urlParams) {
-    const paymentMethod = urlParams.get('paymentMethod') || '-';
-    const useBonusPoint = urlParams.get('useBonusPoint') || '0';
-    const bonusPointDisplay = useBonusPoint && parseInt(useBonusPoint) > 0
-        ? formatPrice(useBonusPoint) + '원'
-        : '0원';
+function displayPaymentInfo(data) {
+    const useBonusPoint = parseInt(data.useBonusPoint) || 0;
+    const bonusPointDisplay = useBonusPoint > 0 ? formatPrice(useBonusPoint) + '원' : '0원';
 
-    document.getElementById('display_payment_method').textContent = paymentMethod;
-    document.getElementById('summary_payment_method').textContent = paymentMethod;
+    document.getElementById('display_payment_method').textContent = data.paymentMethod || '-';
+    document.getElementById('summary_payment_method').textContent = data.paymentMethod || '-'; // 주문요약 부분도 채워줌
     document.getElementById('display_bonus_point').textContent = bonusPointDisplay;
 }
 
-function displayFinalPayment(urlParams) {
-    const totalProductAmount = parseInt(urlParams.get('totalProductAmount')) || 299900;
-    const totalDiscountAmount = parseInt(urlParams.get('totalDiscountAmount')) || 2990;
-    const totalShippingFee = parseInt(urlParams.get('totalShippingFee')) || 3000;
-    const finalAmount = parseInt(urlParams.get('finalAmount')) || (totalProductAmount - totalDiscountAmount + totalShippingFee);
+function displayFinalPayment(data) {
+    const totalProductAmount = parseInt(data.totalProductAmount) || 0;
+    const totalDiscountAmount = parseInt(data.totalDiscountAmount) || 0;
+    const totalShippingFee = parseInt(data.totalShippingFee) || 0;
+    const finalAmount = parseInt(data.finalAmount) || 0;
 
     document.getElementById('display_total_product_amount').textContent = formatPrice(totalProductAmount) + '원';
     document.getElementById('display_total_discount_amount').textContent = '-' + formatPrice(totalDiscountAmount) + '원';
