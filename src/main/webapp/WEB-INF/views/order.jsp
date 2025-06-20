@@ -248,7 +248,7 @@
                 <input type="checkbox" id="order_agree" name="order_agree" value="is_agree"/>
                 (필수) 구매하실 상품의 결제정보를 확인하였으며, 구매진행에 동의합니다.
             </label>
-            <button type="submit" class="btn-black">결제하기</button>
+            <button type="submit" class="btn-order">결제하기</button>
         </form>
     </div>
 </div>
