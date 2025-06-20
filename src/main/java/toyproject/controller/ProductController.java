@@ -17,7 +17,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class ProductController {
     private final ProductService productService;
-    @GetMapping("/read")
+    @GetMapping("/detail") // 네이밍 직관적으로 변경하기위해 /read -> /detail로 수정 by 홍성훈
     public String detail(@RequestParam("productID") Integer productId, Model m) {
         System.out.println("controller");
         try{

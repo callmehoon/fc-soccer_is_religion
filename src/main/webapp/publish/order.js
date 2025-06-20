@@ -403,7 +403,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    const paymentButton = document.querySelector('.btn-black');
+    const paymentButton = document.querySelector('.btn-order');
     const form = document.querySelector('.summary-box form');
 
     if (form) {

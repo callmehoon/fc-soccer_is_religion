@@ -61,8 +61,8 @@
             </div>
 
             <div class="buttons">
-                <button class="btn cart">장바구니</button>
-                <button class="btn buy">구매하기</button>
+                <button type="submit" class="btn cart">장바구니</button> <!-- 장바구니 버튼 클릭시 화면 이동위해 type="submit" 추가 by 홍성훈 -->
+                <button type="submit" class="btn buy">구매하기</button> <!-- 구매하기 버튼 클릭시 화면 이동위해 type="submit" 추가 by 홍성훈 -->
             </div>
 
         </div>
