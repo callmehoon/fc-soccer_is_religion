@@ -5,14 +5,14 @@
 
 <mapper namespace="toyproject.mapper.OrderMapper">
 
-        <select id="searchProducts" parameterType="java.util.List" resultType="OrderResponseDto">
-            SELECT PRODUCT_ID AS productId,
-            IMG AS productImg,
-            PRODUCT_NAME AS productName,
-            PRICE AS productPrice
-            FROM PRODUCT
-            WHERE PRODUCT_ID IN
-            <foreach item="id" collection="list" open="(" separator="," close=")">
+    <select id="searchProducts" parameterType="java.util.List" resultType="OrderResponseDto">
+        SELECT PRODUCT_ID AS productId,
+        IMG AS productImg,
+        PRODUCT_NAME AS productName,
+        PRICE AS productPrice
+        FROM PRODUCT
+        WHERE PRODUCT_ID IN
+        <foreach item="id" collection="list" open="(" separator="," close=")">
             #{id}
         </foreach>
     </select>
