@@ -44,8 +44,8 @@
                                 <td class="center">1개</td>
                                 <td class="center"><fmt:formatNumber value="${orderList.productPrice}" type="number"/>원</td>
                                 <td style="width: 110px">
-                                    <div class="info-line">할인 <span class="val">-<fmt:formatNumber value="${orderList.productPrice * 0.01}" type="number" maxFractionDigits="0"/>원</span></div>
-                                    <div class="info-line">적립 <span class="val">+<fmt:formatNumber value="${orderList.productPrice * 0.01}" type="number" maxFractionDigits="0"/>원</span></div>
+                                    <div class="info-line">할인 <span class="val">-<fmt:formatNumber value="${((orderList.productPrice * 0.01 + 9) - ((orderList.productPrice * 0.01 + 9) % 10))}" type="number" maxFractionDigits="0"/>원</span></div>
+                                    <div class="info-line">적립 <span class="val">+<fmt:formatNumber value="${((orderList.productPrice * 0.01 + 9) - ((orderList.productPrice * 0.01 + 9) % 10))}" type="number" maxFractionDigits="0"/>원</span></div>
                                 </td>
 
                                 <c:if test="${status.first}">
