@@ -132,11 +132,15 @@ a{
 }
 
 .selected-info {
-    display: flex;
+    display: grid;
     align-items: center;
-    justify-content: space-between;
+    grid-template-columns: 130px 120px 120px 50px;
     gap: 10px;
     font-size: 14px;
+}
+
+.price{
+    text-align: right;
 }
 
 .coupon {
@@ -154,6 +158,8 @@ a{
 .quantity button {
     width: 24px;
     height: 24px;
+    border:none;
+    font-size: 18px;
 }
 
 .price {
