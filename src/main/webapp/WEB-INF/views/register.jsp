@@ -1,29 +1,36 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>축구는 종교다</title>
-    <link rel="stylesheet" href="register.css"/>
+    <link rel="stylesheet" href="publish/register.css"/>
+    <script src="publish/register.js"></script>
+    <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </head>
 <body>
 <div class="container">
+    <form action="/register" method="post">
     <h2>회원가입</h2>
     <div class="step">
         <span>01</span> 정보입력 및 약관동의 &nbsp; &gt; &nbsp; <span style="background:#eee; color:#999;">02</span> 가입완료
     </div>
 
     <div class="section-title">기본정보</div>
+        <p class="note">※필수입력사항</p>
 
-    <label class="required">아이디(이메일)</label>
-    <input type="email" placeholder="이메일 입력">
+        <label class="required">아이디(이메일)</label>
+        <input type="email" name="email" id="email" placeholder="이메일 입력">
+        <p class="error-msg" id="emailError"></p>
     <p class="note">※ 수신가능한 이메일 주소로 입력해주세요.</p>
 
-    <label class="required">비밀번호</label>
-    <input type="password">
+        <label class="required">비밀번호</label>
+        <input type="password" id="pw1">
 
-    <label class="required">비밀번호 확인</label>
-    <input type="password">
+        <label class="required">비밀번호 확인</label>
+        <input type="password" id="pw2">
+        <p class="error-msg" id="pwError"></p>
 
     <label class="required">이름</label>
     <input type="text">
@@ -31,16 +38,15 @@
     <label class="required">휴대전화</label>
     <input type="text" placeholder="- 없이 입력해주세요.">
 
-    <label>전화번호</label>
-    <div class="row">
-        <input type="text">
-        <button>우편번호 검색</button>
-    </div>
+        <label>주소</label>
+        <div class="row">
+            <input type="text" name="zipcode" id="receiver_address">
+            <button type="button" onclick="execDaumPostcode()">우편번호 검색</button>
+        </div>
+        <input type="text" name="address" id="receiver_detail_address">
 
-    <label>주소</label>
-    <input type="text">
 
-    <div class="section-title">부가 정보</div>
+        <div class="section-title">부가 정보</div>
 
     <label class="required">성별</label>
     <div class="radio-group">
@@ -50,9 +56,9 @@
 
     <label class="required">생일</label>
     <div class="row">
-        <select><option>년</option></select>
-        <select><option>월</option></select>
-        <select><option>일</option></select>
+        <select name="birthYear" id="birthYear"><option>년</option></select>
+        <select name="birthMonth" id="birthMonth"><option>월</option></select>
+        <select name="birthDay" id="birthDay"><option>일</option></select>
     </div>
 
     <label class="required">휴면회원 방지기간</label>
@@ -66,7 +72,7 @@
     <div class="section-title">약관동의</div>
     <div class="agreements">
         <label>
-            <input type="checkbox"> 카포스토어의 모든 약관을 확인하고 전체 동의합니다.
+            <input type="checkbox" name="agreeAll"> 카포스토어의 모든 약관을 확인하고 전체 동의합니다.
             <span class="note">(선택항목도 포함)</span>
         </label>
 
@@ -90,6 +96,7 @@
         <button>취소</button>
         <button class="join">회원가입</button>
     </div>
+    </form>
 </div>
 </body>
 </html>
