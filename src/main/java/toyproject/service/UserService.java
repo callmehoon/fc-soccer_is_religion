@@ -1,8 +1,6 @@
-// src/main/java/toyproject/service/UserService.java
 package toyproject.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import toyproject.dto.RegisterRequestDto;
 import toyproject.mapper.UserMapper;
@@ -12,11 +10,9 @@ import toyproject.mapper.UserMapper;
 public class UserService {
 
     private final UserMapper userMapper;
-    private final BCryptPasswordEncoder passwordEncoder;
 
     public void registerUser(RegisterRequestDto dto) {
-        // 비밀번호 암호화
-        dto.setPassword(passwordEncoder.encode(dto.getPassword()));
+        // 현재는 별도 처리 없이 바로 DB에 저장(패스워드 암호화/복호화 미구현)
         userMapper.insertUser(dto);
     }
 }
