@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded", function () {
             //리스트에 보여질 html내용
             //사이즈 텍스트, 수량 조절버튼, 초기 수량, 가격표시, 삭제버튼
             item.innerHTML = `
-                <span>${selectedSize} (0원)</span>
+                <span>${selectedSize}</span>
                 <div class="quantity">
                     <button class="minus">-</button>
                     <span class="count">1</span>
