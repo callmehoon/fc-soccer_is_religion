@@ -9,7 +9,7 @@ import toyproject.dto.RegisterRequestDto;
 import toyproject.service.UserService;
 
 @Controller
-@RequiredArgsConstructor  // 🔥 자동 생성자 생성
+@RequiredArgsConstructor  // 자동 생성자 생성
 public class RegisterController {
 
     private final UserService userService;
@@ -21,7 +21,7 @@ public class RegisterController {
 
     @PostMapping("/register")
     public String registerSubmit(@ModelAttribute RegisterRequestDto dto) {
-        userService.registerUser(dto);  // ✅ 실제 서비스 연결
+        userService.registerUser(dto);
         System.out.println("회원가입 요청 = " + dto.getName());
         return "redirect:/register-success";
     }
