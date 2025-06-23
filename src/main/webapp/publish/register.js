@@ -4,22 +4,22 @@ function validateEmail(email) {
     return pattern.test(email);
 }
 
-// 📌 비밀번호와 확인란 일치 검사
-function validatePasswordMatch(pw1, pw2) {
-    return pw1 === pw2;
-}
+    // 📌 비밀번호와 확인란 일치 검사
+    function validatePasswordMatch(pw1, pw2) {
+        return pw1 === pw2;
+    }
 
 // 📌 생년월일 select 동적 생성
-function populateBirthSelects() {
-    const yearSelect = document.querySelector("select[name='birthYear']");
-    const monthSelect = document.querySelector("select[name='birthMonth']");
-    const daySelect = document.querySelector("select[name='birthDay']");
-    const thisYear = new Date().getFullYear();
+         function populateBirthSelects() {
+             const yearSelect = document.querySelector("select[name='birthYear']");
+             const monthSelect = document.querySelector("select[name='birthMonth']");
+             const daySelect = document.querySelector("select[name='birthDay']");
+             const thisYear = new Date().getFullYear();
 
-    for (let y = thisYear; y >= 1940; y--) {
-        yearSelect.innerHTML += `<option value="${y}">${y}년</option>`;
-    }
-    for (let m = 1; m <= 12; m++) {
+             for (let y = thisYear; y >= 1940; y--) {
+                 yearSelect.innerHTML += `<option value="${y}">${y}년</option>`;
+             }
+             for (let m = 1; m <= 12; m++) {
         monthSelect.innerHTML += `<option value="${m}">${m}월</option>`;
     }
     for (let d = 1; d <= 31; d++) {

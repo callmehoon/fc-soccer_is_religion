@@ -6,7 +6,7 @@
 <mapper namespace="toyproject.mapper.UserMapper">
 
     <insert id="insertUser" parameterType="toyproject.dto.RegisterRequestDto">
-        INSERT INTO users (
+        INSERT INTO USER (
             email, password, name, phone, gender, birth_year, birth_month, birth_day,
             zipcode, address, address_detail, rest_period, created_at
         ) VALUES (
@@ -14,5 +14,12 @@
                      #{zipcode}, #{address}, #{addressDetail}, #{restPeriod}, NOW()
                  )
     </insert>
+
+    <!--  로그인용 SELECT 문 추가 -->
+    <select id="findByEmail" parameterType="String" resultType="toyproject.dto.LoginUserDto">
+        SELECT USER_ID_EMAIL, USER_PWD
+        FROM USER
+        WHERE USER_ID_EMAIL = #{email}
+    </select>
 
 </mapper>
