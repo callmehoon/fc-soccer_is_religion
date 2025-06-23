@@ -1,53 +1,48 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ include file="Drop.jsp" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
     <title>축구는 종교다</title>
-    <link rel="stylesheet" href="new.css">
+    <link rel="stylesheet" href="/publish/new.css">
     <style>
         .filter-sort-section {
             display: flex;
             padding: 40px 60px;
             gap: 40px;
         }
-
         .filter-menu {
             width: 200px;
             flex-shrink: 0;
         }
-
         .filter-menu h4 {
             font-size: 16px;
             margin-bottom: 10px;
             border-bottom: 1px solid #ccc;
             padding-bottom: 5px;
         }
-
         .filter-category {
             margin-bottom: 20px;
         }
-
         .filter-category summary {
             font-weight: bold;
             cursor: pointer;
         }
-
         .sort-bar {
             margin-left: auto;
         }
-
         .sort-bar select {
             padding: 6px 12px;
             font-size: 14px;
         }
-
         .filter-tags {
             display: flex;
             gap: 10px;
             margin: 20px 60px 10px;
             justify-content: center;
         }
-
         .filter-tag a {
             display: block;
             background-color: #f3f3f3;
@@ -58,36 +53,21 @@
             text-decoration: none;
             color: black;
         }
-
         .product-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 40px;
             padding: 40px 60px;
         }
-
         .product-card {
             text-align: center;
         }
-
         .product-card img {
             width: 100%;
             max-width: 300px;
         }
     </style>
 </head>
-<body>
-<!-- ✅ 여기에 Drop.html을 동적으로 불러올 위치 -->
-<div id="header"></div>
-
-<!-- ✅ 드롭다운 header를 JS로 삽입 -->
-<script>
-    fetch("Drop.html")
-        .then(res => res.text())
-        .then(html => {
-            document.getElementById("header").innerHTML = html;
-        });
-</script>
 
 <main>
     <div class="filter-tags">
@@ -125,24 +105,19 @@
     </section>
 
     <section class="product-grid">
-        <div class="product-card">
-            <img src="https://via.placeholder.com/300x300" alt="상품 이미지">
-            <p>미즈노</p>
-            <p>모렐리아 네오 IV β JAPAN(JPN/060)</p>
-            <p>305,100원</p>
-        </div>
-        <div class="product-card">
-            <img src="https://via.placeholder.com/300x300" alt="상품 이미지">
-            <p>미즈노</p>
-            <p>모렐리아 네오 IV JAPAN(JPN/060)</p>
-            <p>273,100원</p>
-        </div>
-        <div class="product-card">
-            <img src="https://via.placeholder.com/300x300" alt="상품 이미지">
-            <p>미즈노</p>
-            <p>모렐리아 네오 IV 프로 AS(560)</p>
-            <p>144,000원</p>
-        </div>
+       <c:if test="${not empty productList}">
+           <c:forEach var="p" items="${productList}">
+               <div class="product-card">
+                   <img src="${p.img}" alt="${p.productName}">
+                   <p>${p.brandName}</p>
+                   <p>${p.productName}</p>
+                   <p>${p.price}원</p>
+               </div>
+           </c:forEach>
+       </c:if>
+        <c:if test="${empty productList}">
+            <p>해당 카테고리의 상품이 없습니다.</p>
+        </c:if>
     </section>
 </main>
 </body>

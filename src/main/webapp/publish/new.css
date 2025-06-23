@@ -6,29 +6,6 @@ body {
     background-color: #fff;
 }
 
-.main-nav {
-    background: #fff;
-    border-bottom: 1px solid #eee;
-    padding: 20px 0;
-    display: flex;
-    justify-content: center;
-}
-
-.nav-list {
-    display: flex;
-    gap: 30px;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.nav-list li a {
-    text-decoration: none;
-    color: #000;
-    font-size: 14px;
-    font-weight: 500;
-}
-
 .section-title {
     text-align: center;
     margin: 40px 0 20px;

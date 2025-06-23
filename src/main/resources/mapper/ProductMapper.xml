@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="toyproject.mapper.ProductMapper">
+
+    <!-- ➊ NEW 상품 전체 개수 -->
+    <select id="selectNewProductCount" resultType="int">
+        SELECT COUNT(*)
+        FROM PRODUCT
+        WHERE IS_NEW = 1
+    </select>
+
+    <!-- ➋ NEW 상품 페이지 -->
+    <select id="selectNewProductPage" resultType="toyproject.dto.ProductDto">
+        SELECT
+            PRODUCT_ID      AS productId,
+            BRAND_ID        AS brandId,
+            SUB_CATEGORY_ID AS subCategoryId,
+            PRODUCT_NAME    AS productName,
+            IMG             AS img,
+            SAILO           AS sailo,
+            MATERIAL        AS material,
+            COLOR           AS color,
+            AVG_SCORE       AS avgScore,
+            DETAIL_INFO     AS detailInfo,
+            PRICE           AS price,
+            BASIC_INFO      AS basicInfo,
+            IS_NEW          AS isNew,
+            IS_EVENT        AS isEvent
+        FROM PRODUCT
+        WHERE IS_NEW = 1
+        ORDER BY PRODUCT_ID DESC
+            LIMIT #{offset}, #{pageSize}
+    </select>
+
+    <!-- 1) 브랜드별 전체 개수 -->
+    <select id="selectBrandProductCount" parameterType="int" resultType="int">
+        SELECT COUNT(*)
+        FROM PRODUCT
+        WHERE BRAND_ID = #{brandId}
+    </select>
+
+    <!-- 2) 브랜드별 페이징 조회 -->
+    <select id="selectBrandProductPage" parameterType="map" resultType="toyproject.dto.ProductDto">
+        SELECT
+        P.PRODUCT_ID      AS productId,
+        P.BRAND_ID        AS brandId,
+        B.BRAND_NAME      AS brandName,     <!-- 필요하면 DTO에 필드 추가 -->
+        P.SUB_CATEGORY_ID AS subCategoryId,
+        P.PRODUCT_NAME    AS productName,
+        P.IMG             AS img,
+        P.SAILO           AS sailo,
+        P.MATERIAL        AS material,
+        P.COLOR           AS color,
+        P.AVG_SCORE       AS avgScore,
+        P.DETAIL_INFO     AS detailInfo,
+        P.PRICE           AS price,
+        P.BASIC_INFO      AS basicInfo,
+        P.IS_NEW          AS isNew,
+        P.IS_EVENT        AS isEvent
+        FROM PRODUCT P
+        JOIN BRAND B
+        ON P.BRAND_ID = B.BRAND_ID
+        WHERE P.BRAND_ID = #{brandId}
+        ORDER BY P.PRODUCT_ID DESC
+        LIMIT #{offset}, #{pageSize}
+    </select>
+
+
+    <!-- FOOTBALL SHOES: sub_category_id 또는 특정 컬럼으로 필터 -->
+    <select id="selectFootballProductCount" resultType="int">
+        SELECT COUNT(*)
+        FROM PRODUCT
+        WHERE SUB_CATEGORY_ID IN (/* 축구화에 해당하는 하위 카테고리 ID 목록 */)
+    </select>
+    <select id="selectFootballProductPage" resultType="toyproject.dto.ProductDto">
+        SELECT ...
+            FROM PRODUCT
+        WHERE SUB_CATEGORY_ID IN (/* … */)
+        ORDER BY PRODUCT_ID DESC
+            LIMIT #{offset}, #{pageSize}
+    </select>
+
+    <!-- APPAREL -->
+    <select id="selectApparelProductCount" resultType="int">
+        SELECT COUNT(*)
+        FROM PRODUCT
+        WHERE MAIN_CATEGORY = 'APPAREL'  <!-- 또는 해당 컬럼 조건 -->
+    </select>
+    <select id="selectApparelProductPage" resultType="toyproject.dto.ProductDto">
+        SELECT ...
+            FROM PRODUCT
+        WHERE MAIN_CATEGORY = 'APPAREL'
+        ORDER BY PRODUCT_ID DESC
+            LIMIT #{offset}, #{pageSize}
+    </select>
+
+    <!-- GOODS -->
+    <select id="selectGoodsProductCount" resultType="int">
+        SELECT COUNT(*)
+        FROM PRODUCT
+        WHERE MAIN_CATEGORY = 'GOODS'
+    </select>
+    <select id="selectGoodsProductPage" resultType="toyproject.dto.ProductDto">
+        SELECT ...
+            FROM PRODUCT
+        WHERE MAIN_CATEGORY = 'GOODS'
+        ORDER BY PRODUCT_ID DESC
+            LIMIT #{offset}, #{pageSize}
+    </select>
+
+    <select id="selectByMiddleCategory" resultType="toyproject.dto.ProductDto">
+        SELECT
+        p.PRODUCT_ID      AS productId,
+        p.BRAND_ID        AS brandId,
+        b.BRAND_NAME      AS brandName,     <!-- 필요하면 DTO에 필드 추가 -->
+        p.SUB_CATEGORY_ID AS subCategoryId,
+        p.PRODUCT_NAME    AS productName,
+        p.IMG             AS img,
+        p.PRICE           AS price
+      FROM PRODUCT p
+        JOIN BRAND b ON p.BRAND_ID = b.BRAND_ID
+        JOIN SMALL_CATEGORY sc
+        ON p.SUB_CATEGORY_ID = sc.SUB_CATEGORY_ID
+        <where>
+            <if test="midCategoryId != null">
+           sc.MID_CATEGORY_ID = #{midCategoryId}
+            </if>
+        </where>
+        ORDER BY p.PRODUCT_ID DESC
+        LIMIT #{offset}, #{limit}
+    </select>
+
+    <select id="countByMiddleCategory" resultType="int">
+        SELECT COUNT(*) FROM PRODUCT p
+        WHERE
+            #{midCategoryId} IS NULL
+        OR p.SUB_CATEGORY_ID IN (
+            SELECT SUB_CATEGORY_ID
+            FROM SMALL_CATEGORY
+            WHERE MID_CATEGORY_ID = #{midCategoryId}
+            )
+    </select>
+        <select id="selectClothes"
+                parameterType="map"
+                resultType="toyproject.dto.ProductDto">
+            SELECT
+            p.PRODUCT_ID      AS productId,
+            p.BRAND_ID        AS brandId,
+            b.BRAND_NAME      AS brandName,
+            p.SUB_CATEGORY_ID AS subCategoryId,
+            p.PRODUCT_NAME    AS productName,
+            p.IMG             AS img,
+            p.PRICE           AS price
+            FROM PRODUCT p
+            JOIN BRAND b ON p.BRAND_ID = b.BRAND_ID
+            JOIN SMALL_CATEGORY sc
+            ON p.SUB_CATEGORY_ID = sc.SUB_CATEGORY_ID
+            WHERE sc.MID_CATEGORY_ID IN
+            <foreach collection="midIds" item="id" open="(" separator="," close=")">
+                #{id}
+            </foreach>
+            ORDER BY p.PRODUCT_ID DESC
+            LIMIT #{offset}, #{limit}
+        </select>
+
+        <select id="countClothes"
+                parameterType="list"
+                resultType="int">
+            SELECT COUNT(*)
+            FROM PRODUCT p
+            JOIN SMALL_CATEGORY sc
+            ON p.SUB_CATEGORY_ID = sc.SUB_CATEGORY_ID
+            WHERE sc.MID_CATEGORY_ID IN
+            <foreach collection="list" item="id" open="(" separator="," close=")">
+                #{id}
+            </foreach>
+        </select>
+        <select id="selectByMiddleCategories"
+                parameterType="map"
+                resultType="toyproject.dto.ProductDto">
+            SELECT
+            p.PRODUCT_ID      AS productId,
+            p.BRAND_ID        AS brandId,
+            b.BRAND_NAME      AS brandName,
+            p.SUB_CATEGORY_ID AS subCategoryId,
+            p.PRODUCT_NAME    AS productName,
+            p.IMG             AS img,
+            p.PRICE           AS price
+            FROM PRODUCT p
+            JOIN BRAND b ON p.BRAND_ID = b.BRAND_ID
+            JOIN SMALL_CATEGORY sc
+            ON p.SUB_CATEGORY_ID = sc.SUB_CATEGORY_ID
+            <where>
+                <if test="midCategoryIds != null and !midCategoryIds.isEmpty()">
+                    sc.MID_CATEGORY_ID IN
+                    <foreach collection="midCategoryIds" item="id"
+                             open="(" separator="," close=")">
+                        #{id}
+                    </foreach>
+                </if>
+            </where>
+            ORDER BY p.PRODUCT_ID DESC
+            LIMIT #{offset}, #{limit}
+        </select>
+
+        <select id="countByMiddleCategories"
+                parameterType="map"
+                resultType="int">
+            SELECT COUNT(*)
+            FROM PRODUCT p
+            JOIN SMALL_CATEGORY sc
+            ON p.SUB_CATEGORY_ID = sc.SUB_CATEGORY_ID
+            <where>
+                <if test="midCategoryIds != null and !midCategoryIds.isEmpty()">
+                    sc.MID_CATEGORY_ID IN
+                    <foreach collection="midCategoryIds" item="id"
+                             open="(" separator="," close=")">
+                        #{id}
+                    </foreach>
+                </if>
+            </where>
+        </select>
+</mapper>
