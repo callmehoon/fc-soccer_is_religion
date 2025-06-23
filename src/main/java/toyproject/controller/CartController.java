@@ -1,19 +1,21 @@
 package toyproject.controller;
 
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import toyproject.dto.CartRequestDto;
-import toyproject.dto.CartResponseDto;
+import org.springframework.web.bind.annotation.*;
+import toyproject.controller.dto.*;
+import toyproject.controller.viewmodel.CartListViewModel;
 import toyproject.service.CartService;
-import toyproject.viewmodel.CartListViewModel;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
+@Slf4j
 @RequestMapping("/cart")
 @RequiredArgsConstructor
 public class CartController {
@@ -21,26 +23,57 @@ public class CartController {
     private final CartService cartService;
 
     @GetMapping("")
-    public String cart(@ModelAttribute CartRequestDto cartRequestDto, Model model) {
+    public String cart(@ModelAttribute CartRequestDto cartRequestDto, @ModelAttribute PageRequestDto pageRequestDto, Model model) {
 
-        System.out.println("카트 컨트롤러 진입");
+        log.info("Cart Controller _ 기본 페이지 진입");
 
-        CartRequestDto dummy = new CartRequestDto();
-        dummy.setUserId("U01357");
+        cartRequestDto.setUserId("U01357");
 
-        List<CartResponseDto> cartResponseDtoList = cartService.searchCart(dummy);
+        CartResponseDto cartInfo = cartService.searchCart(cartRequestDto, pageRequestDto);
 
-        System.out.print("서비스단 완료, 리스트값 가지고 컨트롤러 돌아옴");
+        PageResponseDto pageInfo = cartInfo.getPageResponseDto();
 
-        CartListViewModel cartListViewModel = CartListViewModel.builder().cartList(cartResponseDtoList)
+        PageResponseDto cartPageInfo = PageResponseDto.builder()
+                .page(pageInfo.getPage())
+                .size(pageInfo.getSize())
+                .totalElements(pageInfo.getTotalElements())
+                .totalPage(pageInfo.getTotalPage())
+                .first(pageInfo.isFirst())
+                .last(pageInfo.isLast()).
+                build();
+
+        CartListViewModel cartListViewModel = CartListViewModel.builder()
+                .cartPriceInfo(cartInfo.getPriceInfo())
+                .cartList(cartInfo.getCartItems())
+                .pageInfo(cartPageInfo)
                 .build();
-
-        System.out.println(cartListViewModel.toString());
 
         model.addAttribute("cartListViewModel", cartListViewModel);
 
         return "cart";
     }
+
+
+    @GetMapping(value = "/option/size" , produces = "application/json")
+    @ResponseBody
+    public List<SizeResponseDto> getAvailableSizes(@ModelAttribute SizeRequestDto sizeRequestDto){
+
+        log.info("Cart Controller _ /option/size");
+
+        return cartService.getSizesByProductId(sizeRequestDto);
+
+    }
+
+@PostMapping("/update")
+@ResponseBody
+    public ResponseEntity<Void> updateCart(@RequestBody CartUpdateRequestDto request) {
+
+    log.info("Cart Controller _ /update");
+    System.out.println(request.toString());
+    cartService.updateCartOption("U01357", request); // 내부적으로 삭제 후 insert 로직
+    return ResponseEntity.ok().build();
+}
+
 
 
 }

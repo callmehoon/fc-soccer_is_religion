@@ -1,7 +1,7 @@
-package toyproject.viewmodel;
+package toyproject.controller.viewmodel;
 
 import lombok.*;
-import toyproject.dto.TestReponseDto;
+import toyproject.controller.dto.TestReponseDto;
 
 import java.util.List;
 

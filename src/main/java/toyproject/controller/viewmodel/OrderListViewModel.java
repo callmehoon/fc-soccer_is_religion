@@ -1,4 +1,4 @@
-package toyproject.viewmodel;
+package toyproject.controller.viewmodel;
 
 import lombok.Builder;
 import lombok.Data;
