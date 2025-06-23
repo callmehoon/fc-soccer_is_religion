@@ -5,8 +5,9 @@ import lombok.Data;
 
 @Data
 @Builder
-public class CartQueryParam {
+public class UserCartIemQuantityQueryParam {
+
     private String userId;
-    private int offset;
+    private int productId;
     private int size;
 }

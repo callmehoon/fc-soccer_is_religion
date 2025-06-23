@@ -13,7 +13,7 @@
 </head>
 <body>
 <div class="container">
-    <h1 class="title">장바구니 ${cartListViewModel.cartList}</h1>
+    <h1 class="title">장바구니 </h1>
     <div class="cart-wrapper">
         <!-- 상품 목록 -->
         <div class="cart-items">
@@ -44,21 +44,42 @@
                                 </div>
                             </div>
                         </td>
-                        <td>
-                            <c:out value="${cart.productQuantity}"/>개<br/>
-                            <a href="#" onclick="openModal(event)"  data-product-id="${cart.productId}">옵션/수정변경</a>
-                        </td>
+                        <td class="${cart.stockQuantity == 0 ? 'sold-out' : ''}">
+                            <c:out value="${cart.cartProductQuantity}"/>개<br/>
+
+                            <c:choose>
+                                <c:when test="${cart.stockQuantity == 0}">
+                                    <span class="stock-warning">❌ 제품 품절</span>
+                                </c:when>
+                                <c:when test="${cart.cartProductQuantity > cart.stockQuantity}">
+                                    <span class="stock-warning">⚠️ 현재 남은 재고수량: ${cart.stockQuantity}</span>
+                                </c:when>
+                                <c:when test="${cart.stockQuantity < 5}">
+                                    <span class="stock-warning">🟡 남은 재고수량: ${cart.stockQuantity}</span>
+                                </c:when>
+                            </c:choose>
+
+                            <br/>
+                            <a href="#" onclick="openModal(event)"
+                               data-product-id="${cart.productId}"
+                               data-prev-size="${cart.size}"
+                               data-prev-quantity="${cart.cartProductQuantity}">
+                                옵션/수정변경
+                            </a></td>
                         <td>
                             <strong>
-                                <fmt:formatNumber value="${cart.productPrice * cart.productQuantity}" type="currency"
-                                                  currencySymbol="₩"/>
+                                <fmt:formatNumber value="${cart.productPrice * cart.cartProductQuantity}"
+                                                  type="number"
+                                                  />원
                             </strong>
                         </td>
                         <td>
                             할인 -
-                            <fmt:formatNumber value="${cart.productPrice * cart.productQuantity * 0.01}" type="number"/>원<br/>
+                            <fmt:formatNumber value="${cart.productPrice * cart.cartProductQuantity * 0.01}"
+                                              type="number"/>원<br/>
                             적립 +
-                            <fmt:formatNumber value="${cart.productPrice * cart.productQuantity * 0.01}" type="number"/>원
+                            <fmt:formatNumber value="${cart.productPrice * cart.cartProductQuantity * 0.01}"
+                                              type="number"/>원
                         </td>
                     </tr>
                 </c:forEach>
@@ -76,12 +97,40 @@
 
         <!-- 결제 정보 -->
         <div class="summary-box">
-            <h3>총 <strong>6</strong>개의 상품</h3>
-            <div class="summary-row">총 상품금액 <span>530,500원</span></div>
-            <div class="summary-row">총 할인금액 <span>-5,280원</span></div>
-            <div class="summary-row">총 배송비 <span>+3,000원</span></div>
+            <h3>
+                총 <strong>${cartListViewModel.cartPriceInfo.totalProductCount}</strong>개의 상품
+            </h3>
+
+            <div class="summary-row">
+                총 상품금액
+                <span>
+            <fmt:formatNumber value="${cartListViewModel.cartPriceInfo.totalPrice}" type="number"/>원
+        </span>
+            </div>
+
+            <div class="summary-row">
+                총 할인금액
+                <span>
+            -<fmt:formatNumber value="${cartListViewModel.cartPriceInfo.totalDiscount}" type="number"/>원
+        </span>
+            </div>
+
+            <div class="summary-row">
+                총 배송비
+                <span>+3,000원</span> <%-- 배송비가 고정이면 그대로 둬도 됨 --%>
+            </div>
+
             <hr/>
-            <div class="total-price">결제예상금액 <strong>528,220원</strong></div>
+
+            <div class="total-price">
+                결제예상금액
+                <strong>
+                    <fmt:formatNumber
+                            value="${cartListViewModel.cartPriceInfo.totalPrice - cartListViewModel.cartPriceInfo.totalDiscount + 3000}"
+                            type="number"/>원
+                </strong>
+            </div>
+
             <button class="btn black">전체상품 구매하기</button>
             <button class="btn white">선택상품 구매하기</button>
         </div>

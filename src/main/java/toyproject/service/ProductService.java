@@ -2,10 +2,7 @@ package toyproject.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import toyproject.dto.CartRequestDto;
-import toyproject.dto.CartResponseDto;
 import toyproject.dto.ProductResponseDto;
-import toyproject.mapper.CartMapper;
 import toyproject.mapper.ProductMapper;
 
 import java.util.List;

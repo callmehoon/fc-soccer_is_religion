@@ -3,10 +3,16 @@ package toyproject.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import toyproject.controller.dto.*;
 import toyproject.mapper.CartMapper;
-import toyproject.mapper.queryparam.CartQueryParam;
-import toyproject.mapper.result.CartResult;
+import toyproject.mapper.queryparam.UserCartByIDQueryParam;
+import toyproject.mapper.queryparam.UserCartDeleteQueryParam;
+import toyproject.mapper.queryparam.UserCartIemQuantityQueryParam;
+import toyproject.mapper.queryparam.UserCartUpdateQueryParam;
+import toyproject.mapper.result.SizeStockResult;
+import toyproject.mapper.result.UserCartPriceResult;
+import toyproject.mapper.result.UserCartResult;
 
 import java.util.List;
 
@@ -23,27 +29,35 @@ public class CartService {
         int currentpage = pageRequestDto.getPageOrDefault();
         int size = pageRequestDto.getSizeOrDefault();
 
-        CartQueryParam cartQueryParam = CartQueryParam.builder()
+        UserCartByIDQueryParam userCartByIDQueryParam = UserCartByIDQueryParam.builder()
                 .userId(requestDto.getUserId())
                 .offset((currentpage - 1) * size)
                 .size(size)
                 .build();
 
+        int total = cartMapper.findCartItemsCountByUserId(userCartByIDQueryParam);
 
-        int total = cartMapper.findCartItemsCountByUserId(cartQueryParam);
         int totalPage = total / size + 1;
 
+        List<UserCartResult> userUserCartResultList = cartMapper.findCartItemsByUserId(userCartByIDQueryParam);
 
-        List<CartResult> userCartResultList = cartMapper.findCartItemsByUserId(cartQueryParam);
-
-        List<CartInfoDto> userCartInfoList = userCartResultList.stream().map(cartResult -> CartInfoDto
-                .builder().productId(cartResult.getProductId())
-                .productImg(cartResult.getProductImg())
-                .productName(cartResult.getProductName())
-                .size(cartResult.getSize())
-                .productQuantity(cartResult.getProductQuantity())
-                .productPrice(cartResult.getProductPrice()).build()
+        List<CartInfoDto> userCartInfoList = userUserCartResultList.stream().map(userCartResult -> CartInfoDto
+                .builder().productId(userCartResult.getProductId())
+                .productImg(userCartResult.getProductImg())
+                .productName(userCartResult.getProductName())
+                .size(userCartResult.getSize())
+                .cartProductQuantity(userCartResult.getCartProductQuantity())
+                .stockQuantity(userCartResult.getStockQuantity())
+                .productPrice(userCartResult.getProductPrice()).build()
         ).toList();
+
+        UserCartPriceResult userCartPriceResult = cartMapper.findCartItemsPriceByUserId(userCartByIDQueryParam);
+
+        CartTotalPrice cartTotalPrice = CartTotalPrice.builder().
+                totalProductCount(userCartPriceResult.getTotalProductCount()).
+                totalPrice(userCartPriceResult.getTotalPrice()).
+                totalDiscount(userCartPriceResult.getTotalDiscount())
+                .build();
 
 
         PageResponseDto pageInfo = PageResponseDto.builder()
@@ -55,6 +69,7 @@ public class CartService {
                 .last(currentpage == totalPage).build();
 
         return CartResponseDto.builder()
+                .priceInfo(cartTotalPrice)
                 .cartItems(userCartInfoList)
                 .pageResponseDto(pageInfo)
                 .build();
@@ -62,18 +77,57 @@ public class CartService {
 
     }
 
-    public SizeResponseDto getSizesByProductId(SizeRequestDto sizeRequestDto) {
+    public List<SizeResponseDto> getSizesByProductId(SizeRequestDto sizeRequestDto) {
 
         log.info("CartService_getSizesByProductId 진입");
 
-        List<Integer> availableSizes = cartMapper.findAvailableSizesByProductId(sizeRequestDto.getProductId());
+        List<SizeStockResult> availableSizes = cartMapper.findAvailableSizesByProductId(sizeRequestDto.getProductId());
 
-        System.out.println(availableSizes);
+        log.info("availableSizes" + availableSizes);
 
-        SizeResponseDto sizeResponseDto = SizeResponseDto.builder().sizes(availableSizes).build();
+        List<SizeResponseDto> sizeResponseDtoList = availableSizes.stream().map(result -> SizeResponseDto.builder().size(result.getSize()).stockQuantity(result.getStockQuantity()).build()).toList();
 
-        return sizeResponseDto;
+        return sizeResponseDtoList;
 
+
+    }
+
+    @Transactional
+    public void updateCartOption(String userId, CartUpdateRequestDto dto) {
+        // 기존 항목 삭제
+        UserCartDeleteQueryParam userCartDeleteQueryParam = UserCartDeleteQueryParam
+                .builder()
+                .userId(userId)
+                .productId(dto.getProductId())
+                .size(dto.getPrevSize())
+                .build();
+
+        cartMapper.deleteCartItem(userCartDeleteQueryParam);
+
+        UserCartIemQuantityQueryParam userCartIemQuantityQueryParam = UserCartIemQuantityQueryParam.builder()
+                .userId(userId)
+                .productId(dto.getProductId())
+                .size(dto.getNewSize())
+                .build();
+
+        // 존재하면 cart 옵션 수량 업데이트 , 존재하지 않으면 cart 옵션 수량 insert
+
+        Integer sizeItemQuantity = cartMapper.findCartItemBySize(userCartIemQuantityQueryParam);
+
+        UserCartUpdateQueryParam userCartUpdateQueryParam = UserCartUpdateQueryParam
+                .builder()
+                .userId(userId)
+                .productId(dto.getProductId())
+                .size(dto.getNewSize())
+                .productQuantity(dto.getNewQuantity())
+                .build();
+
+        if (sizeItemQuantity == null) {
+            cartMapper.insertCartItem(userCartUpdateQueryParam);
+        } else {
+            userCartUpdateQueryParam.setQuantityToCartItem(sizeItemQuantity + dto.getNewQuantity());
+            cartMapper.updateCartItemQuantity(userCartUpdateQueryParam);
+        }
 
     }
 

@@ -4,10 +4,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import toyproject.controller.viewmodel.OrderListViewModel;
 import toyproject.dto.OrderRequestDto;
 import toyproject.dto.OrderResponseDto;
 import toyproject.service.OrderService;
-import toyproject.viewmodel.OrderListViewModel;
+
 
 import java.util.ArrayList;
 import java.util.List;

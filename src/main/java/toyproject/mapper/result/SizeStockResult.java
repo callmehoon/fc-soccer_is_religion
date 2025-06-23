@@ -1,16 +1,13 @@
-package toyproject.controller.dto;
+package toyproject.mapper.result;
 
 import lombok.Builder;
 import lombok.Data;
 
 @Data
 @Builder
-public class CartInfoDto {
+public class SizeStockResult {
     private int productId;
-    private String productImg;
     private String productName;
     private int size;
-    private int cartProductQuantity;
     private int stockQuantity;
-    private int productPrice;
 }

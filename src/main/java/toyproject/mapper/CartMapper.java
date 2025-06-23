@@ -1,13 +1,28 @@
 package toyproject.mapper;
 
-import toyproject.mapper.queryparam.CartQueryParam;
-import toyproject.mapper.result.CartResult;
+import toyproject.mapper.queryparam.UserCartDeleteQueryParam;
+import toyproject.mapper.queryparam.UserCartByIDQueryParam;
+import toyproject.mapper.queryparam.UserCartIemQuantityQueryParam;
+import toyproject.mapper.queryparam.UserCartUpdateQueryParam;
+import toyproject.mapper.result.SizeStockResult;
+import toyproject.mapper.result.UserCartPriceResult;
+import toyproject.mapper.result.UserCartResult;
 
 import java.util.List;
 
 public interface CartMapper {
-    public List<Integer> findAvailableSizesByProductId(int productId);
-    public int findCartItemsCountByUserId(CartQueryParam cartQueryParam);
-    public List<CartResult> findCartItemsByUserId(CartQueryParam cartQueryParam);
+    List<SizeStockResult> findAvailableSizesByProductId(int productId);
+
+    int findCartItemsCountByUserId(UserCartByIDQueryParam userCartByIDQueryParam);
+
+    List<UserCartResult> findCartItemsByUserId(UserCartByIDQueryParam userCartByIDQueryParam);
+
+    UserCartPriceResult findCartItemsPriceByUserId(UserCartByIDQueryParam userCartByIDQueryParam);
+    int findCartItemBySize(UserCartIemQuantityQueryParam userCartIemQuantityQueryParam);
+
+    void updateCartItemQuantity(UserCartUpdateQueryParam userCartUpdateQueryParam);
+
+    void deleteCartItem(UserCartDeleteQueryParam cartDeleteQueryParam);
+    void insertCartItem(UserCartUpdateQueryParam cartUpdateQueryParam);
 
 }
