@@ -2,7 +2,7 @@ package toyproject.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import toyproject.dto.ProductResponseDto;
+import toyproject.controller.dto.ProductResponseDto;
 import toyproject.mapper.ProductMapper;
 
 import java.util.List;

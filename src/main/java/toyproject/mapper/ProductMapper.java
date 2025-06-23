@@ -1,7 +1,9 @@
 package toyproject.mapper;
 
 
-import toyproject.dto.ProductResponseDto;
+
+import toyproject.controller.dto.ProductResponseDto;
+
 import java.util.List;
 import java.util.Map;
 

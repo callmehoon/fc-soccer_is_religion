@@ -4,7 +4,7 @@ package toyproject.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import toyproject.controller.dto.LoginUserDto;
-import toyproject.dto.RegisterRequestDto;
+import toyproject.controller.dto.RegisterRequestDto;
 import toyproject.mapper.UserMapper;
 
 @Service

@@ -17,7 +17,7 @@ public class MyBatisConfig {
     public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
         SqlSessionFactoryBean factory = new SqlSessionFactoryBean();
         factory.setDataSource(dataSource);
-        factory.setTypeAliasesPackage("toyproject.mapper, toyproject.dto");
+        factory.setTypeAliasesPackage("toyproject.mapper, toyproject.controller.dto");
 
         org.apache.ibatis.session.Configuration config = new org.apache.ibatis.session.Configuration();
         config.setMapUnderscoreToCamelCase(true);
