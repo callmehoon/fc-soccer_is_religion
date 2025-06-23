@@ -1,4 +1,4 @@
-package toyproject.dto;
+package toyproject.controller.dto;
 
 public class SmallCategoryDto {
     private Integer subCategoryId;       // SMALL_CATEGORY.SUB_CATEGORY_ID

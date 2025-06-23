@@ -5,11 +5,9 @@ import lombok.Data;
 
 @Data
 @Builder
-public class CartResponseDto {
+public class OrderResponseDto {
     private int    productId;
     private String productImg;
     private String productName;
-    private int    size;
-    private int    productQuantity;
     private int    productPrice;
 }

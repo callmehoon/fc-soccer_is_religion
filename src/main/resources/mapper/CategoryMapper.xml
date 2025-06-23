@@ -5,14 +5,14 @@
 
 <mapper namespace="toyproject.mapper.CategoryMapper">
 
-    <select id="selectAllBig" resultType="toyproject.dto.BigCategoryDto">
+    <select id="selectAllBig" resultType="toyproject.controller.dto.BigCategoryDto">
         SELECT MAJOR_CATEGORY_ID as majorCategoryId,
                MAJOR_CATEGORY    as majorCategoryName
         FROM BIG_CATEGORY
         ORDER BY MAJOR_CATEGORY_ID
     </select>
 
-    <select id="selectMiddleByBigId" parameterType="int" resultType="toyproject.dto.MiddleCategoryDto">
+    <select id="selectMiddleByBigId" parameterType="int" resultType="toyproject.controller.dto.MiddleCategoryDto">
         SELECT MID_CATEGORY_ID   as midCategoryId,
                MAJOR_CATEGORY_ID as majorCategoryId,
                MID_CATEGORY      as midCategoryName
@@ -21,7 +21,7 @@
         ORDER BY MID_CATEGORY_ID
     </select>
 
-    <select id="selectSmallByMiddleId" parameterType="int" resultType="toyproject.dto.SmallCategoryDto">
+    <select id="selectSmallByMiddleId" parameterType="int" resultType="toyproject.controller.dto.SmallCategoryDto">
         SELECT SUB_CATEGORY_ID    as subCategoryId,
                MID_CATEGORY_ID    as midCategoryId,
                SUB_CATEGORY       as subCategoryName

@@ -1,4 +1,4 @@
-package toyproject.dto;
+package toyproject.controller.dto;
 
 import java.util.List;
 

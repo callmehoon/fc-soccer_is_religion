@@ -12,7 +12,7 @@
     </select>
 
     <!-- ➋ NEW 상품 페이지 -->
-    <select id="selectNewProductPage" resultType="toyproject.dto.ProductDto">
+    <select id="selectNewProductPage" resultType="toyproject.controller.dto.ProductDto">
         SELECT
             PRODUCT_ID      AS productId,
             BRAND_ID        AS brandId,
@@ -42,7 +42,7 @@
     </select>
 
     <!-- 2) 브랜드별 페이징 조회 -->
-    <select id="selectBrandProductPage" parameterType="map" resultType="toyproject.dto.ProductDto">
+    <select id="selectBrandProductPage" parameterType="map" resultType="toyproject.controller.dto.ProductDto">
         SELECT
         P.PRODUCT_ID      AS productId,
         P.BRAND_ID        AS brandId,
@@ -74,7 +74,7 @@
         FROM PRODUCT
         WHERE SUB_CATEGORY_ID IN (/* 축구화에 해당하는 하위 카테고리 ID 목록 */)
     </select>
-    <select id="selectFootballProductPage" resultType="toyproject.dto.ProductDto">
+    <select id="selectFootballProductPage" resultType="toyproject.controller.dto.ProductDto">
         SELECT ...
             FROM PRODUCT
         WHERE SUB_CATEGORY_ID IN (/* … */)
@@ -88,7 +88,7 @@
         FROM PRODUCT
         WHERE MAIN_CATEGORY = 'APPAREL'  <!-- 또는 해당 컬럼 조건 -->
     </select>
-    <select id="selectApparelProductPage" resultType="toyproject.dto.ProductDto">
+    <select id="selectApparelProductPage" resultType="toyproject.controller.dto.ProductDto">
         SELECT ...
             FROM PRODUCT
         WHERE MAIN_CATEGORY = 'APPAREL'
@@ -102,7 +102,7 @@
         FROM PRODUCT
         WHERE MAIN_CATEGORY = 'GOODS'
     </select>
-    <select id="selectGoodsProductPage" resultType="toyproject.dto.ProductDto">
+    <select id="selectGoodsProductPage" resultType="toyproject.controller.dto.ProductDto">
         SELECT ...
             FROM PRODUCT
         WHERE MAIN_CATEGORY = 'GOODS'
@@ -110,7 +110,7 @@
             LIMIT #{offset}, #{pageSize}
     </select>
 
-    <select id="selectByMiddleCategory" resultType="toyproject.dto.ProductDto">
+    <select id="selectByMiddleCategory" resultType="toyproject.controller.dto.ProductDto">
         SELECT
         p.PRODUCT_ID      AS productId,
         p.BRAND_ID        AS brandId,
@@ -144,7 +144,7 @@
     </select>
         <select id="selectClothes"
                 parameterType="map"
-                resultType="toyproject.dto.ProductDto">
+                resultType="toyproject.controller.dto.ProductDto">
             SELECT
             p.PRODUCT_ID      AS productId,
             p.BRAND_ID        AS brandId,
@@ -179,7 +179,7 @@
         </select>
         <select id="selectByMiddleCategories"
                 parameterType="map"
-                resultType="toyproject.dto.ProductDto">
+                resultType="toyproject.controller.dto.ProductDto">
             SELECT
             p.PRODUCT_ID      AS productId,
             p.BRAND_ID        AS brandId,

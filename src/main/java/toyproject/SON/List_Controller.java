@@ -5,8 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import toyproject.dto.BigCategoryDto;
-import toyproject.dto.ProductDto;
+import toyproject.controller.dto.BigCategoryDto;
+import toyproject.controller.dto.ProductDto;
 import toyproject.service.CategoryService;
 import toyproject.service.ListService;
 

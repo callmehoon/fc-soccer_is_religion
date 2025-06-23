@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import toyproject.dto.ProductDto;
+import toyproject.controller.dto.ProductDto;
 
 @Mapper
 public interface ListMapper {

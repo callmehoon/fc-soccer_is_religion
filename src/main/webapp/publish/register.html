@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>축구는 종교다</title>
-    <link rel="stylesheet" href="login_new.css"/>
+    <link rel="stylesheet" href="register.css"/>
 </head>
 <body>
 <div class="container">
@@ -65,8 +65,22 @@
 
     <div class="section-title">약관동의</div>
     <div class="agreements">
-        <label><input type="checkbox"> 카포스토어의 모든 약관을 확인하고 전체 동의합니다. <span class="note">(선택항목도 포함)</span></label>
-        <label><input type="checkbox"> [필수] 이용약관</label>
+        <label>
+            <input type="checkbox"> 카포스토어의 모든 약관을 확인하고 전체 동의합니다.
+            <span class="note">(선택항목도 포함)</span>
+        </label>
+
+        <div class="agreement-item">
+            <label><input type="checkbox"> [필수] 이용약관</label>
+            <button class="toggle-btn" onclick="toggleTerms('termsContent1')">전체보기 ▼</button>
+            <div id="termsContent1" class="terms-content">
+                <p><strong>제1조 (목적)</strong></p>
+                <p>이 약관은 카포스토어가 제공하는 서비스 이용에 관한 조건 및 절차 등 필요한 사항을 규정합니다.</p>
+                <p><strong>제2조 (정의)</strong></p>
+                <p>... 이하 생략 ...</p>
+            </div>
+        </div>
+
         <label><input type="checkbox"> [필수] 개인정보 수집 및 이용</label>
         <label><input type="checkbox"> [필수] 개인정보 처리 위탁 동의</label>
         <label><input type="checkbox"> [선택] SMS 수신을 동의하시겠습니까?</label>

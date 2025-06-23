@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import toyproject.dto.ProductDto;
+import toyproject.controller.dto.ProductDto;
 import toyproject.mapper.ListMapper;
 import toyproject.mapper.ProductOptionMapper;
 
