@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
         import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import toyproject.dto.LoginUserDto;
+import toyproject.controller.dto.LoginUserDto;
 import toyproject.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;

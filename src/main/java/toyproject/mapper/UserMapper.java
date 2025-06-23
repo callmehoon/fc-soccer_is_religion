@@ -2,7 +2,7 @@ package toyproject.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 import toyproject.dto.RegisterRequestDto;
-import toyproject.dto.LoginUserDto;
+import toyproject.controller.dto.LoginUserDto;
 
 @Mapper
 public interface UserMapper {
