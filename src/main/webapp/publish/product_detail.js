@@ -4,6 +4,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const productPriceInput = document.getElementById('productPrice');
     const basePrice = parseInt(productPriceInput.value, 10);  // 원가격
     const cartBtn = document.querySelector('.btn.cart');
+    const cartModal = document.getElementById('cartModal');
+    const closeModalBtn = document.getElementById('closeModal');
+    const goCartBtn = document.getElementById('goCart');
     const buyBtn = document.querySelector('.btn.buy');
     const totalPriceEl = document.querySelector('.total-price');
 
@@ -127,18 +130,28 @@ document.addEventListener("DOMContentLoaded", function () {
             alert('상품이 선택되지 않았습니다.');
             return;
         }
-        alert('장바구니에 추가되었습니다.');
-        // 여기서 스프링으로 전송, form으로 처리
+        //모달 띄우기
+        cartModal.style.display='block';
     });
+
+    closeModalBtn.addEventListener('click',() => {
+        cartModal.style.display='none';
+    });
+
+    goCartBtn.addEventListener('click',() => {
+        // 장바구니 페이지로 이동
+    })
 
     buyBtn.addEventListener('click', () => {
         //구매하기 버튼 클릭 시
+        //로그인이 안되어 있으면 로그인 페이지로 이동
         if (!hasSelectedItems()) {
             //선택된 상품이 없으면 경고 후 종료
             alert('상품이 선택되지 않았습니다.');
             return;
         }
         alert('구매 페이지로 이동합니다.');
+        //구매하기 버튼 클릭 시 바로 이동
         //  여기서 스프링으로 전송, form으로 처리
     });
 
