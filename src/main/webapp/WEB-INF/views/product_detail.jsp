@@ -7,7 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -30,7 +30,8 @@
             <p>${productDto.brandName}</p>
             <h2 class="product-title">
                 ${productDto.productName}<br>
-                ${productDto.productPrice}원
+                    <fmt:formatNumber value="${productDto.productPrice}" type="number" />원
+                    <input type="hidden" id="productPrice" value="${productDto.productPrice}">
             </h2>
 
             <ul class="product-info">
@@ -44,40 +45,26 @@
                 <div class="size-label">사이즈</div>
 
                 <div class="size-options">
-                    <button class="size-btn">XS</button>
-                    <button class="size-btn">S</button>
-                    <button class="size-btn ">M</button>
-                    <button class="size-btn">L</button>
-                    <button class="size-btn">XL</button>
-                    <button class="size-btn">2XL</button>
-                    <button class="size-btn">3XL</button>
-                    <button class="size-btn">4XL</button>
+
+                    <c:forEach var="size" items="${sizeList}">
+                        <button class="size-btn" data-stock="${size.stock}">${size.size}</button>
+                    </c:forEach>
+
                 </div>
             </div>
 
             <!-- 사이즈 선택 후 노출되는 상품 요약 영역 -->
-            <div class="selected-product">
-                <div class="selected-info">
-                    <span>M (0원)</span>
-
-                    <div class="quantity">
-                        <button>-</button>
-                        <span>1</span>
-                        <button>+</button>
-                    </div>
-                    <span class="price">${productDto.productPrice}원</span>
-                    <button class="remove">×</button>
-                </div>
-            </div>
+            <div class="selected-product"></div>
 
             <div class="total">
                 총 상품금액 <span class="total-price">139,000원</span>
             </div>
 
             <div class="buttons">
-                <button class="btn cart">장바구니</button>
-                <button class="btn buy">구매하기</button>
+                <button type="submit" class="btn cart">장바구니</button> <!-- 장바구니 버튼 클릭시 화면 이동위해 type="submit" 추가 by 홍성훈 -->
+                <button type="submit" class="btn buy">구매하기</button> <!-- 구매하기 버튼 클릭시 화면 이동위해 type="submit" 추가 by 홍성훈 -->
             </div>
+
         </div>
     </div>
     <div id="detail">
@@ -164,14 +151,7 @@
 </div>
 
 
-<!-- ✅ 모달 구조 -->
-<div id="cartModal" class="modal" style="display: none;">
-    <div class="modal-content">
-        <p>상품이 장바구니에 담겼습니다.<br>바로 확인하시겠습니까?</p>
-        <button id="goCart">확인</button>
-        <button id="closeModal">취소</button>
-    </div>
-</div>
+
 
 
 <script src="<%= request.getContextPath() %>/publish/product_detail.js" defer></script>

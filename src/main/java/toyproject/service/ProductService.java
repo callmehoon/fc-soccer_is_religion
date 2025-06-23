@@ -9,6 +9,7 @@ import toyproject.mapper.CartMapper;
 import toyproject.mapper.ProductMapper;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -20,6 +21,11 @@ public class ProductService {
         ProductResponseDto productDetail = productMapper.selectProductDetail(productResponseDto.getProductID());
 
         return productDetail;
+    }
+    public List<Map<String,Object>> productSize(ProductResponseDto productResponseDto) {
+        List<Map<String,Object>> productSize = productMapper.productSize(productResponseDto.getProductID());
+
+        return productSize;
 
 
     }

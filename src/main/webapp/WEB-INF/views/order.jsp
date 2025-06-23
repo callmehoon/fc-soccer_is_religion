@@ -44,8 +44,8 @@
                                 <td class="center">1개</td>
                                 <td class="center"><fmt:formatNumber value="${orderList.productPrice}" type="number"/>원</td>
                                 <td style="width: 110px">
-                                    <div class="info-line">할인 <span class="val">-<fmt:formatNumber value="${orderList.productPrice * 0.01}" type="number" maxFractionDigits="0"/>원</span></div>
-                                    <div class="info-line">적립 <span class="val">+<fmt:formatNumber value="${orderList.productPrice * 0.01}" type="number" maxFractionDigits="0"/>원</span></div>
+                                    <div class="info-line">할인 <span class="val">-<fmt:formatNumber value="${((orderList.productPrice * 0.01 + 9) - ((orderList.productPrice * 0.01 + 9) % 10))}" type="number" maxFractionDigits="0"/>원</span></div>
+                                    <div class="info-line">적립 <span class="val">+<fmt:formatNumber value="${((orderList.productPrice * 0.01 + 9) - ((orderList.productPrice * 0.01 + 9) % 10))}" type="number" maxFractionDigits="0"/>원</span></div>
                                 </td>
 
                                 <c:if test="${status.first}">
@@ -248,7 +248,7 @@
                 <input type="checkbox" id="order_agree" name="order_agree" value="is_agree"/>
                 (필수) 구매하실 상품의 결제정보를 확인하였으며, 구매진행에 동의합니다.
             </label>
-            <button type="submit" class="btn-black">결제하기</button>
+            <button type="submit" class="btn-order">결제하기</button>
         </form>
     </div>
 </div>

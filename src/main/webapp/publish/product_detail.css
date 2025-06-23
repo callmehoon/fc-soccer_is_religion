@@ -126,17 +126,21 @@ a{
 
 /* 사이즈 선택 후 표시되는 선택 정보 */
 .selected-product {
-    border: 1px solid #ccc;
+
     padding: 10px;
     margin-bottom: 20px;
 }
 
 .selected-info {
-    display: flex;
+    display: grid;
     align-items: center;
-    justify-content: space-between;
+    grid-template-columns: 130px 120px 120px 50px;
     gap: 10px;
     font-size: 14px;
+}
+
+.price{
+    text-align: right;
 }
 
 .coupon {
@@ -154,6 +158,8 @@ a{
 .quantity button {
     width: 24px;
     height: 24px;
+    border:none;
+    font-size: 18px;
 }
 
 .price {
