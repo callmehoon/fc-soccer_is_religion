@@ -109,3 +109,11 @@ select {
     font-size: 13px;
     color: gray;
 }
+
+
+<!-- 이메일 -->
+.error-msg {
+    color: red;
+    font-size: 13px;
+    margin-top: 5px;
+}
