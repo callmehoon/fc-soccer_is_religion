@@ -150,7 +150,13 @@
     </div>
 </div>
 
-
+<div id="cartModal" class="modal" style="display: none;">
+    <div class="modal-content">
+        <p>상품이 장바구니에 담겼습니다.<br>바로 확인하시겠습니까?</p>
+        <button id="goCart">확인</button>
+        <button id="closeModal">취소</button>
+    </div>
+</div>
 
 
 
