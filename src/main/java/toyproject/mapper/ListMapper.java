@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import toyproject.dto.ProductDto;
 
 @Mapper
-public interface ProductMapper {
+public interface ListMapper {
     // NEW
     int selectNewProductCount(); //NEW 상품 전체개수
     List<ProductDto> selectNewProductPage(@Param("offset") int offset,

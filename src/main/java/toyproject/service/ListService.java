@@ -6,21 +6,20 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestParam;
 import toyproject.dto.ProductDto;
-import toyproject.mapper.ProductMapper;
+import toyproject.mapper.ListMapper;
 import toyproject.mapper.ProductOptionMapper;
 
 @Service
-public class ProductService {
-    private final ProductMapper mapper;
-    private final ProductMapper productMapper;
+public class ListService {
+    private final ListMapper mapper;
+    private final ListMapper listMapper;
     private final ProductOptionMapper productOptionMapper;
 
     @Autowired
-    public ProductService(ProductMapper mapper, ProductMapper productMapper, ProductOptionMapper productOptionMapper) {
+    public ListService(ListMapper mapper, ListMapper listMapper, ProductOptionMapper productOptionMapper) {
         this.mapper = mapper;
-        this.productMapper = productMapper;
+        this.listMapper = listMapper;
         this.productOptionMapper = productOptionMapper;
     }
 
@@ -36,7 +35,7 @@ public class ProductService {
     @Transactional(readOnly = true)
     public List<ProductDto> getNewPage(int pageNum, int pageSize) {
         int offset = (pageNum - 1) * pageSize;
-        List<ProductDto> list = productMapper.selectNewProductPage(offset, pageSize);
+        List<ProductDto> list = listMapper.selectNewProductPage(offset, pageSize);
 
         // 각 상품마다 옵션 사이즈를 "/"로 합쳐서 DTO에 세팅
         for (ProductDto p : list) {
@@ -76,10 +75,10 @@ public class ProductService {
         if(offset < 0){
             offset=0;
         }
-        return productMapper.selectByMiddleCategory(midCategoryId, offset, size);
+        return listMapper.selectByMiddleCategory(midCategoryId, offset, size);
     }
     public int countByMiddleCategory(Integer midCategoryId) {
-        return productMapper.countByMiddleCategory(midCategoryId);
+        return listMapper.countByMiddleCategory(midCategoryId);
     }
 
 

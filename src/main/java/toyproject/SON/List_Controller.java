@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import toyproject.dto.BigCategoryDto;
 import toyproject.dto.ProductDto;
 import toyproject.service.CategoryService;
-import toyproject.service.ProductService;
+import toyproject.service.ListService;
 
 import java.util.List;
 import org.slf4j.Logger;
@@ -17,16 +17,16 @@ import org.slf4j.LoggerFactory;
 @Controller
 public class List_Controller {
     private static final Logger log = LoggerFactory.getLogger(List_Controller.class);
-    private final ProductService service;
+    private final ListService service;
     private final CategoryService categoryService;
-    private final ProductService productService;
+    private final ListService listService;
 
     @Autowired
-    public List_Controller(ProductService service,
-                           CategoryService categoryService, ProductService productService) {
+    public List_Controller(ListService service,
+                           CategoryService categoryService, ListService listService) {
         this.service = service;
         this.categoryService = categoryService;
-        this.productService = productService;
+        this.listService = listService;
     }
 
     /** 모든 요청에 공통으로 넘어갈 카테고리 트리 */
@@ -110,8 +110,8 @@ public class List_Controller {
                                 int limit = size;
                                 //midCategoryId 로 필터링된 상품 리스트
                                 List<ProductDto> list =
-                                        productService.getByMiddleCategory(midCategoryId, offset, limit);
-                                int total = productService.countByMiddleCategory(midCategoryId);
+                                        listService.getByMiddleCategory(midCategoryId, offset, limit);
+                                int total = listService.countByMiddleCategory(midCategoryId);
 
                                 model.addAttribute("productList", list);
                                 model.addAttribute("midCategoryId", midCategoryId);
