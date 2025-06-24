@@ -38,10 +38,10 @@
                                     <img src="${orderList.productImg}" alt="상품이미지">
                                     <div class="info-text">
                                         <span class="name">${orderList.productName}</span>
-                                        <span class="option">사이즈: 275</span>
+                                        <span class="option">사이즈: ${orderList.size}</span>
                                     </div>
                                 </td>
-                                <td class="center">1개</td>
+                                <td class="center">${orderList.quantity}개</td>
                                 <td class="center"><fmt:formatNumber value="${orderList.productPrice}" type="number"/>원</td>
                                 <td style="width: 110px">
                                     <div class="info-line">할인 <span class="val">-<fmt:formatNumber value="${((orderList.productPrice * 0.01 + 9) - ((orderList.productPrice * 0.01 + 9) % 10))}" type="number" maxFractionDigits="0"/>원</span></div>
