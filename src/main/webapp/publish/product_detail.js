@@ -142,18 +142,58 @@ document.addEventListener("DOMContentLoaded", function () {
         // 장바구니 페이지로 이동
     })
 
+
     buyBtn.addEventListener('click', () => {
-        //구매하기 버튼 클릭 시
-        //로그인이 안되어 있으면 로그인 페이지로 이동
-        if (!hasSelectedItems()) {
-            //선택된 상품이 없으면 경고 후 종료
+        const productIdInput = document.getElementById('productId');
+        if (!productIdInput) {
+            alert('상품 ID를 찾을 수 없습니다.');
+            return;
+        }
+
+        const productId = parseInt(productIdInput.value);
+        const selectedItems = [];
+
+        document.querySelectorAll('.selected-info').forEach(item => {
+            const size = parseInt(item.getAttribute('data-size'));
+            const quantity = parseInt(item.querySelector('.count').innerText);
+
+            selectedItems.push({
+                productId: productId,
+                size: size,
+                quantity: quantity
+            });
+        });
+
+        if (selectedItems.length === 0) {
             alert('상품이 선택되지 않았습니다.');
             return;
         }
-        alert('구매 페이지로 이동합니다.');
-        //구매하기 버튼 클릭 시 바로 이동
-        //  여기서 스프링으로 전송, form으로 처리
+
+        fetch('/order/prepare', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            // 백엔드에 맞춰 key 이름을 productId로 맞춤
+            body: JSON.stringify({ productId: selectedItems })
+        })
+            .then(response => {
+                if (response.redirected) {
+                    window.location.href = response.url;
+                } else if (response.ok) {
+                    window.location.href = '/order';
+                } else {
+                    alert('서버 오류가 발생했습니다.');
+                }
+            })
+            .catch(error => {
+                console.error('fetch 오류:', error);
+                alert('요청 중 오류가 발생했습니다.');
+            });
     });
+
+
+
 
     // 탭 이동 (상세정보/리뷰/문의)
     document.querySelectorAll(".scroll_move").forEach(function (el) {
