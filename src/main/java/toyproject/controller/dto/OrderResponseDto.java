@@ -9,5 +9,7 @@ public class OrderResponseDto {
     private int    productId;
     private String productImg;
     private String productName;
+    private int    size;
+    private int    quantity;
     private int    productPrice;
 }

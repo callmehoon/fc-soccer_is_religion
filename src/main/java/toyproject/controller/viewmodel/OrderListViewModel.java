@@ -10,5 +10,5 @@ import java.util.List;
 @Data
 @Builder
 public class OrderListViewModel {
-    List<OrderResponseDto> orderList;
+    private List<OrderResponseDto> orderList;
 }
