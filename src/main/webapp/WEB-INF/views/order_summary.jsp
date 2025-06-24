@@ -12,11 +12,11 @@
 <%-- 1. [추가] Controller의 Model 데이터를 JavaScript 객체로 변환하는 스크립트 --%>
 <script>
     // JSTL의 escapeXml 기능을 비활성화하여 JSON 문자열이 깨지지 않도록 합니다.
-    const rawProductsJson = `<c:out value='${orderSummary.products}' escapeXml='false'/>`;
+
 
     const orderSummaryData = {
         // JSON.parse를 통해 문자열을 실제 JavaScript 객체 배열로 변환합니다.
-        products: JSON.parse(rawProductsJson || '[]'),
+        products: ${orderSummary.products},
         ordererName: '${orderSummary.ordererName}',
         ordererAddress: '${orderSummary.ordererAddress}',
         ordererDetailAddress: '${orderSummary.ordererDetailAddress}',
