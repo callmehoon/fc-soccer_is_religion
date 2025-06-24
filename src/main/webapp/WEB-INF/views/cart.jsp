@@ -29,8 +29,8 @@
                 </thead>
                 <tbody>
                 <c:forEach var="cart" items="${cartListViewModel.cartList}">
-                    <tr>
-                        <td><input type="checkbox"/></td>
+                    <tr data-product-id="${cart.productId}">
+                        <td><input type="checkbox" class="cart-item-checkbox"/></td>
                         <td>
                             <div class="product-info">
                                 <img src="${cart.productImg}" alt="상품 이미지">
@@ -70,7 +70,7 @@
                             <strong>
                                 <fmt:formatNumber value="${cart.productPrice * cart.cartProductQuantity}"
                                                   type="number"
-                                                  />원
+                                />원
                             </strong>
                         </td>
                         <td>
@@ -132,7 +132,8 @@
             </div>
 
             <button class="btn black">전체상품 구매하기</button>
-            <button class="btn white">선택상품 구매하기</button>
+            <button class="btn white" id="purchaseSelectedBtn">선택상품 구매하기</button>
+
         </div>
 
     </div>

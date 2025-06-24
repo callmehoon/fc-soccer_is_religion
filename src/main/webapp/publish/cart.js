@@ -138,6 +138,26 @@ document.querySelector(".btn.confirm").addEventListener("click", function () {
         });
 });
 
+document.getElementById("purchaseSelectedBtn").addEventListener("click", () => {
+    const selectedProductIds = [];
+
+    document.querySelectorAll(".cart-item-checkbox:checked").forEach(cb => {
+        const productId = cb.closest("tr").dataset.productId;
+        if (productId) selectedProductIds.push(productId);
+    });
+
+    if (selectedProductIds.length === 0) {
+        alert("상품을 선택해주세요.");
+        return;
+    }
+
+    // GET 쿼리스트링 만들기
+    const query = selectedProductIds.map(id => `productId=${id}`).join("&");
+
+    // 주문 페이지 이동
+    window.location.href = `/order?${query}`;
+});
+
 function renderSizeButtons(dataList, prevSize, prevQuantity) {
     sizeStockMap.clear(); // 기존 데이터 초기화
 
