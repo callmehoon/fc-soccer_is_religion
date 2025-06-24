@@ -37,7 +37,6 @@ public BigCategoryDto() {}
     public void setMiddles(List<MiddleCategoryDto> middles) {
         this.middles = middles;
     }
-
     @Override
     public String toString() {
         return "BigCategoryDto{" +

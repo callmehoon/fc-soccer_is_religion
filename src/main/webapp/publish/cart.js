@@ -139,23 +139,50 @@ document.querySelector(".btn.confirm").addEventListener("click", function () {
 });
 
 document.getElementById("purchaseSelectedBtn").addEventListener("click", () => {
-    const selectedProductIds = [];
+    const selectedItems = [];
 
     document.querySelectorAll(".cart-item-checkbox:checked").forEach(cb => {
-        const productId = cb.closest("tr").dataset.productId;
-        if (productId) selectedProductIds.push(productId);
+        const row = cb.closest("tr");
+
+        const productId = parseInt(row.dataset.productId);
+        const sizeText = row.querySelector(".product-info").innerText.match(/사이즈\s*:\s*(\d+|Free)/i);
+        const size = sizeText && sizeText[1] === "Free" ? 0 : parseInt(sizeText[1]);
+        const quantity = parseInt(row.querySelector("td:nth-child(3)").innerText);
+
+        selectedItems.push({
+            productId,
+            size,
+            quantity
+        });
     });
 
-    if (selectedProductIds.length === 0) {
+    if (selectedItems.length === 0) {
         alert("상품을 선택해주세요.");
         return;
     }
 
-    // GET 쿼리스트링 만들기
-    const query = selectedProductIds.map(id => `productId=${id}`).join("&");
+    const payload = {
+        productId: selectedItems
+    };
 
-    // 주문 페이지 이동
-    window.location.href = `/order?${query}`;
+    fetch("/order/prepare", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(payload)
+    })
+        .then(res => {
+            if (res.redirected) {
+                window.location.href = res.url; // 보통은 /order 로 리디렉션됨
+            } else {
+                alert("주문 페이지 이동 실패");
+            }
+        })
+        .catch(err => {
+            console.error("주문 요청 실패", err);
+            alert("요청 중 문제가 발생했습니다.");
+        });
 });
 
 function renderSizeButtons(dataList, prevSize, prevQuantity) {

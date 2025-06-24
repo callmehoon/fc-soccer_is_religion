@@ -8,9 +8,7 @@ import toyproject.controller.dto.OrderItemRequestDto;
 import toyproject.controller.dto.OrderRequestDto;
 import toyproject.controller.dto.OrderResponseDto;
 import toyproject.controller.viewmodel.OrderListViewModel;
-
 import toyproject.service.OrderService;
-
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
@@ -27,46 +25,51 @@ public class OrderController {
 
     // 주문 페이지: 세션에 저장된 주문 정보를 기반으로 ViewModel 구성
     @GetMapping("")
-    public String order(HttpSession session, Model model){
+    public String order(HttpSession session, Model model) {
         OrderRequestDto orderRequestDto = (OrderRequestDto) session.getAttribute("orderRequestDto");
 
         // 상품 id 만 추출해서 DB 조회
-        List<OrderResponseDto> orderResponseDtoList = orderService.searchProducts(orderRequestDto);
+        List<Integer> productIdList = orderRequestDto.getProductId().stream()
+                .map(OrderItemRequestDto::getProductId)
+                .distinct()
+                .toList();
 
-        // session에서 정보 꺼내서 response랑 조합해서 조합데이터 만들기
-        // 상품 수량,사이즈 정보는 세션에 존재 db 조회 정보랑 세션 정보 합쳐서 리스트 만들기
+        List<OrderResponseDto> orderResponseDtoList = orderService.searchProducts(productIdList);
 
-        // OrderRequestDto에서 productId를 키로 하는 Map 생성 (수량, 사이즈 정보)
-        Map<Integer, OrderItemRequestDto> sessionDataMap = new HashMap<>();
-        for (OrderItemRequestDto item : orderRequestDto.getProductId()) {
-            sessionDataMap.put(item.getProductId(), item);
+        // 3. Map<productId, DB상품정보> 생성
+        Map<Integer, OrderResponseDto> productInfoMap = new HashMap<>();
+        for (OrderResponseDto product : orderResponseDtoList) {
+            productInfoMap.put(product.getProductId(), product);
         }
 
-        // DB 조회 결과와 세션 데이터를 합쳐서 최종 주문 리스트 생성
+        // 4. 세션에 저장된 요청 기준으로 병합
         List<OrderResponseDto> finalOrderList = new ArrayList<>();
-        for (OrderResponseDto dbProduct : orderResponseDtoList) {
-            OrderItemRequestDto sessionItem = sessionDataMap.get(dbProduct.getProductId());
+        for (OrderItemRequestDto sessionItem : orderRequestDto.getProductId()) {
+            OrderResponseDto dbProduct = productInfoMap.get(sessionItem.getProductId());
 
-            if (sessionItem != null) {
-                // DB 정보 + 세션 정보를 합친 새로운 OrderResponseDto 생성
+            if (dbProduct != null) {
                 OrderResponseDto mergedOrder = OrderResponseDto.builder()
                         .productId(dbProduct.getProductId())
                         .productImg(dbProduct.getProductImg())
                         .productName(dbProduct.getProductName())
                         .productPrice(dbProduct.getProductPrice())
                         .quantity(sessionItem.getQuantity())
-                        .size(sessionItem.getSize())
+                        .size(sessionItem.getSize()) // 요청된 사이즈
                         .build();
 
                 finalOrderList.add(mergedOrder);
+            } else {
+                System.out.println("DB에 존재하지 않는 상품ID: " + sessionItem.getProductId());
             }
         }
 
-        // ViewModel 구성 후 뷰에 전달 - 합쳐진 데이터 사용
+        // 5. ViewModel 구성
         OrderListViewModel orderListViewModel = OrderListViewModel.builder()
                 .orderList(finalOrderList)
                 .build();
+
         model.addAttribute("orderListViewModel", orderListViewModel);
+
 
         return "order";
     }

@@ -5,7 +5,7 @@
 
 <mapper namespace="toyproject.mapper.OrderMapper">
 
-    <select id="searchProducts" parameterType="java.util.List" resultType="OrderResponseDto">
+    <select id="searchProducts" parameterType="java.util.List" resultType="OrderResult">
         SELECT PRODUCT_ID AS productId,
         IMG AS productImg,
         PRODUCT_NAME AS productName,
