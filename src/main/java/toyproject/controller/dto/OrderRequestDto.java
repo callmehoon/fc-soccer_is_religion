@@ -1,4 +1,4 @@
-package toyproject.controller.dto;;
+package toyproject.controller.dto;
 
 import lombok.Data;
 
