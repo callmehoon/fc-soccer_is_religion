@@ -2,7 +2,7 @@ package toyproject.mapper;
 
 import toyproject.mapper.queryparam.UserCartDeleteQueryParam;
 import toyproject.mapper.queryparam.UserCartByIDQueryParam;
-import toyproject.mapper.queryparam.UserCartIemQuantityQueryParam;
+import toyproject.mapper.queryparam.UserCartItemQuantityQueryParam;
 import toyproject.mapper.queryparam.UserCartUpdateQueryParam;
 import toyproject.mapper.result.SizeStockResult;
 import toyproject.mapper.result.UserCartPriceResult;
@@ -18,11 +18,12 @@ public interface CartMapper {
     List<UserCartResult> findCartItemsByUserId(UserCartByIDQueryParam userCartByIDQueryParam);
 
     UserCartPriceResult findCartItemsPriceByUserId(UserCartByIDQueryParam userCartByIDQueryParam);
-    int findCartItemBySize(UserCartIemQuantityQueryParam userCartIemQuantityQueryParam);
+    Integer findCartItemBySize(UserCartItemQuantityQueryParam userCartItemQuantityQueryParam);
 
     void updateCartItemQuantity(UserCartUpdateQueryParam userCartUpdateQueryParam);
 
     void deleteCartItem(UserCartDeleteQueryParam cartDeleteQueryParam);
+    void deleteCartItems(UserCartDeleteQueryParam cartDeleteQueryParam);
     void insertCartItem(UserCartUpdateQueryParam cartUpdateQueryParam);
 
 }

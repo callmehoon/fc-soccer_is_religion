@@ -46,7 +46,7 @@
         WHERE i.PRODUCT_ID = #{productId}
     </select>
 
-    <select id="findCartItemBySize" parameterType="UserCartIemQuantityQueryParam" resultType="java.lang.Integer">
+    <select id="findCartItemBySize" parameterType="UserCartItemQuantityQueryParam" resultType="java.lang.Integer">
         SELECT PRODUCT_QUANTITY AS productQuantity
         FROM CART
         WHERE USER_ID = #{userId}
@@ -64,7 +64,7 @@
 
     <insert id="insertCartItem">
         INSERT INTO CART (USER_ID, PRODUCT_ID, SIZE, PRODUCT_QUANTITY, CART_REG)
-        VALUES (#{userId}, #{productId}, #{size}, #{quantity}, now())
+        VALUES (#{userId}, #{productId}, #{size}, #{productQuantity}, now())
     </insert>
 
     <update id="updateCartItemQuantity" parameterType="UserCartUpdateQueryParam">

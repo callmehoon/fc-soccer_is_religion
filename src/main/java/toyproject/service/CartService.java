@@ -8,7 +8,7 @@ import toyproject.controller.dto.*;
 import toyproject.mapper.CartMapper;
 import toyproject.mapper.queryparam.UserCartByIDQueryParam;
 import toyproject.mapper.queryparam.UserCartDeleteQueryParam;
-import toyproject.mapper.queryparam.UserCartIemQuantityQueryParam;
+import toyproject.mapper.queryparam.UserCartItemQuantityQueryParam;
 import toyproject.mapper.queryparam.UserCartUpdateQueryParam;
 import toyproject.mapper.result.SizeStockResult;
 import toyproject.mapper.result.UserCartPriceResult;
@@ -94,41 +94,65 @@ public class CartService {
 
     @Transactional
     public void updateCartOption(String userId, CartUpdateRequestDto dto) {
-        // 기존 항목 삭제
-        UserCartDeleteQueryParam userCartDeleteQueryParam = UserCartDeleteQueryParam
-                .builder()
-                .userId(userId)
-                .productId(dto.getProductId())
-                .size(dto.getPrevSize())
-                .build();
 
-        cartMapper.deleteCartItem(userCartDeleteQueryParam);
+        if (dto.getPrevSize() != dto.getNewSize()) {
 
-        UserCartIemQuantityQueryParam userCartIemQuantityQueryParam = UserCartIemQuantityQueryParam.builder()
-                .userId(userId)
-                .productId(dto.getProductId())
-                .size(dto.getNewSize())
-                .build();
+            UserCartDeleteQueryParam userCartDeleteQueryParam = UserCartDeleteQueryParam
+                    .builder()
+                    .userId(userId)
+                    .productId(dto.getProductId())
+                    .size(dto.getPrevSize())
+                    .build();
 
-        // 존재하면 cart 옵션 수량 업데이트 , 존재하지 않으면 cart 옵션 수량 insert
+            cartMapper.deleteCartItem(userCartDeleteQueryParam);
 
-        Integer sizeItemQuantity = cartMapper.findCartItemBySize(userCartIemQuantityQueryParam);
+            UserCartItemQuantityQueryParam userCartItemQuantityQueryParam = UserCartItemQuantityQueryParam.builder()
+                    .userId(userId)
+                    .productId(dto.getProductId())
+                    .size(dto.getNewSize())
+                    .build();
 
-        UserCartUpdateQueryParam userCartUpdateQueryParam = UserCartUpdateQueryParam
-                .builder()
-                .userId(userId)
-                .productId(dto.getProductId())
-                .size(dto.getNewSize())
-                .productQuantity(dto.getNewQuantity())
-                .build();
+            // 존재하면 cart 옵션 수량 업데이트 , 존재하지 않으면 cart 옵션 수량 insert
 
-        if (sizeItemQuantity == null) {
-            cartMapper.insertCartItem(userCartUpdateQueryParam);
+            Integer sizeItemQuantity = cartMapper.findCartItemBySize(userCartItemQuantityQueryParam);
+
+            UserCartUpdateQueryParam userCartUpdateQueryParam = UserCartUpdateQueryParam
+                    .builder()
+                    .userId(userId)
+                    .productId(dto.getProductId())
+                    .size(dto.getNewSize())
+                    .productQuantity(dto.getNewQuantity())
+                    .build();
+
+            if (sizeItemQuantity == null) {
+                cartMapper.insertCartItem(userCartUpdateQueryParam);
+            } else {
+                userCartUpdateQueryParam.setQuantityToCartItem(sizeItemQuantity + dto.getNewQuantity());
+                cartMapper.updateCartItemQuantity(userCartUpdateQueryParam);
+            }
+
+
         } else {
-            userCartUpdateQueryParam.setQuantityToCartItem(sizeItemQuantity + dto.getNewQuantity());
+
+            UserCartUpdateQueryParam userCartUpdateQueryParam = UserCartUpdateQueryParam
+                    .builder()
+                    .userId(userId)
+                    .productId(dto.getProductId())
+                    .size(dto.getNewSize())
+                    .productQuantity(dto.getNewQuantity())
+                    .build();
+
             cartMapper.updateCartItemQuantity(userCartUpdateQueryParam);
+
         }
 
     }
+
+
+//    public void deleteCartItems(CartDeleteRequestDto cartDeleteRequestDto){
+//
+//        cartMapper.deleteCartItems();
+//
+//    }
 
 }
