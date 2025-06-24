@@ -301,7 +301,7 @@ function redirectToOrderSummary() {
     // 동적으로 form 생성
     const form = document.createElement('form');
     form.method = 'POST';
-    form.action = '/order/ordersummary';
+    form.action = '/order/summary';
 
     for (const [key, value] of Object.entries(orderData)) {
         const input = document.createElement('input');
