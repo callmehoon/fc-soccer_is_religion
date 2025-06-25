@@ -1,5 +1,17 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<div class="container">
+<link rel="stylesheet" href="publish/user_login.css"/>
+
+<%@ include file="header.jsp" %>
+
+
+
+<%--참조 CSS --%>
+<%--body 로 걸려있는 CSS 를 ex)login-wrapper / login-container 와 같이 감싸고, 재조정 필요--%>
+
+<div class="login-wrapper">
+    <div class="login-container">
     <h2>로그인</h2>
     <form action="/login" method="post" id="loginForm">
         <input type="email" name="email" id="email" placeholder="아이디">
@@ -17,3 +29,11 @@
         <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="facebook">
     </div>
 </div>
+</div>
+
+
+
+
+
+
+<%@ include file="footer.jsp" %>

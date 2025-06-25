@@ -1,15 +1,14 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>축구는 종교다</title>
+
+
+
+
     <link rel="stylesheet" href="publish/register.css"/>
     <script src="publish/register.js"></script>
     <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-</head>
-<body>
+
+    <%@ include file="header.jsp" %>
+
+<div class="main-body">
 <div class="container">
     <form action="/register" method="post">
     <h2>회원가입</h2>
@@ -98,5 +97,9 @@
     </div>
     </form>
 </div>
-</body>
-</html>
+</div>
+
+
+
+
+<%@ include file="footer.jsp" %>

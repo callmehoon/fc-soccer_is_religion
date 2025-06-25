@@ -18,8 +18,7 @@ public class LoginController {
 
     // 로그인 폼 화면
     @GetMapping("/login")
-    public String loginForm(Model model) {
-        model.addAttribute("contentPage", "user_login.jsp");
+    public String loginForm() {
         return "user_login";  // /WEB-INF/views/user_login.jsp
     }
 
