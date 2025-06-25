@@ -44,7 +44,6 @@
   </div>
 
 <%--용 추가--%>
-
   <nav class="main-nav">
     <ul class="nav-list">
       <!-- NEW -->
