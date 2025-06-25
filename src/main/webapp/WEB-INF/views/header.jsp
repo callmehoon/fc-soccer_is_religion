@@ -8,12 +8,19 @@
 <head>
   <meta charset="UTF-8">
   <title>축구는 종교다</title>
-  <link rel="stylesheet" href="<c:url value='/publish/new.css'/>">
+  <link rel="stylesheet" href="<c:url value='/publish/header.css'/>">
+
   <link href="https://fonts.googleapis.com/css2?family=Bungee+Spice&display=swap" rel="stylesheet">
+
+</head>
 
 <body>
 
+
+
 <header>
+
+
 <%--용 추가--%>
   <div class="top-banner">**회원가입시 10,000P 즉시할인쿠폰 지급**</div>
   <div class="header">
@@ -23,6 +30,7 @@
       </a>
     </div>
     <div class="right-menu">
+
       <c:choose>
         <c:when test="${not empty sessionScope.loginUser}">
           <a href="/logout" style="text-decoration: none; color: inherit;">로그아웃</a>
@@ -39,6 +47,8 @@
       <span>장바구니</span>
     </div>
   </div>
+
+
 
 <%--용 추가--%>
   <nav class="main-nav">
@@ -136,8 +146,8 @@
       </li>
 
       <!-- 팀 컬렉션 / 팀 유니폼 -->
-      <li><a href="<c:url value='/team-collection'/>">팀 컬렉션</a></li>
-      <li><a href="<c:url value='/team-uniform'/>">팀 유니폼</a></li>
+      <%--            <li><a href="<c:url value='/team-collection'/>">팀 컬렉션</a></li>--%>
+      <%--            <li><a href="<c:url value='/team-uniform'/>">팀 유니폼</a></li>--%>
 
       <!-- 의류 -->
       <li class="apparel-menu">
@@ -229,37 +239,37 @@
             <ul>
               <li><a href="<c:url value='/goods?category=team_bag'/>">팀백</a></li>
               <li><a href="<c:url value='/goods?category=backpack'/>">백팩</a></li>
-              <li><a href="<c:url value='/goods?category=shoe_bag'/>">슈즈백/짐색/볼백</a></li>
-              <li><a href="<c:url value='/goods?category=waist_bag'/>">웨이스트백/기타가방</a></li>
+              <li><a href="<c-url value='/goods?category=shoe_bag'/>">슈즈백/짐색/볼백</a></li>
+              <li><a href="<c-url value='/goods?category=waist_bag'/>">웨이스트백/기타가방</a></li>
             </ul>
           </div>
           <div class="dropdown-group">
             <h4>보호대/밴드</h4>
             <ul>
-              <li><a href="<c:url value='/goods?category=guard_band'/>">보호대/밴드</a></li>
+              <li><a href="<c-url value='/goods?category=guard_band'/>">보호대/밴드</a></li>
             </ul>
           </div>
           <div class="dropdown-group">
             <h4>기타용품</h4>
             <ul>
-              <li><a href="<c:url value='/goods?category=winter_gear'/>">동계용품</a></li>
-              <li><a href="<c:url value='/goods?category=smellwell'/>">스멜웰</a></li>
-              <li><a href="<c:url value='/goods?category=soccerbee'/>">사커비</a></li>
-              <li><a href="<c:url value='/goods?category=game_equipment'/>">경기용품</a></li>
-              <li><a href="<c:url value='/goods?category=training_equipment'/>">훈련용품</a></li>
-              <li><a href="<c:url value='/goods?category=socks'/>">양말</a></li>
-              <li><a href="<c:url value='/goods?category=hat'/>">모자</a></li>
-              <li><a href="<c:url value='/goods?category=first_aid'/>">구급용품</a></li>
+              <li><a href="<c-url value='/goods?category=winter_gear'/>">동계용품</a></li>
+              <li><a href="<c-url value='/goods?category=smellwell'/>">스멜웰</a></li>
+              <li><a href="<c-url value='/goods?category=soccerbee'/>">사커비</a></li>
+              <li><a href="<c-url value='/goods?category=game_equipment'/>">경기용품</a></li>
+              <li><a href="<c-url value='/goods?category=training_equipment'/>">훈련용품</a></li>
+              <li><a href="<c-url value='/goods?category=socks'/>">양말</a></li>
+              <li><a href="<c-url value='/goods?category=hat'/>">모자</a></li>
+              <li><a href="<c-url value='/goods?category=first_aid'/>">구급용품</a></li>
             </ul>
           </div>
         </div>
       </li>
 
       <!-- referee-kit / womens / youth -->
-      <li><a href="<c:url value='/referee-kit'/>">레프리킷</a></li>
+      <%--            <li><a href="<c:url value='/referee-kit'/>">레프리킷</a></li>--%>
       <li><a href="<c:url value='/womens'/>">우먼스</a></li>
       <li><a href="<c:url value='/youth'/>">유소년</a></li>
+
     </ul>
   </nav>
-
 </header>
