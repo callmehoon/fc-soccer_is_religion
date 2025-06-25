@@ -26,8 +26,8 @@
         <div class="info-box">
             <p>${productDto.brandName}</p>
             <h2 class="product-title">
-                ${productDto.productName}<br>
-                    <fmt:formatNumber value="${productDto.productPrice}" type="number" />원
+                ${productDto.productName}</h2>
+                  <h2 class="product-title">  <fmt:formatNumber value="${productDto.productPrice}" type="number" />원
                     <input type="hidden" id="productPrice" value="${productDto.productPrice}">
             </h2>
 
