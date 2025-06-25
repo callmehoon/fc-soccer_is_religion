@@ -20,6 +20,10 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addResourceHandler("/publish/**")
                 .addResourceLocations("/publish/");
 
+        // 이미지 경로 추가
+        registry.addResourceHandler("/image/**")
+                .addResourceLocations("/image/");
+
     }
     @Bean
     public InternalResourceViewResolver viewResolver() {
