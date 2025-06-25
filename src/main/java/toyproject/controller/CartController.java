@@ -9,6 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import toyproject.controller.dto.*;
 import toyproject.controller.viewmodel.CartListViewModel;
+import toyproject.mapper.queryparam.UserCartByIDQueryParam;
+import toyproject.mapper.queryparam.UserCartUpdateQueryParam;
 import toyproject.service.CartService;
 
 import java.util.List;
@@ -74,6 +76,14 @@ public class CartController {
     return ResponseEntity.ok().build();
 }
 
+@PostMapping("/add")
+@ResponseBody
+public ResponseEntity<Void> addToCart(@RequestBody List<CartInsertDto> items){
+        for(CartInsertDto item : items){
+            cartService.insertCartItem(item);
+        }
+        return ResponseEntity.ok().build();
+}
 
 
 }

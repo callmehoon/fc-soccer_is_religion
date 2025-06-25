@@ -155,4 +155,9 @@ public class CartService {
 //
 //    }
 
+    public void insertCartItem(CartInsertDto dto) {
+        cartMapper.insertCartItem(dto);
+    }
+
+
 }

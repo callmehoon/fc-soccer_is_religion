@@ -53,9 +53,9 @@
                 </div>
             </div>
 
-
-                <!-- 기본 상품 정보 -->
-                <input type="hidden" name="productId" id="productId" value="${productDto.productID}" />
+            <input type="hidden" id="userId" value="U98765" />
+            <!-- 기본 상품 정보 -->
+            <input type="hidden" name="productId" id="productId" value="${productDto.productID}" />
 
             <!-- 사이즈 선택 후 노출되는 상품 요약 영역 -->
             <div class="selected-product"></div>

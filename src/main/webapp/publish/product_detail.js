@@ -123,23 +123,69 @@ document.addEventListener("DOMContentLoaded", function () {
         //선택된 상품(selectec-info)이 1개 이상이면 true 반환
     }
 
+    // cartBtn.addEventListener('click', () => {
+    //     //장바구니 버튼 클릭 시
+    //     if (!hasSelectedItems()) {
+    //         //선택된 상품이 없으면 경고 후 종료
+    //         alert('상품이 선택되지 않았습니다.');
+    //         return;
+    //     }
+    //     //모달 띄우기
+    //     cartModal.style.display='block';
+    // });
+    //
+
+
     cartBtn.addEventListener('click', () => {
-        //장바구니 버튼 클릭 시
+        // 선택 안 했을 경우
         if (!hasSelectedItems()) {
-            //선택된 상품이 없으면 경고 후 종료
             alert('상품이 선택되지 않았습니다.');
             return;
         }
-        //모달 띄우기
-        cartModal.style.display='block';
+
+        const userId = document.getElementById('userId').value;
+        const productId = parseInt(document.getElementById('productId').value);
+        const selectedItems = [];
+
+        document.querySelectorAll('.selected-info').forEach(item => {
+            const size = parseInt(item.getAttribute('data-size'));
+            const quantity = parseInt(item.querySelector('.count').innerText);
+
+            selectedItems.push({
+                userId: userId,
+                productId: productId,
+                size: size,
+                productQuantity: quantity
+            });
+        });
+
+        // 서버에 insert 요청
+        fetch('/cart/add', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(selectedItems)
+        })
+            .then(response => {
+                if (response.ok) {
+                    // 모달 띄우기
+                    cartModal.style.display = 'block';
+                } else {
+                    alert('장바구니 추가에 실패했습니다.');
+                }
+            })
+            .catch(error => {
+                console.error('장바구니 요청 중 오류:', error);
+                alert('요청 중 오류 발생');
+            });
     });
 
-    closeModalBtn.addEventListener('click',() => {
+     closeModalBtn.addEventListener('click',() => {
         cartModal.style.display='none';
     });
 
     goCartBtn.addEventListener('click',() => {
         // 장바구니 페이지로 이동
+        window.location.href = '/cart';
     })
 
 
