@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <link rel="stylesheet" href="<c:url value='/publish/header.css'/>">
 <link rel="stylesheet" href="<c:url value='/publish/reset.css'/>">
+<link rel="icon" href="<c:url value='/image/football_favicon.png'/>" type="image/png">
 
 <!DOCTYPE html>
 <html lang="ko">
