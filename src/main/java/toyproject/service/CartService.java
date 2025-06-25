@@ -11,7 +11,6 @@ import toyproject.mapper.queryparam.UserCartDeleteQueryParam;
 import toyproject.mapper.queryparam.UserCartItemQuantityQueryParam;
 import toyproject.mapper.queryparam.UserCartUpdateQueryParam;
 import toyproject.mapper.result.SizeStockResult;
-import toyproject.mapper.result.UserCartPriceResult;
 import toyproject.mapper.result.UserCartResult;
 
 import java.util.List;
@@ -22,22 +21,14 @@ import java.util.List;
 public class CartService {
     private final CartMapper cartMapper;
 
-    public CartResponseDto searchCart(CartRequestDto requestDto, PageRequestDto pageRequestDto) {
+    public CartResponseDto searchCart(CartRequestDto requestDto) {
 
         log.info("CartService_searchCart 진입");
 
-        int currentpage = pageRequestDto.getPageOrDefault();
-        int size = pageRequestDto.getSizeOrDefault();
 
         UserCartByIDQueryParam userCartByIDQueryParam = UserCartByIDQueryParam.builder()
                 .userId(requestDto.getUserId())
-                .offset((currentpage - 1) * size)
-                .size(size)
                 .build();
-
-        int total = cartMapper.findCartItemsCountByUserId(userCartByIDQueryParam);
-
-        int totalPage = total / size + 1;
 
         List<UserCartResult> userUserCartResultList = cartMapper.findCartItemsByUserId(userCartByIDQueryParam);
 
@@ -51,27 +42,9 @@ public class CartService {
                 .productPrice(userCartResult.getProductPrice()).build()
         ).toList();
 
-        UserCartPriceResult userCartPriceResult = cartMapper.findCartItemsPriceByUserId(userCartByIDQueryParam);
-
-        CartTotalPrice cartTotalPrice = CartTotalPrice.builder().
-                totalProductCount(userCartPriceResult.getTotalProductCount()).
-                totalPrice(userCartPriceResult.getTotalPrice()).
-                totalDiscount(userCartPriceResult.getTotalDiscount())
-                .build();
-
-
-        PageResponseDto pageInfo = PageResponseDto.builder()
-                .page(currentpage)
-                .size(size)
-                .totalElements(total)
-                .totalPage(totalPage)
-                .first(currentpage == 1)
-                .last(currentpage == totalPage).build();
 
         return CartResponseDto.builder()
-                .priceInfo(cartTotalPrice)
                 .cartItems(userCartInfoList)
-                .pageResponseDto(pageInfo)
                 .build();
 
 

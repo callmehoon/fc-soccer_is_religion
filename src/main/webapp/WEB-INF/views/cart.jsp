@@ -88,13 +88,7 @@
                 <span id="deleteSelectedBtn" class="delete-text">선택삭제</span>
             </div>
 
-            <div id="loadMoreContainer" class="load-more-container">
-    <span id="loadMoreBtn" class="load-more-btn">
-        <span class="line"></span>
-        <span class="text">load more</span>
-        <span class="line"></span>
-    </span>
-            </div>
+
         </div>
 
         <!-- 결제 정보 -->

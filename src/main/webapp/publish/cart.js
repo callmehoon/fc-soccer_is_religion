@@ -91,14 +91,6 @@ document.querySelector('.btn.cancel').addEventListener('click', () => {
     closeModal();
 });
 
-function getQueryParams() {
-    const urlParams = new URLSearchParams(window.location.search);
-    return {
-        page: urlParams.get("page") || 1,
-        size: urlParams.get("size") || 10
-    };
-}
-
 
 document.querySelector(".btn.confirm").addEventListener("click", function () {
     const modal = document.getElementById("optionModal");
@@ -259,84 +251,10 @@ function renderSizeButtons(dataList, prevSize, prevQuantity) {
     if (qtyInput) qtyInput.value = prevQuantity;
 }
 
-let currentPage = 1;
-let isLoading = false;
-let isLastPage = false;
 
-const loadMoreBtn = document.getElementById("loadMoreBtn");
-loadMoreBtn.addEventListener("click", () => {
-    if (!isLoading) {
-        loadNextPage();
-    }
-});
 
-function loadNextPage() {
-    isLoading = true;
 
-    // 버튼 로딩 상태
-    loadMoreBtn.classList.add("loading");
-    loadMoreBtn.querySelector(".text").textContent = "loading";
 
-    currentPage++;
-
-    fetch(`/cart/items?page=${currentPage}&size=10`)
-        .then(res => res.json())
-        .then(data => {
-            const cartItems = data.cartItems;
-
-            if (!Array.isArray(cartItems)) {
-                console.error("cartItems가 배열이 아님:", cartItems);
-                return;
-            }
-
-            const tbody = document.querySelector(".cart-table tbody");
-            cartItems.forEach(cart => {
-                const row = document.createElement("tr");
-                row.dataset.productId = cart.productId;
-                row.innerHTML = `
-                    <td><input type="checkbox" class="cart-item-checkbox"/></td>
-                    <td>
-                        <div class="product-info">
-                            <img src="${cart.productImg}" alt="상품 이미지">
-                            <div>
-                                <strong>${cart.productName}</strong><br/>
-                                사이즈 : ${cart.size === 0 ? 'Free' : cart.size}
-                            </div>
-                        </div>
-                    </td>
-                    <td class="${cart.stockQuantity === 0 ? 'sold-out' : ''}">
-                        ${cart.cartProductQuantity}개<br/>
-                        ${renderStockStatus(cart)}
-                        <br/>
-                        <a href="#" onclick="openModal(event)"
-                           data-product-id="${cart.productId}"
-                           data-prev-size="${cart.size}"
-                           data-prev-quantity="${cart.cartProductQuantity}">
-                            옵션/수정변경
-                        </a>
-                    </td>
-                    <td><strong>${(cart.productPrice * cart.cartProductQuantity).toLocaleString()}원</strong></td>
-                    <td>
-                        할인 - ${(cart.productPrice * cart.cartProductQuantity * 0.01).toLocaleString()}원<br/>
-                        적립 + ${(cart.productPrice * cart.cartProductQuantity * 0.01).toLocaleString()}원
-                    </td>
-                `;
-                tbody.appendChild(row);
-            });
-
-            // 마지막 페이지면 버튼 숨김
-            if (data.pageResponseDto.last || cartItems.length === 0) {
-                isLastPage = true;
-                document.getElementById("loadMoreContainer").style.display = "none";
-            }
-        })
-        .catch(err => console.error("페이지 로딩 실패", err))
-        .finally(() => {
-            isLoading = false;
-            loadMoreBtn.classList.remove("loading");
-            loadMoreBtn.querySelector(".text").textContent = "load more";
-        });
-}
 
 function renderStockStatus(cart) {
     if (cart.stockQuantity === 0) {

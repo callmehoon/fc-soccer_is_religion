@@ -23,9 +23,7 @@
         FROM CART c
                  INNER JOIN PRODUCT p ON c.PRODUCT_ID = p.PRODUCT_ID
                  INNER JOIN INVENTORY i ON c.SIZE = i.SIZE AND c.PRODUCT_ID = i.PRODUCT_ID
-        WHERE c.USER_ID = #{userId}
-        LIMIT #{size} OFFSET #{offset}
-    </select>
+        WHERE c.USER_ID = #{userId}    </select>
 
     <select id="findCartItemsPriceByUserId" parameterType="UserCartByIDQueryParam" resultType="UserCartPriceResult">
         SELECT COUNT(*)                             AS totalProductCount,

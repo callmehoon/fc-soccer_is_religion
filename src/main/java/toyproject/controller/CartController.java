@@ -28,23 +28,12 @@ public class CartController {
 
         cartRequestDto.setUserId("U01357");
 
-        CartResponseDto cartInfo = cartService.searchCart(cartRequestDto, pageRequestDto);
+        CartResponseDto cartInfo = cartService.searchCart(cartRequestDto);
 
-        PageResponseDto pageInfo = cartInfo.getPageResponseDto();
 
-        PageResponseDto cartPageInfo = PageResponseDto.builder()
-                .page(pageInfo.getPage())
-                .size(pageInfo.getSize())
-                .totalElements(pageInfo.getTotalElements())
-                .totalPage(pageInfo.getTotalPage())
-                .first(pageInfo.isFirst())
-                .last(pageInfo.isLast()).
-                build();
 
         CartListViewModel cartListViewModel = CartListViewModel.builder()
-                .cartPriceInfo(cartInfo.getPriceInfo())
                 .cartList(cartInfo.getCartItems())
-                .pageInfo(cartPageInfo)
                 .build();
 
         model.addAttribute("cartListViewModel", cartListViewModel);
