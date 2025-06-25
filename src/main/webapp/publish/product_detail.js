@@ -170,7 +170,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     // 모달 띄우기
                     cartModal.style.display = 'block';
                 } else {
-                    alert('장바구니 추가에 실패했습니다.');
+                    alert('상품이 이미 장바구니에 담겨있습니다');
                 }
             })
             .catch(error => {
