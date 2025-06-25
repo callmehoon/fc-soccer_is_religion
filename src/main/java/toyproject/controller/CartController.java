@@ -10,6 +10,7 @@ import toyproject.controller.dto.*;
 import toyproject.controller.viewmodel.CartListViewModel;
 import toyproject.service.CartService;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -22,11 +23,24 @@ public class CartController {
     private final CartService cartService;
 
     @GetMapping("")
-    public String cart(@ModelAttribute CartRequestDto cartRequestDto, @ModelAttribute PageRequestDto pageRequestDto, Model model) {
+    public String cart(HttpServletRequest request, @ModelAttribute PageRequestDto pageRequestDto, Model model) {
 
-        log.info("Cart Controller _ 기본 페이지 진입");
+        HttpSession session = request.getSession(false); // false → 세션 없으면 null 반환
 
-        cartRequestDto.setUserId("U12345");
+        if (session == null) {
+            // 로그인 안된 상태 처리
+            return "redirect:/login";
+        }
+
+        LoginUserDto loginUser = (LoginUserDto) session.getAttribute("loginUser");
+
+        if (loginUser == null) {
+            // 로그인 안된 상태 처리
+            return "redirect:/login";
+        }
+
+        CartRequestDto cartRequestDto = CartRequestDto.builder().userId(loginUser.getUserId()).build();
+
         CartResponseDto cartInfo = cartService.searchCart(cartRequestDto);
         CartListViewModel cartListViewModel = CartListViewModel.builder()
                 .cartList(cartInfo.getCartItems())
@@ -50,21 +64,30 @@ public class CartController {
 
     @PostMapping("/update")
     @ResponseBody
-    public ResponseEntity<Void> updateCart(@RequestBody CartUpdateRequestDto request) {
+    public ResponseEntity<Void> updateCart(HttpServletRequest httpServletRequest, @RequestBody CartUpdateRequestDto request) {
+
+        HttpSession session = httpServletRequest.getSession(false); // false → 세션 없으면 null 반환
+
+        LoginUserDto loginUser = (LoginUserDto) session.getAttribute("loginUser");
+
 
         log.info("Cart Controller _ /update");
         System.out.println(request.toString());
-        cartService.updateCartOption("U01357", request); // 내부적으로 삭제 후 insert 로직
+        cartService.updateCartOption(loginUser.getUserId(), request); // 내부적으로 삭제 후 insert 로직
         return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/delete")
     @ResponseBody
-    public ResponseEntity<Void> deleteSelectedItems(HttpSession httpSession, @RequestBody CartDeleteRequestDto deleteRequestDto) {
+    public ResponseEntity<Void> deleteSelectedItems(HttpServletRequest httpServletRequest, @RequestBody CartDeleteRequestDto deleteRequestDto) {
 
         log.info("Cart Controller _ /delete");
 
-        cartService.deleteCartItems("U12345", deleteRequestDto);
+        HttpSession session = httpServletRequest.getSession(false); // false → 세션 없으면 null 반환
+
+        LoginUserDto loginUser = (LoginUserDto) session.getAttribute("loginUser");
+
+        cartService.deleteCartItems(loginUser.getUserId(), deleteRequestDto);
 
         return ResponseEntity.ok().build();
     }
@@ -96,7 +119,6 @@ public class CartController {
                         .build()
         );
     }
-
 
 
 }
