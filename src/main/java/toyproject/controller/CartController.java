@@ -26,12 +26,8 @@ public class CartController {
 
         log.info("Cart Controller _ 기본 페이지 진입");
 
-        cartRequestDto.setUserId("U01357");
-
+        cartRequestDto.setUserId("U12345");
         CartResponseDto cartInfo = cartService.searchCart(cartRequestDto);
-
-
-
         CartListViewModel cartListViewModel = CartListViewModel.builder()
                 .cartList(cartInfo.getCartItems())
                 .build();
@@ -76,6 +72,7 @@ public class CartController {
     @PostMapping("/add")
     @ResponseBody
     public ResponseEntity<Void> addToCart(@RequestBody List<CartInsertDto> items) {
+
         for (CartInsertDto item : items) {
             cartService.insertCartItem(item);
         }

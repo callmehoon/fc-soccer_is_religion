@@ -15,7 +15,6 @@ import javax.servlet.http.HttpServletRequest;
 public class LoginController {
 
     private final UserService userService;
-
     // 로그인 폼 화면
     @GetMapping("/login")
     public String loginForm() {

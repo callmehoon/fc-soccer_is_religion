@@ -13,8 +13,6 @@
 
 <body>
 
-
-
 <header>
 <%--용 추가--%>
   <div class="top-banner">**회원가입시 10,000P 즉시할인쿠폰 지급**</div>
@@ -25,7 +23,6 @@
       </a>
     </div>
     <div class="right-menu">
-
       <c:choose>
         <c:when test="${not empty sessionScope.loginUser}">
           <a href="/logout" style="text-decoration: none; color: inherit;">로그아웃</a>
@@ -264,7 +261,5 @@
       <li><a href="<c:url value='/youth'/>">유소년</a></li>
     </ul>
   </nav>
-
-
 
 </header>

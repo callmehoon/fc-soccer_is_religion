@@ -5,8 +5,6 @@
 
 <%@ include file="header.jsp" %>
 
-
-
 <%--참조 CSS --%>
 <%--body 로 걸려있는 CSS 를 ex)login-wrapper / login-container 와 같이 감싸고, 재조정 필요--%>
 
