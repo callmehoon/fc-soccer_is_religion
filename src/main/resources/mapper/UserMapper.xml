@@ -17,9 +17,12 @@
 
     <!--  로그인용 SELECT 문 추가 -->
     <select id="findByEmail" parameterType="String" resultType="toyproject.controller.dto.LoginUserDto">
-        SELECT USER_ID_EMAIL AS email, USER_PWD AS password
+        SELECT USER_ID_EMAIL AS email,
+               USER_PWD AS password
+                USER_ID AS userId
         FROM USER
         WHERE USER_ID_EMAIL = #{email}
     </select>
+
 
 </mapper>

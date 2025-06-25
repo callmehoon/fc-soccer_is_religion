@@ -2,49 +2,85 @@
 <link rel="stylesheet" href="<c:url value='/publish/rolling.css'/>">
 
 
+<div class="carousel">
+  <div class="slides">
+    <img src="/image/image1.png" class="slide active">
+    <img src="/image/image2.png" class="slide">
+    <img src="/image/image3.png" class="slide">
+  </div>
+  <button class="prev">&#10094;</button>
+  <button class="next">&#10095;</button>
+</div>
+
 <style>
-    .rolling-banner {
-        width: 100%;
-        overflow: hidden;
-        position: relative;
-        margin: 30px auto;
-    }
+.carousel {
+  position: relative;
+  width: 100%;
+  max-width: 1000px;
+  margin: auto;
+  overflow: hidden;
+}
 
-    .rolling-wrapper {
-        display: flex;
-        animation: slide 30s infinite linear;
-        width: max-content;
-    }
+.slides {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
 
-    .rolling-wrapper img {
-        width: 2500px;
-        height: 900px;
-        object-fit: cover;
-        margin-right: 10px;
-        border-radius: 8px;
-    }
+.slide {
+  min-width: 100%;
+  display: none;
+}
 
-    @keyframes slide {
-        0% { transform: translateX(0); }
-        100% { transform: translateX(-50%); }
-    }
+.slide.active {
+  display: block;
+}
+
+button.prev, button.next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 30px;
+  background: rgba(0,0,0,0.3);
+  color: white;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  z-index: 1;
+}
+
+button.prev {
+  left: 10px;
+}
+button.next {
+  right: 10px;
+}
 </style>
 
-<div class="rolling-banner">
-    <div class="rolling-wrapper">
-        <!-- 이미지 4개 x 2세트로 반복 -->
-        <img src="/image/image1.png" alt="item1" />
-        <img src="/image/image2.png" alt="item1" />
-        <img src="/image/image3.png" alt="item1" />
-        <img src="/image/image4.png" alt="item1" />
-        <img src="/image/image5.png" alt="item1" />
-        <img src="/image/image6.png" alt="item1" />
+<script>
+let current = 0;
+const slides = document.querySelectorAll('.slide');
+const total = slides.length;
 
-        <img src="/image/image1.png" alt="item1" />
-        <img src="/image/image2.png" alt="item1" />
-        <img src="/image/image3.png" alt="item1" />
-        <img src="/image/image4.png" alt="item1" />
-        <img src="/image/image5.png" alt="item1" />
-        <img src="/image/image6.png" alt="item1" />
-    </div>
-</div>
+function showSlide(index) {
+  slides.forEach((slide, i) => {
+    slide.classList.toggle('active', i === index);
+  });
+}
+
+function nextSlide() {
+  current = (current + 1) % total;
+  showSlide(current);
+}
+
+function prevSlide() {
+  current = (current - 1 + total) % total;
+  showSlide(current);
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  document.querySelector('.next').addEventListener('click', nextSlide);
+  document.querySelector('.prev').addEventListener('click', prevSlide);
+  setInterval(nextSlide, 5000);
+  showSlide(current);
+});
+</script>
