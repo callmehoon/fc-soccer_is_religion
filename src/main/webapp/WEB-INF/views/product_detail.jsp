@@ -4,19 +4,16 @@
   Date: 06-19(목)
   Time: 오후 2:27
   To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+  <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <title>축구는 종교다</title>
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/publish/product_detail.css"/>
-</head>
+--%>
 
-<body>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ include file="header.jsp" %>
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/publish/product_detail.css"/>
+
+
+
 <div class="product">
     <div class="product-detail">
         <!-- 좌측: 이미지 -->
@@ -53,7 +50,8 @@
                 </div>
             </div>
 
-            <input type="hidden" id="userId" value="U98765" />
+            <input type="hidden" id="email" value="${sessionScope.loginUser.email}" />
+            <input type="hidden" id="userId" value="${sessionScope.loginUser.userId}" />
             <!-- 기본 상품 정보 -->
             <input type="hidden" name="productId" id="productId" value="${productDto.productID}" />
 
@@ -166,5 +164,4 @@
 
 <script src="<%= request.getContextPath() %>/publish/product_detail.js" defer></script>
 
-</body>
-</html>
+<%@ include file="footer.jsp" %>
