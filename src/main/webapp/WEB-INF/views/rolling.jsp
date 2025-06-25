@@ -13,13 +13,10 @@
 </div>
 
 <style>
-.carousel {
-  position: relative;
-  width: 100%;
-  max-width: 1000px;
-  margin: auto;
-  overflow: hidden;
-}
+  .carousel {
+    position: relative;
+    z-index: 1;
+  }
 
 .slides {
   display: flex;
