@@ -98,8 +98,8 @@
             </li>
 
             <!-- 팀 컬렉션 / 팀 유니폼 -->
-            <li><a href="<c:url value='/team-collection'/>">팀 컬렉션</a></li>
-            <li><a href="<c:url value='/team-uniform'/>">팀 유니폼</a></li>
+<%--            <li><a href="<c:url value='/team-collection'/>">팀 컬렉션</a></li>--%>
+<%--            <li><a href="<c:url value='/team-uniform'/>">팀 유니폼</a></li>--%>
 
             <!-- 의류 -->
             <li class="apparel-menu">
@@ -218,7 +218,7 @@
             </li>
 
             <!-- referee-kit / womens / youth -->
-            <li><a href="<c:url value='/referee-kit'/>">레프리킷</a></li>
+<%--            <li><a href="<c:url value='/referee-kit'/>">레프리킷</a></li>--%>
             <li><a href="<c:url value='/womens'/>">우먼스</a></li>
             <li><a href="<c:url value='/youth'/>">유소년</a></li>
 

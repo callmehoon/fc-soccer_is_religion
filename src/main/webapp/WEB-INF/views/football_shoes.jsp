@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ include file="Drop.jsp" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -92,15 +93,18 @@
         </aside>
 
         <div class="sort-bar">
-            <label for="sort">추천순</label>
-            <select id="sort">
-                <option>추천순</option>
-                <option>가격 높은순</option>
-                <option>가격 낮은순</option>
-                <option>판매인기순</option>
-                <option>등록일순</option>
-                <option>상품평순</option>
-            </select>
+            <label for="sort">정렬:</label>
+            <form id="sortForm" method="get" action="/football_shoes" style="display:inline-block; margin:0;">
+                <input type="hidden" name="page" value="${page}" />
+                <input type="hidden" name="size" value="${size}" />
+                <select id="sort" name="sort" onchange="document.getElementById('sortForm').submit()">
+                    <option value="recommend" ${param.sort=='recommend'?'selected':''}>추천순</option>
+                    <option value="priceDesc" ${param.sort=='priceDesc'?'selected':''}>가격 높은순</option>
+                    <option value="priceAsc"  ${param.sort=='priceAsc'?'selected':''}>가격 낮은순</option>
+                    <option value="newest"    ${param.sort=='newest'?'selected':''}>등록일순</option>
+                    <option value="review"    ${param.sort=='review'?'selected':''}>상품평순</option>
+                </select>
+            </form>
         </div>
     </section>
 
@@ -108,10 +112,10 @@
        <c:if test="${not empty productList}">
            <c:forEach var="p" items="${productList}">
                <div class="product-card">
-                   <img src="${p.img}" alt="${p.productName}">
+                   <a href="product/detail?productID=${p.productId}"><img src="${p.img}" alt="${p.productName}"></a>
                    <p>${p.brandName}</p>
-                   <p>${p.productName}</p>
-                   <p>${p.price}원</p>
+                   <a href="product/detail?productID=${p.productId}"><p>${p.productName}</p></a>
+                   <p class="price"><fmt:formatNumber value="${p.price}" type="number" groupingUsed="true"/>원</p>
                </div>
            </c:forEach>
        </c:if>
@@ -119,6 +123,32 @@
             <p>해당 카테고리의 상품이 없습니다.</p>
         </c:if>
     </section>
+    </section>
+
+    <nav class="pagination" style="text-align:center; margin:20px 0;">
+        <!-- 이전 페이지 링크 -->
+        <c:if test="${page > 1}">
+            <a href="?page=${page-1}&size=${size}">‹ Prev</a>
+        </c:if>
+
+        <!-- 페이지 번호 -->
+        <c:forEach var="i" begin="1" end="${totalPages}">
+            <c:choose>
+                <c:when test="${i == page}">
+                    <span style="font-weight:bold; margin:0 5px;">${i}</span>
+                </c:when>
+                <c:otherwise>
+                    <a href="?page=${i}&size=${size}" style="margin:0 5px;">${i}</a>
+                </c:otherwise>
+            </c:choose>
+        </c:forEach>
+        <!-- 다음 페이지 링크 -->
+        <c:if test="${page < totalPages}">
+            <a href="?page=${page+1}&size=${size}">Next ›</a>
+        </c:if>
+    </nav>
+
+
 </main>
 </body>
 </html>

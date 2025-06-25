@@ -1,4 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ include file="Drop.jsp" %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -92,7 +94,7 @@
 <body>
 <main>
   <div class="banner">
-    <img src="https://cdn.fcseoul.com/cdn/shop/files/pl_ball.png" alt="용품 배너">
+    <img src=https://search.pstatic.net/common/?src=http%3A%2F%2Fimgnews.naver.net%2Fimage%2F076%2F2025%2F02%2F22%2F2025022201001399900210591_20250222183913815.jpg&type=sc960_832 alt="용품 배너">
   </div>
 
   <div class="filter-tags">
@@ -120,38 +122,54 @@
     </aside>
 
     <div class="sort-bar">
-      <label for="sort">추천순</label>
-      <select id="sort">
-        <option>추천순</option>
-        <option>가격 높은순</option>
-        <option>가격 낮은순</option>
-        <option>판매인기순</option>
-        <option>등록일순</option>
-        <option>상품평순</option>
-      </select>
+      <label for="sort">정렬:</label>
+      <form id="sortForm" method="get" action="/goods" style="display:inline-block; margin:0;">
+        <input type="hidden" name="page" value="${page}" />
+        <input type="hidden" name="size" value="${size}" />
+        <select id="sort" name="sort" onchange="document.getElementById('sortForm').submit()">
+          <option value="recommend" ${param.sort=='recommend'?'selected':''}>추천순</option>
+          <option value="priceDesc" ${param.sort=='priceDesc'?'selected':''}>가격 높은순</option>
+          <option value="priceAsc"  ${param.sort=='priceAsc'?'selected':''}>가격 낮은순</option>
+          <option value="newest"    ${param.sort=='newest'?'selected':''}>등록일순</option>
+          <option value="review"    ${param.sort=='review'?'selected':''}>상품평순</option>
+        </select>
+      </form>
     </div>
   </section>
 
   <section class="product-grid">
+    <c:forEach var="p" items="${productList}">
     <div class="product-card">
-      <img src="https://via.placeholder.com/300x300" alt="상품 이미지">
-      <p>아디다스</p>
-      <p>아디 25 삭스(싸커스타킹)</p>
-      <p>13,000원 <del>20,000원</del></p>
+      <a href="product/detail?productID=${p.productId}"><img src="${p.img}" alt="${p.productName}"></a>
+      <p><c:out value="${p.brandName}"/></p>
+      <a href="product/detail?productID=${p.productId}"><p><c:out value="${p.productName}"/></p></a>
+      <p class="price"><fmt:formatNumber value="${p.price}" type="number" groupingUsed="true"/>원</p>
     </div>
-    <div class="product-card">
-      <img src="https://via.placeholder.com/300x300" alt="상품 이미지">
-      <p>나이키</p>
-      <p>나이키 아카데미 풋볼 드라이핏 싸커 스타킹</p>
-      <p>11,700원 <del>14,200원</del></p>
-    </div>
-    <div class="product-card">
-      <img src="https://via.placeholder.com/300x300" alt="상품 이미지">
-      <p>나이키</p>
-      <p>나이키 아카데미 드라이핏 싸커 스타킹</p>
-      <p>12,780원 <del>14,200원</del></p>
-    </div>
+    </c:forEach>
   </section>
+  <nav class="pagination" style="text-align:center; margin:20px 0;">
+    <!-- 이전 페이지 링크 -->
+    <c:if test="${page > 1}">
+      <a href="?page=${page-1}&size=${size}">‹ Prev</a>
+    </c:if>
+
+    <!-- 페이지 번호 -->
+    <c:forEach var="i" begin="1" end="${totalPages}">
+      <c:choose>
+        <c:when test="${i == page}">
+          <span style="font-weight:bold; margin:0 5px;">${i}</span>
+        </c:when>
+        <c:otherwise>
+          <a href="?page=${i}&size=${size}" style="margin:0 5px;">${i}</a>
+        </c:otherwise>
+      </c:choose>
+    </c:forEach>
+
+    <!-- 다음 페이지 링크 -->
+    <c:if test="${page < totalPages}">
+      <a href="?page=${page+1}&size=${size}">Next ›</a>
+    </c:if>
+  </nav>
 </main>
 </body>
 </html>

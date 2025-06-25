@@ -138,6 +138,23 @@
     cursor: pointer;
     white-space: nowrap;
 }
-.dropdown-group ul li:hover {
-    text-decoration: underline;
+/*.dropdown-group ul li:hover {*/
+/*    text-decoration: underline;*/
+/*}*/
+
+
+/* ──────────────────────────────────────────
+   드롭다운 메뉴의 모든 링크 검정 + 밑줄 제거
+─────────────────────────────────────────── */
+header nav.main-nav .dropdown-group ul li a,
+header nav.main-nav .dropdown-group ul li a:link,
+header nav.main-nav .dropdown-group ul li a:visited {
+    color: #111 !important;
+    text-decoration: none !important;
+}
+header nav.main-nav .dropdown-group ul li a:hover,
+header nav.main-nav .dropdown-group ul li a:focus,
+header nav.main-nav .dropdown-group ul li a:active {
+    color: #111 !important;
+    text-decoration: none !important;
 }

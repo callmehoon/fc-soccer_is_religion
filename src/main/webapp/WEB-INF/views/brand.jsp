@@ -80,11 +80,12 @@
 <body>
 <main>
   <section class="brand-landing-wrap">
-    <div class="brand-landing-title">FootBall is <strong>RELIGION</strong></div>
+    <div class="brand-landing-title">Soccer is <strong>RELIGION</strong></div>
     <div class="brand-landing-desc">
       축구는 종교다. 축구는 삶의 일부이다.<br>
       식사를 하며 축구를 보고, 주말에는 직접 축구를 하고, 경기 날엔 스타디움에 가서 축구를 관람한다.
     </div>
+
   </section>
   <section class="brand-logos">
     <div class="brand-logo-item">

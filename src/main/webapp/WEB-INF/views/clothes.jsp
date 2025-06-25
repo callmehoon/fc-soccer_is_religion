@@ -6,7 +6,7 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <title>의류 모아보기</title>
+  <title>축구는 종교다</title>
   <link rel="stylesheet" href="/publish/new.css">
   <style>
     .filter-sort-section {
@@ -101,25 +101,28 @@
     </aside>
 
     <div class="sort-bar">
-      <label for="sort">추천순</label>
-      <select id="sort">
-        <option>추천순</option>
-        <option>가격 높은순</option>
-        <option>가격 낮은순</option>
-        <option>판매인기순</option>
-        <option>등록일순</option>
-        <option>상품평순</option>
-      </select>
+      <label for="sort">정렬:</label>
+      <form id="sortForm" method="get" action="/clothes" style="display:inline-block; margin:0;">
+        <input type="hidden" name="page" value="${page}" />
+        <input type="hidden" name="size" value="${size}" />
+        <select id="sort" name="sort" onchange="document.getElementById('sortForm').submit()">
+          <option value="recommend" ${param.sort=='recommend'?'selected':''}>추천순</option>
+          <option value="priceDesc" ${param.sort=='priceDesc'?'selected':''}>가격 높은순</option>
+          <option value="priceAsc"  ${param.sort=='priceAsc'?'selected':''}>가격 낮은순</option>
+          <option value="newest"    ${param.sort=='newest'?'selected':''}>등록일순</option>
+          <option value="review"    ${param.sort=='review'?'selected':''}>상품평순</option>
+        </select>
+      </form>
     </div>
   </section>
 
   <section class="product-grid">
     <c:forEach var="p" items="${productList}">
       <div class="product-card">
-        <img src="${p.img}" alt="${p.productName}">
+        <a href="product/detail?productID=${p.productId}"><img src="${p.img}" alt="${p.productName}"></a>
         <p><c:out value="${p.brandName}" /></p>
-        <p><c:out value="${p.productName}" /></p>
-        <p>${p.price}원</p>
+        <a href="product/detail?productID=${p.productId}"><p><c:out value="${p.productName}" /></p></a>
+        <p class="price"><fmt:formatNumber value="${p.price}" type="number" groupingUsed="true"/>원</p>
 <%--        <p>--%>
 <%--          <fmt:formatNumber value="${p.price}" type="currency" />--%>
         </p>
@@ -130,6 +133,29 @@
       <p style="grid-column:1/-1; text-align:center;">의류 상품이 없습니다.</p>
     </c:if>
   </section>
+  <nav class="pagination" style="text-align:center; margin:20px 0;">
+    <!-- 이전 페이지 링크 -->
+    <c:if test="${page > 1}">
+      <a href="?page=${page-1}&size=${size}">‹ Prev</a>
+    </c:if>
+
+    <!-- 페이지 번호 -->
+    <c:forEach var="i" begin="1" end="${totalPages}">
+      <c:choose>
+        <c:when test="${i == page}">
+          <span style="font-weight:bold; margin:0 5px;">${i}</span>
+        </c:when>
+        <c:otherwise>
+          <a href="?page=${i}&size=${size}" style="margin:0 5px;">${i}</a>
+        </c:otherwise>
+      </c:choose>
+    </c:forEach>
+
+    <!-- 다음 페이지 링크 -->
+    <c:if test="${page < totalPages}">
+      <a href="?page=${page+1}&size=${size}">Next ›</a>
+    </c:if>
+  </nav>
 </main>
 </body>
 </html>

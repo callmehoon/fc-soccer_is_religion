@@ -64,3 +64,17 @@ body {
     font-size: 13px;
     color: #777;
 }
+
+nav.pagination a,
+nav.pagination a:link,
+nav.pagination a:visited {
+    color: #000 !important;
+    text-decoration: none !important;
+}
+
+nav.pagination a:hover,
+nav.pagination a:focus,
+nav.pagination a:active {
+    color: #000 !important;
+    text-decoration: none !important;
+}
