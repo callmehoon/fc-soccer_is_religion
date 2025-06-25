@@ -4,7 +4,7 @@
     <form action="/login" method="post" id="loginForm">
         <input type="email" name="email" id="email" placeholder="아이디">
         <input type="password" name="password" id="password" placeholder="비밀번호">
-        <label><input type="checkbox" name="remember"> 아이디 저장</label>
+        <label for="email"><input type="checkbox" name="remember"> 아이디 저장</label>
         <button type="submit">로그인</button>
     </form>
 
