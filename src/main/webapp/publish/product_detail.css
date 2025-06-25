@@ -273,6 +273,7 @@ a{
 }
 .rating h2{
     font-weight: bold;
+    padding-left: 30px;
 }
 
 .review-list h3 {
