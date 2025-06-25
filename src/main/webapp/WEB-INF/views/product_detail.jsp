@@ -50,7 +50,8 @@
                 </div>
             </div>
 
-            <input type="hidden" id="userId" value="U98765" />
+            <input type="hidden" id="email" value="${sessionScope.loginUser.email}" />
+            <input type="hidden" id="userId" value="${sessionScope.loginUser.userId}" />
             <!-- 기본 상품 정보 -->
             <input type="hidden" name="productId" id="productId" value="${productDto.productID}" />
 

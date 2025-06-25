@@ -123,18 +123,6 @@ document.addEventListener("DOMContentLoaded", function () {
         //선택된 상품(selectec-info)이 1개 이상이면 true 반환
     }
 
-    // cartBtn.addEventListener('click', () => {
-    //     //장바구니 버튼 클릭 시
-    //     if (!hasSelectedItems()) {
-    //         //선택된 상품이 없으면 경고 후 종료
-    //         alert('상품이 선택되지 않았습니다.');
-    //         return;
-    //     }
-    //     //모달 띄우기
-    //     cartModal.style.display='block';
-    // });
-    //
-
 
     cartBtn.addEventListener('click', () => {
         // 선택 안 했을 경우
@@ -190,7 +178,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     buyBtn.addEventListener('click', () => {
+        const userIdInput = document.getElementById('email');
         const productIdInput = document.getElementById('productId');
+
+        if (!userIdInput || !userIdInput.value) {
+            alert('로그인이 필요합니다.');
+            window.location.href = '/login'; // 로그인 페이지 경로로 이동
+            return;
+        }
         if (!productIdInput) {
             alert('상품 ID를 찾을 수 없습니다.');
             return;
