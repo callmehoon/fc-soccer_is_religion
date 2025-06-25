@@ -4,9 +4,13 @@
 
 <div class="carousel">
   <div class="slides">
-    <img src="/image/image1.png" class="slide active">
+    <img src="/image/image0.png" class="slide active">
+    <img src="/image/image1.png" class="slide">
     <img src="/image/image2.png" class="slide">
     <img src="/image/image3.png" class="slide">
+    <img src="/image/image4.png" class="slide">
+    <img src="/image/image5.png" class="slide">
+    <img src="/image/image6.png" class="slide">
   </div>
   <button class="prev">&#10094;</button>
   <button class="next">&#10095;</button>
