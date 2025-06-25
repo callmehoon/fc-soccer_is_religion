@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <link rel="stylesheet" href="<c:url value='/publish/header.css'/>">
 <link rel="stylesheet" href="<c:url value='/publish/reset.css'/>">
+<link rel="icon" href="<c:url value='/image/football_favicon.png'/>" type="image/png">
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -9,18 +10,11 @@
   <meta charset="UTF-8">
   <title>축구는 종교다</title>
   <link rel="stylesheet" href="<c:url value='/publish/header.css'/>">
-
   <link href="https://fonts.googleapis.com/css2?family=Bungee+Spice&display=swap" rel="stylesheet">
-
 </head>
-
 <body>
-
-
-
+<div class="wrapping_test">
 <header>
-
-
 <%--용 추가--%>
   <div class="top-banner">**회원가입시 10,000P 즉시할인쿠폰 지급**</div>
   <div class="header">

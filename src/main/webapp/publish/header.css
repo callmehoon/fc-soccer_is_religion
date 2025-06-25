@@ -1,6 +1,18 @@
 /* Drop.css */
 
+/* Drop.css에 추가 */
+.wrapping_test {
+    min-height: 100vh;
+    position: relative;
+}
 
+header {
+    position: sticky;
+    top: 0;
+    z-index: 1000; /* 가장 높은 z-index */
+    background: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
 
 .top-banner {
     background-color: #000;
