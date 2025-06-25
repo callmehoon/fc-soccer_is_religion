@@ -1,7 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ include file="Drop.jsp" %>
+<%@ include file="header.jsp" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -140,9 +140,9 @@
   <section class="product-grid">
     <c:forEach var="p" items="${productList}">
     <div class="product-card">
-      <a href="product/detail?productID=${p.productId}"><img src="${p.img}" alt="${p.productName}"></a>
+      <a href="${pageContext.request.contextPath}/product/detail?productID=${p.productId}"><img src="${p.img}" alt="${p.productName}"></a>
       <p><c:out value="${p.brandName}"/></p>
-      <a href="product/detail?productID=${p.productId}"><p><c:out value="${p.productName}"/></p></a>
+      <a href="${pageContext.request.contextPath}/product/detail?productID=${p.productId}"><p><c:out value="${p.productName}"/></p></a>
       <p class="price"><fmt:formatNumber value="${p.price}" type="number" groupingUsed="true"/>원</p>
     </div>
     </c:forEach>
@@ -150,7 +150,7 @@
   <nav class="pagination" style="text-align:center; margin:20px 0;">
     <!-- 이전 페이지 링크 -->
     <c:if test="${page > 1}">
-      <a href="?page=${page-1}&size=${size}">‹ Prev</a>
+      <a href="?page=${page-1}&size=${size}&sort=${sort}">‹ Prev</a>
     </c:if>
 
     <!-- 페이지 번호 -->
@@ -160,16 +160,17 @@
           <span style="font-weight:bold; margin:0 5px;">${i}</span>
         </c:when>
         <c:otherwise>
-          <a href="?page=${i}&size=${size}" style="margin:0 5px;">${i}</a>
+          <a href="?page=${i}&size=${size}&sort=${sort}" style="margin:0 5px;">${i}</a>
         </c:otherwise>
       </c:choose>
     </c:forEach>
 
     <!-- 다음 페이지 링크 -->
     <c:if test="${page < totalPages}">
-      <a href="?page=${page+1}&size=${size}">Next ›</a>
+      <a href="?page=${page+1}&size=${size}&sort=${sort}">Next ›</a>
     </c:if>
   </nav>
 </main>
 </body>
 </html>
+<%@ include file="footer.jsp" %>

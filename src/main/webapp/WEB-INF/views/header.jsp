@@ -61,26 +61,26 @@
         <a href="<c:url value='/brand'/>">BRAND</a>
         <div class="brand-dropdown">
           <div class="brand-grid">
-            <a href="<c:url value='/brand?name=Nike'/>">
-              <img src="https://via.placeholder.com/180x220?text=Nike" alt="Nike">
+            <a href="<c:url value='/brand/101/'/>">
+              <img src="https://caposttr4591.cdn-nhncommerce.com/data/skin/front/dbook_20220713/img/banner/a3fbe657938f5f62c88cd06c61ddff05_86358.jpg" alt="Nike">
             </a>
-            <a href="<c:url value='/brand?name=Adidas'/>">
-              <img src="https://via.placeholder.com/180x220?text=Adidas" alt="Adidas">
+            <a href="<c:url value='/brand/102'/>">
+              <img src="https://caposttr4591.cdn-nhncommerce.com/data/skin/front/dbook_20220713/img/banner/47fc663e8b9994bcbc61fe057cf640ee_33799.jpg" alt="Adidas">
             </a>
-            <a href="<c:url value='/brand?name=Puma'/>">
-              <img src="https://via.placeholder.com/180x220?text=Puma" alt="Puma">
+            <a href="<c:url value='/brand/103'/>">
+              <img src="https://caposttr4591.cdn-nhncommerce.com/data/skin/front/dbook_20220713/img/banner/ddf7651fd4a86018e05acf0ca7a889ee_15239.jpg" alt="Puma">
             </a>
-            <a href="<c:url value='/brand?name=Mizuno'/>">
-              <img src="https://via.placeholder.com/180x220?text=Mizuno" alt="Mizuno">
+            <a href="<c:url value='/brand/104'/>">
+              <img src="https://caposttr4591.cdn-nhncommerce.com/data/skin/front/dbook_20220713/img/banner/0d62c6ba8861dc8d90621ebf10f4baea_53095.jpg" alt="Mizuno">
             </a>
-            <a href="<c:url value='/brand?name=Asics'/>">
-              <img src="https://via.placeholder.com/180x220?text=Asics" alt="Asics">
+            <a href="<c:url value='/brand/105'/>">
+              <img src="https://caposttr4591.cdn-nhncommerce.com/data/skin/front/dbook_20220713/img/banner/1335036f432951aae5f2e563378e492f_81352.jpg" alt="Asics">
             </a>
-            <a href="<c:url value='/brand?name=UnderArmour'/>">
-              <img src="https://via.placeholder.com/180x220?text=UnderArmour" alt="Under Armour">
+            <a href="<c:url value='/brand/106'/>">
+              <img src="https://caposttr4591.cdn-nhncommerce.com/data/skin/front/dbook_20220713/img/banner/0589c8adcd6606670162e3b3ce2e025d_54932.jpg" alt="Under Armour">
             </a>
             <a href="<c:url value='/brand?name=Skechers'/>">
-              <img src="https://via.placeholder.com/180x220?text=Skechers" alt="Skechers">
+              <img src="https://caposttr4591.cdn-nhncommerce.com/data/skin/front/dbook_20220713/img/banner/6e36caa9e3aa282fcc97d1560c18b614_46833.jpg" alt="Skechers">
             </a>
           </div>
         </div>

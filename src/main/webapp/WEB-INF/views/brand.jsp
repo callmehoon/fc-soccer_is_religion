@@ -1,29 +1,32 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ include file="Drop.jsp" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ include file="header.jsp" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
   <title>축구는 종교다</title>
-  <link rel="stylesheet" href="/publish/new.css">
+<%--  <link rel="stylesheet" href="/publish/new.css">--%>
   <style>
     .brand-landing-wrap {
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      min-height: 420px;
+      /*min-height: 420px;*/
+      padding: 60px 0 20px;
       background: url('https://via.placeholder.com/1600x500?text=Background+Pattern') center/cover no-repeat;
-      margin-bottom: 30px;
+      margin-bottom: 1px;
       width: 100%;
     }
     .brand-landing-title {
       font-size: 48px;
       font-weight: 400;
       letter-spacing: 2px;
-      margin-bottom: 14px;
+      margin-bottom: 1px;
       text-align: center;
       margin-top: 60px;
+
     }
     .brand-landing-title strong {
       font-weight: 900;
@@ -43,11 +46,15 @@
       justify-content: center;
       align-items: center;
       gap: 0;
-      margin: 0 auto;
+      /*margin: 0 auto;*/
       padding: 0;
       width: 90vw;
       max-width: 1400px;
       background: #fff;
+      margin-top: 1px;
+      margin-bottom: 20px;
+      margin-left: auto;
+      margin-right: auto;
     }
     .brand-logo-item {
       flex: 1 1 0px;
@@ -90,34 +97,36 @@
   <section class="brand-logos">
     <div class="brand-logo-item">
       <button type="button" onclick="location.href='<c:url value='/brand/101' />'">
-        <img src="https://via.placeholder.com/180x220?text=Nike" alt="Nike">
+        <img src="<c:url value='/image/nikelogo.png'/>" alt="Nike">
       </button>
-
+    </div>
       <div class="brand-logo-item">
         <button type="button" onclick="location.href='<c:url value='/brand/102' />'">
-          <img src="https://via.placeholder.com/180x220?text=Nike" alt="Adidas">
+          <img src="<c:url value='/image/adidaslogo.png'/>" alt="Adidas">
         </button>
+      </div>
         <div class="brand-logo-item">
           <button type="button" onclick="location.href='<c:url value='/brand/103' />'">
-            <img src="https://via.placeholder.com/180x220?text=Nike" alt="Puma">
+            <img src="<c:url value='/image/pumalogo.png'/>" alt="Puma">
           </button>
+        </div>
           <div class="brand-logo-item">
             <button type="button" onclick="location.href='<c:url value='/brand/104' />'">
-              <img src="https://via.placeholder.com/180x220?text=Nike" alt="Mizuno">
+              <img src="<c:url value='/image/mizunologo.png'/>" alt="Mizuno">
             </button>
+          </div>
             <div class="brand-logo-item">
               <button type="button" onclick="location.href='<c:url value='/brand/105' />'">
-                <img src="https://via.placeholder.com/180x220?text=Nike" alt="Asics">
+                <img src="<c:url value='/image/asicslogo.png'/>" alt="Asics">
               </button>
+            </div>
               <div class="brand-logo-item">
                 <button type="button" onclick="location.href='<c:url value='/brand/108' />'">
-                  <img src="https://via.placeholder.com/180x220?text=Nike" alt="Under Armor">
+                  <img src="<c:url value='/image/underarmorlogo.png'/>" alt="Under Armor">
                 </button>
-                <div class="brand-logo-item">
-                  <img src="https://capostore.co.kr/web/upload/category/logo/skechers.svg" alt="Skechers">
                 </div>
   </section>
 </main>
 </body>
 </html>
-마 commit이 안된다 뭐가 문제고
+<%@ include file="footer.jsp" %>

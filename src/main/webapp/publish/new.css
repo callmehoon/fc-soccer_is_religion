@@ -76,5 +76,6 @@ nav.pagination a:hover,
 nav.pagination a:focus,
 nav.pagination a:active {
     color: #000 !important;
-    text-decoration: none !important;
+    text-decoration: underline; !important;
+    text-decoration-color: #007BFF;
 }

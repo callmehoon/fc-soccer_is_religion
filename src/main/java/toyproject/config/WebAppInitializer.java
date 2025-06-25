@@ -20,7 +20,8 @@ public class WebAppInitializer implements WebApplicationInitializer {
             rootContext.register(
         toyproject.config.DataSourceConfig.class,
         toyproject.config.MyBatisConfig.class,
-        toyproject.config.TxConfig.class
+        toyproject.config.TxConfig.class,
+        toyproject.config.CacheConfig.class
     );
         servletContext.addListener(new ContextLoaderListener(rootContext));
 
