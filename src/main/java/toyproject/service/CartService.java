@@ -6,14 +6,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import toyproject.controller.dto.*;
 import toyproject.mapper.CartMapper;
-import toyproject.mapper.queryparam.UserCartByIDQueryParam;
-import toyproject.mapper.queryparam.UserCartDeleteQueryParam;
-import toyproject.mapper.queryparam.UserCartItemQuantityQueryParam;
-import toyproject.mapper.queryparam.UserCartUpdateQueryParam;
+import toyproject.mapper.queryparam.*;
 import toyproject.mapper.result.SizeStockResult;
+import toyproject.mapper.result.StockCheckResult;
 import toyproject.mapper.result.UserCartResult;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -132,6 +133,59 @@ public class CartService {
 
             cartMapper.deleteCartItem(param);
         }
+    }
+
+    public List<CartItemStockInfo> findStockIssues(List<CartStockCheckRequestDto> items) {
+
+        List<StockCheckParam> params = items.stream()
+                .map(result -> StockCheckParam.builder()
+                        .productId(result.getProductId())
+                        .size(result.getSize())
+                        .build())
+                .toList();
+
+        List<StockCheckResult> inventoryList = cartMapper.findStocksByProductOptions(params);
+
+        Map<String, StockCheckResult> stockMap = inventoryList.stream()
+                .collect(Collectors.toMap(
+                        i -> i.getProductId() + "_" + i.getSize(),
+                        i -> i
+                ));
+
+        List<CartItemStockInfo> result = new ArrayList<>();
+
+        for (CartStockCheckRequestDto item : items) {
+            String key = item.getProductId() + "_" + item.getSize();
+            StockCheckResult stockInfo = stockMap.get(key);
+
+            CartItemStockInfo.CartItemStockInfoBuilder builder = CartItemStockInfo.builder()
+                    .productId(item.getProductId())
+                    .size(item.getSize());
+
+            if (stockInfo == null) {
+                // 상품 자체를 못 찾은 경우
+                builder.stock(0)
+                        .productName("알 수 없는 상품")
+                        .issueType(IssueType.UNKNOWN_PRODUCT);
+            } else if (stockInfo.getStock() == 0) {
+                // 재고가 0개인 경우
+                builder.stock(0)
+                        .productName(stockInfo.getProductName())
+                        .issueType(IssueType.OUT_OF_STOCK);
+            } else if (stockInfo.getStock() < item.getQuantity()) {
+                // 수량보다 재고가 부족한 경우
+                builder.stock(stockInfo.getStock())
+                        .productName(stockInfo.getProductName())
+                        .issueType(IssueType.NOT_ENOUGH_STOCK);
+            } else {
+                // 문제가 없으면 응답에 포함하지 않음
+                continue;
+            }
+
+            result.add(builder.build());
+        }
+
+        return result;
     }
 
 

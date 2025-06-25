@@ -133,19 +133,28 @@ document.querySelector(".btn.confirm").addEventListener("click", function () {
 document.getElementById("purchaseSelectedBtn").addEventListener("click", () => {
     const selectedItems = [];
 
+    document.getElementById("stock-issues-list").innerHTML = "";
+    document.getElementById("stock-issues-summary").style.display = "none";
+
     document.querySelectorAll(".cart-item-checkbox:checked").forEach(cb => {
         const row = cb.closest("tr");
 
         const productId = parseInt(row.dataset.productId);
-        const sizeText = row.querySelector(".product-info").innerText.match(/사이즈\s*:\s*(\d+|Free)/i);
-        const size = sizeText && sizeText[1] === "Free" ? 0 : parseInt(sizeText[1]);
-        const quantity = parseInt(row.querySelector("td:nth-child(3)").innerText);
 
-        selectedItems.push({
-            productId,
-            size,
-            quantity
-        });
+        // ✅ 사이즈는 .product-info div 내부 텍스트에서 추출
+        const sizeTextMatch = row.querySelector(".product-info").innerText.match(/사이즈\s*:\s*(\d+|Free)/i);
+        const size = sizeTextMatch && sizeTextMatch[1] === "Free" ? 0 : parseInt(sizeTextMatch[1]);
+
+        // ✅ 수량은 td:nth-child(3) 텍스트에서 첫 번째 숫자만 추출 (예: "3개")
+        const quantityTd = row.querySelector("td:nth-child(3)");
+        const quantityMatch = quantityTd?.innerText.trim().match(/^(\d+)/);
+        const quantity = quantityMatch ? parseInt(quantityMatch[1]) : 0;
+
+        if (!isNaN(productId) && !isNaN(size) && !isNaN(quantity)) {
+            selectedItems.push({productId, size, quantity});
+        } else {
+            console.warn("파싱 실패 - 무시됨", {productId, size, quantity});
+        }
     });
 
     if (selectedItems.length === 0) {
@@ -153,22 +162,79 @@ document.getElementById("purchaseSelectedBtn").addEventListener("click", () => {
         return;
     }
 
-    const payload = {
-        productId: selectedItems
-    };
-
-    fetch("/order/prepare", {
+    fetch("/cart/stock", {
         method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(payload)
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(selectedItems)
     })
-        .then(res => {
-            if (res.redirected) {
-                window.location.href = res.url; // 보통은 /order 로 리디렉션됨
+        .then(async res => {
+            if (res.ok) {
+                // 정상: 문제 없음 → 주문 페이지 이동
+                const orderRes = await fetch("/order/prepare", {
+                    method: "POST",
+                    headers: {"Content-Type": "application/json"},
+                    body: JSON.stringify({productId: selectedItems})
+                });
+
+                if (orderRes.redirected) {
+                    window.location.href = orderRes.url;
+                } else {
+                    alert("주문 페이지 이동 실패");
+                }
             } else {
-                alert("주문 페이지 이동 실패");
+                // 에러 응답 (예: 400): 문제 항목 리스트 처리
+                const data = await res.json(); // 이건 서버에서 반드시 JSON으로 반환해야 함
+                const issues = data.items || [];
+
+                if (issues.length > 0) {
+                    const summaryBox = document.getElementById("stock-issues-summary");
+                    const summaryList = document.getElementById("stock-issues-list");
+                    summaryBox.style.display = "block";
+                    summaryList.innerHTML = "";
+
+                    issues.forEach(issue => {
+
+                        const row = document.querySelector(
+                            `tr[data-product-id='${issue.productId}'][data-size='${issue.size}']`
+                        );
+
+                        if (!row) {
+                            console.warn("해당 상품 행(tr)을 찾을 수 없음:", issue);
+                            return;
+                        }
+
+                        const warningArea = row.querySelector(".stock-warning-area");
+
+                        let message = "";
+
+                        switch (issue.issueType) {
+                            case "OUT_OF_STOCK":
+                                message = "❌ 품절된 상품입니다.";
+                                break;
+                            case "NOT_ENOUGH_STOCK":
+                                message = `⚠️ 재고 부족 (현재 ${issue.stock}개)`;
+                                break;
+                            case "UNKNOWN_PRODUCT":
+                                message = "❓ 상품 정보를 찾을 수 없습니다.";
+                                break;
+                            default:
+                                message = "⚠️ 알 수 없는 문제";
+                        }
+
+
+                        if (warningArea) {
+                            warningArea.textContent = message;
+                        } else {
+                            console.warn("stock-warning-area가 없음", row);
+                        }
+                        const itemText = `${issue.productName} [사이즈 ${issue.size}] - ${message}`;
+                        const li = document.createElement("li");
+                        li.innerText = itemText;
+                        summaryList.appendChild(li);
+                    });
+                } else {
+                    alert("알 수 없는 오류 발생 (응답엔 문제가 있으나 항목이 없음)");
+                }
             }
         })
         .catch(err => {
@@ -250,10 +316,6 @@ function renderSizeButtons(dataList, prevSize, prevQuantity) {
     if (selectedSpan) selectedSpan.textContent = prevSize;
     if (qtyInput) qtyInput.value = prevQuantity;
 }
-
-
-
-
 
 
 function renderStockStatus(cart) {
@@ -370,6 +432,104 @@ document.getElementById("deleteSelectedBtn").addEventListener("click", () => {
             alert("삭제 중 오류가 발생했습니다.");
         });
 });
+
+document.getElementById("purchaseAllBtn").addEventListener("click", () => {
+    const allItems = [];
+
+    document.getElementById("stock-issues-list").innerHTML = "";
+    document.getElementById("stock-issues-summary").style.display = "none";
+
+    document.querySelectorAll(".cart-table tbody tr").forEach(row => {
+        const productId = parseInt(row.dataset.productId);
+
+        const sizeTextMatch = row.querySelector(".product-info").innerText.match(/사이즈\s*:\s*(\d+|Free)/i);
+        const size = sizeTextMatch && sizeTextMatch[1] === "Free" ? 0 : parseInt(sizeTextMatch[1]);
+
+        const quantityTd = row.querySelector("td:nth-child(3)");
+        const quantityMatch = quantityTd?.innerText.trim().match(/^(\d+)/);
+        const quantity = quantityMatch ? parseInt(quantityMatch[1]) : 0;
+
+        if (!isNaN(productId) && !isNaN(size) && !isNaN(quantity)) {
+            allItems.push({productId, size, quantity});
+        } else {
+            console.warn("전체상품 파싱 실패 - 무시됨", {productId, size, quantity});
+        }
+    });
+
+    if (allItems.length === 0) {
+        alert("주문할 상품이 없습니다.");
+        return;
+    }
+
+    fetch("/cart/stock", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(allItems)
+    })
+        .then(async res => {
+            if (res.ok) {
+                const orderRes = await fetch("/order/prepare", {
+                    method: "POST",
+                    headers: {"Content-Type": "application/json"},
+                    body: JSON.stringify({productId: allItems})
+                });
+
+                if (orderRes.redirected) {
+                    window.location.href = orderRes.url;
+                } else {
+                    alert("주문 페이지 이동 실패");
+                }
+            } else {
+                const data = await res.json();
+                const issues = data.items || [];
+
+                if (issues.length > 0) {
+                    const summaryBox = document.getElementById("stock-issues-summary");
+                    const summaryList = document.getElementById("stock-issues-list");
+                    summaryBox.style.display = "block";
+                    summaryList.innerHTML = "";
+
+                    issues.forEach(issue => {
+                        const row = document.querySelector(
+                            `tr[data-product-id='${issue.productId}'][data-size='${issue.size}']`
+                        );
+                        const warningArea = row?.querySelector(".stock-warning-area");
+
+                        let message = "";
+                        switch (issue.issueType) {
+                            case "OUT_OF_STOCK":
+                                message = "❌ 품절된 상품입니다.";
+                                break;
+                            case "NOT_ENOUGH_STOCK":
+                                message = `⚠️ 재고 부족 (현재 ${issue.stock}개)`;
+                                break;
+                            case "UNKNOWN_PRODUCT":
+                                message = "❓ 상품 정보를 찾을 수 없습니다.";
+                                break;
+                            default:
+                                message = "⚠️ 알 수 없는 문제";
+                        }
+
+                        if (warningArea) {
+                            warningArea.textContent = message;
+                        }
+
+                        const itemText = `${issue.productName} [사이즈 ${issue.size}] - ${message}`;
+                        const li = document.createElement("li");
+                        li.innerText = itemText;
+                        summaryList.appendChild(li);
+                    });
+                } else {
+                    alert("알 수 없는 오류 발생");
+                }
+            }
+        })
+        .catch(err => {
+            console.error("전체상품 주문 실패", err);
+            alert("요청 중 문제가 발생했습니다.");
+        });
+});
+
 
 // 배송비 적용: 선택된 항목 1개 이상일 경우 3000원
 function updateSummary() {

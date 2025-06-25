@@ -64,7 +64,7 @@ public class CartController {
 
         log.info("Cart Controller _ /delete");
 
-        cartService.deleteCartItems("U01357", deleteRequestDto);
+        cartService.deleteCartItems("U12345", deleteRequestDto);
 
         return ResponseEntity.ok().build();
     }
@@ -78,6 +78,25 @@ public class CartController {
         }
         return ResponseEntity.ok().build();
     }
+
+    @PostMapping("/stock")
+    @ResponseBody
+    public ResponseEntity<CartStockIssueResponseDto> checkCartStock(
+            @RequestBody List<CartStockCheckRequestDto> items) {
+
+        List<CartItemStockInfo> issues = cartService.findStockIssues(items);
+
+        if (issues.isEmpty()) {
+            return ResponseEntity.ok().build();
+        }
+
+        return ResponseEntity.badRequest().body(
+                CartStockIssueResponseDto.builder()
+                        .items(issues)
+                        .build()
+        );
+    }
+
 
 
 }
