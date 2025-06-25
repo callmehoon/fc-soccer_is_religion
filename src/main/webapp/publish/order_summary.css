@@ -10,15 +10,21 @@ body {
   overflow-x: hidden;
 }
 
+.summary_body {
+  width: 100%;
+  position: relative;
+}
+
 .order_title {
   position: sticky;
-  top: 0;
+  top: 185px;
   background: #fff;
   padding: 20px;
   font-size: 30px;
   font-weight: bold;
   width: 100%;
   text-align: center;
+  z-index: 900;
 }
 
 .container {

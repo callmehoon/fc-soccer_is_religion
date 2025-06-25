@@ -1,6 +1,5 @@
 <link rel="stylesheet" href="<c:url value='/publish/footer.css'/>">
 
-
 <footer class="footer">
     <div class="footer-container">
         <div class="footer-column">
@@ -8,5 +7,6 @@
         </div>
     </div>
 </footer>
-    </body>
+</div>
+</body>
 </html>
