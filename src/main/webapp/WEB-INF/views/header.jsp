@@ -1,8 +1,50 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<link rel="stylesheet" href="<c:url value='/publish/Drop.css'/>">
+<link rel="stylesheet" href="<c:url value='/publish/header.css'/>">
+<link rel="stylesheet" href="<c:url value='/publish/reset.css'/>">
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>축구는 종교다</title>
+  <link rel="stylesheet" href="<c:url value='/publish/new.css'/>">
+  <link href="https://fonts.googleapis.com/css2?family=Bungee+Spice&display=swap" rel="stylesheet">
+
+<body>
+
+
 
 <header>
+<%--용 추가--%>
+  <div class="top-banner">**회원가입시 10,000P 즉시할인쿠폰 지급**</div>
+  <div class="header">
+    <div class="logo">
+      <a href="http://localhost:8080/main" style="text-decoration: none; color: inherit;">
+         NO.10 TEAM FOOTBALL
+      </a>
+    </div>
+    <div class="right-menu">
+
+      <c:choose>
+        <c:when test="${not empty sessionScope.loginUser}">
+          <a href="/logout" style="text-decoration: none; color: inherit;">로그아웃</a>
+        </c:when>
+        <c:otherwise>
+          <a href="/login" style="text-decoration: none; color: inherit;">로그인</a>
+          <a href="/register" style="text-decoration: none; color: inherit;">회원가입</a>
+        </c:otherwise>
+      </c:choose>
+
+      <a href="#" style="text-decoration: none; color: inherit;">주문조회</a>
+      <div class="search-box"><input type="text" placeholder="검색어를 입력하세요..."></div>
+      <span>마이페이지</span>
+      <span>장바구니</span>
+    </div>
+  </div>
+
+<%--용 추가--%>
+
   <nav class="main-nav">
     <ul class="nav-list">
       <!-- NEW -->
@@ -221,7 +263,9 @@
       <li><a href="<c:url value='/referee-kit'/>">레프리킷</a></li>
       <li><a href="<c:url value='/womens'/>">우먼스</a></li>
       <li><a href="<c:url value='/youth'/>">유소년</a></li>
-
     </ul>
   </nav>
+
+
+
 </header>

@@ -18,8 +18,7 @@ public class LoginController {
 
     // 로그인 폼 화면
     @GetMapping("/login")
-    public String loginForm(Model model) {
-        model.addAttribute("contentPage", "user_login.jsp");
+    public String loginForm() {
         return "user_login";  // /WEB-INF/views/user_login.jsp
     }
 
@@ -32,6 +31,7 @@ public class LoginController {
         try {
             LoginUserDto user = userService.login(email, password);
             request.getSession().setAttribute("loginUser", user);
+            //다른 컨트롤러나 JSP에서 sessionScope.loginUser로 접근
             return "redirect:/main"; // 로그인 성공 후 메인 페이지로 이동
         } catch (IllegalArgumentException e) {
             redirectAttributes.addFlashAttribute("error", e.getMessage());
@@ -43,5 +43,12 @@ public class LoginController {
     public String home(Model model) {
         model.addAttribute("contentPage", "rolling.jsp");
         return "main";
+    }
+
+    // 로그아웃 처리
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest request) {
+        request.getSession().invalidate(); // 세션 완전 초기화
+        return "redirect:/main"; // 로그아웃 후 메인으로 이동
     }
 }

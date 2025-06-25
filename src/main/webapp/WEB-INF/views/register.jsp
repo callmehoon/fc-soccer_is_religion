@@ -1,15 +1,15 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>축구는 종교다</title>
-    <link rel="stylesheet" href="publish/register.css"/>
-    <script src="publish/register.js"></script>
-    <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-</head>
-<body>
+<link rel="stylesheet" href="publish/register.css"/>
+<script src="publish/register.js"></script>
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
+<%@ include file="header.jsp" %>
+
+
+
+
+<%--참조 CSS --%>
+<%--body 로 걸려있는 CSS 를 "main-body" 와 같이 감싸고, 재조정 필요--%>
+<div class="main-body">
 <div class="container">
     <form action="/register" method="post">
     <h2>회원가입</h2>
@@ -98,5 +98,9 @@
     </div>
     </form>
 </div>
-</body>
-</html>
+</div>
+
+
+
+
+<%@ include file="footer.jsp" %>

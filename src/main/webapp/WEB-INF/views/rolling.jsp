@@ -17,8 +17,8 @@
     }
 
     .rolling-wrapper img {
-        width: 2000px;
-        height: 800px;
+        width: 2500px;
+        height: 900px;
         object-fit: cover;
         margin-right: 10px;
         border-radius: 8px;
