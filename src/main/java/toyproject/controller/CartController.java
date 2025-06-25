@@ -22,32 +22,34 @@ public class CartController {
     private final CartService cartService;
 
     @GetMapping("")
-    public String cart(HttpSession httpSession, @ModelAttribute PageRequestDto pageRequestDto, Model model) {
+    public String cart(@ModelAttribute CartRequestDto cartRequestDto, @ModelAttribute PageRequestDto pageRequestDto, Model model) {
 
         log.info("Cart Controller _ 기본 페이지 진입");
 
-        CartRequestDto cartRequestDto = CartRequestDto.builder().userId("U01357").build();
+        cartRequestDto.setUserId("U01357");
 
         CartResponseDto cartInfo = cartService.searchCart(cartRequestDto, pageRequestDto);
+
+        PageResponseDto pageInfo = cartInfo.getPageResponseDto();
+
+        PageResponseDto cartPageInfo = PageResponseDto.builder()
+                .page(pageInfo.getPage())
+                .size(pageInfo.getSize())
+                .totalElements(pageInfo.getTotalElements())
+                .totalPage(pageInfo.getTotalPage())
+                .first(pageInfo.isFirst())
+                .last(pageInfo.isLast()).
+                build();
 
         CartListViewModel cartListViewModel = CartListViewModel.builder()
                 .cartPriceInfo(cartInfo.getPriceInfo())
                 .cartList(cartInfo.getCartItems())
-                .pageInfo(cartInfo.getPageResponseDto())
+                .pageInfo(cartPageInfo)
                 .build();
 
         model.addAttribute("cartListViewModel", cartListViewModel);
 
         return "cart";
-    }
-
-    @GetMapping("/items")
-    @ResponseBody
-    public CartResponseDto getCartItems(@ModelAttribute PageRequestDto pageRequestDto) {
-
-        CartRequestDto cartRequestDto = CartRequestDto.builder().userId("U01357").build();
-
-        return cartService.searchCart(cartRequestDto, pageRequestDto);
     }
 
 
@@ -79,6 +81,15 @@ public class CartController {
 
         cartService.deleteCartItems("U01357", deleteRequestDto);
 
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/add")
+    @ResponseBody
+    public ResponseEntity<Void> addToCart(@RequestBody List<CartInsertDto> items) {
+        for (CartInsertDto item : items) {
+            cartService.insertCartItem(item);
+        }
         return ResponseEntity.ok().build();
     }
 

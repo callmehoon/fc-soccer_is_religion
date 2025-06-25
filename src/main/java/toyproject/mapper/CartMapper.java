@@ -1,5 +1,6 @@
 package toyproject.mapper;
 
+import toyproject.controller.dto.CartInsertDto;
 import toyproject.mapper.queryparam.UserCartDeleteQueryParam;
 import toyproject.mapper.queryparam.UserCartByIDQueryParam;
 import toyproject.mapper.queryparam.UserCartItemQuantityQueryParam;
@@ -23,5 +24,6 @@ public interface CartMapper {
     void updateCartItemQuantity(UserCartUpdateQueryParam userCartUpdateQueryParam);
     void deleteCartItem(UserCartDeleteQueryParam cartDeleteQueryParam);
     void insertCartItem(UserCartUpdateQueryParam cartUpdateQueryParam);
+    void insertCartItem(CartInsertDto CartInsertDto);
 
 }
