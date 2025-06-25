@@ -258,3 +258,207 @@ function renderSizeButtons(dataList, prevSize, prevQuantity) {
     if (selectedSpan) selectedSpan.textContent = prevSize;
     if (qtyInput) qtyInput.value = prevQuantity;
 }
+
+let currentPage = 1;
+let isLoading = false;
+let isLastPage = false;
+
+const loadMoreBtn = document.getElementById("loadMoreBtn");
+loadMoreBtn.addEventListener("click", () => {
+    if (!isLoading) {
+        loadNextPage();
+    }
+});
+
+function loadNextPage() {
+    isLoading = true;
+
+    // 버튼 로딩 상태
+    loadMoreBtn.classList.add("loading");
+    loadMoreBtn.querySelector(".text").textContent = "loading";
+
+    currentPage++;
+
+    fetch(`/cart/items?page=${currentPage}&size=10`)
+        .then(res => res.json())
+        .then(data => {
+            const cartItems = data.cartItems;
+
+            if (!Array.isArray(cartItems)) {
+                console.error("cartItems가 배열이 아님:", cartItems);
+                return;
+            }
+
+            const tbody = document.querySelector(".cart-table tbody");
+            cartItems.forEach(cart => {
+                const row = document.createElement("tr");
+                row.dataset.productId = cart.productId;
+                row.innerHTML = `
+                    <td><input type="checkbox" class="cart-item-checkbox"/></td>
+                    <td>
+                        <div class="product-info">
+                            <img src="${cart.productImg}" alt="상품 이미지">
+                            <div>
+                                <strong>${cart.productName}</strong><br/>
+                                사이즈 : ${cart.size === 0 ? 'Free' : cart.size}
+                            </div>
+                        </div>
+                    </td>
+                    <td class="${cart.stockQuantity === 0 ? 'sold-out' : ''}">
+                        ${cart.cartProductQuantity}개<br/>
+                        ${renderStockStatus(cart)}
+                        <br/>
+                        <a href="#" onclick="openModal(event)"
+                           data-product-id="${cart.productId}"
+                           data-prev-size="${cart.size}"
+                           data-prev-quantity="${cart.cartProductQuantity}">
+                            옵션/수정변경
+                        </a>
+                    </td>
+                    <td><strong>${(cart.productPrice * cart.cartProductQuantity).toLocaleString()}원</strong></td>
+                    <td>
+                        할인 - ${(cart.productPrice * cart.cartProductQuantity * 0.01).toLocaleString()}원<br/>
+                        적립 + ${(cart.productPrice * cart.cartProductQuantity * 0.01).toLocaleString()}원
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+
+            // 마지막 페이지면 버튼 숨김
+            if (data.pageResponseDto.last || cartItems.length === 0) {
+                isLastPage = true;
+                document.getElementById("loadMoreContainer").style.display = "none";
+            }
+        })
+        .catch(err => console.error("페이지 로딩 실패", err))
+        .finally(() => {
+            isLoading = false;
+            loadMoreBtn.classList.remove("loading");
+            loadMoreBtn.querySelector(".text").textContent = "load more";
+        });
+}
+
+function renderStockStatus(cart) {
+    if (cart.stockQuantity === 0) {
+        return `<span class="stock-warning">❌ 제품 품절</span>`;
+    } else if (cart.cartProductQuantity > cart.stockQuantity) {
+        return `<span class="stock-warning">⚠️ 현재 남은 재고수량: ${cart.stockQuantity}</span>`;
+    } else if (cart.stockQuantity < 5) {
+        return `<span class="stock-warning">🟡 남은 재고수량: ${cart.stockQuantity}</span>`;
+    } else {
+        return '';
+    }
+}
+
+function updateSummaryInfo() {
+    const checkboxes = document.querySelectorAll(".cart-item-checkbox:checked");
+
+    let productCount = 0;
+    let totalPrice = 0;
+    let totalDiscount = 0;
+
+    checkboxes.forEach(cb => {
+        const row = cb.closest("tr");
+        const quantity = parseInt(row.querySelector("td:nth-child(3)").innerText);
+
+        // 단가 계산
+        const unitPrice = parseInt(
+            row.querySelector("td:nth-child(4) strong").innerText.replace(/[^0-9]/g, "")
+        ) / quantity;
+
+        // 할인금액 가져오기
+        const discountText = row.querySelector("td:nth-child(5)").innerText;
+        const matched = discountText.match(/할인\s*-\s*([\d,]+)원/);
+        const discount = matched ? parseInt(matched[1].replace(/,/g, '')) : 0;
+
+        productCount++;
+        totalPrice += unitPrice * quantity;
+        totalDiscount += discount;
+    });
+
+    const shipping = productCount > 0 ? 3000 : 0;
+
+    document.getElementById("summary-count").textContent = productCount;
+    document.getElementById("summary-price").textContent = totalPrice.toLocaleString();
+    document.getElementById("summary-discount").textContent = totalDiscount.toLocaleString();
+    document.getElementById("summary-shipping").textContent = `+${shipping.toLocaleString()}원`;
+    document.getElementById("summary-total").textContent = (totalPrice - totalDiscount + shipping).toLocaleString();
+}
+
+// ✅ 체크박스 변경 시 반영
+document.addEventListener("change", function (e) {
+    if (e.target.classList.contains("cart-item-checkbox")) {
+        updateSummaryInfo();
+    }
+});
+
+// ✅ 초기 진입 시에도 반영
+document.addEventListener("DOMContentLoaded", updateSummaryInfo);
+
+// 전체 선택 체크박스 처리
+const selectAll = document.getElementById("selectAllCheckbox");
+selectAll.addEventListener("change", () => {
+    document.querySelectorAll(".cart-item-checkbox").forEach(cb => cb.checked = selectAll.checked);
+    updateSummaryInfo();
+});
+
+// 개별 체크박스 변경 시 전체 체크 상태 동기화
+document.addEventListener("change", e => {
+    if (e.target.classList.contains("cart-item-checkbox")) {
+        const all = document.querySelectorAll(".cart-item-checkbox");
+        const checked = document.querySelectorAll(".cart-item-checkbox:checked");
+        selectAll.checked = all.length === checked.length;
+        updateSummary();
+    }
+});
+
+
+document.getElementById("deleteSelectedBtn").addEventListener("click", () => {
+    const selectedItems = [];
+
+    document.querySelectorAll(".cart-item-checkbox:checked").forEach(cb => {
+        const row = cb.closest("tr");
+        const productId = parseInt(row.dataset.productId);
+        const sizeText = row.querySelector(".product-info").innerText.match(/사이즈\s*:\s*(\d+|Free)/i);
+        const size = sizeText && sizeText[1] === "Free" ? 0 : parseInt(sizeText[1]);
+
+        selectedItems.push({productId, size});
+    });
+
+    if (selectedItems.length === 0) {
+        alert("삭제할 상품을 선택해주세요.");
+        return;
+    }
+
+    if (!confirm("정말 선택한 상품들을 삭제하시겠습니까?")) return;
+
+    fetch("/cart/delete", {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({items: selectedItems})
+    })
+        .then(res => {
+            if (res.ok) {
+                alert("선택된 상품이 삭제되었습니다.");
+                window.location.reload();
+            } else {
+                alert("삭제 실패!");
+            }
+        })
+        .catch(err => {
+            console.error("삭제 요청 실패", err);
+            alert("삭제 중 오류가 발생했습니다.");
+        });
+});
+
+// 배송비 적용: 선택된 항목 1개 이상일 경우 3000원
+function updateSummary() {
+    const checkboxes = document.querySelectorAll(".cart-item-checkbox:checked");
+    const isSelected = checkboxes.length > 0;
+    const shipping = isSelected ? 3000 : 0;
+    document.getElementById("summary-shipping").textContent = `+${shipping.toLocaleString()}원`;
+    // 여기에 total 계산 등 추가 처리 가능
+}
+

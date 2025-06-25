@@ -1,6 +1,5 @@
 package toyproject.controller;
 
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -11,8 +10,8 @@ import toyproject.controller.dto.*;
 import toyproject.controller.viewmodel.CartListViewModel;
 import toyproject.service.CartService;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 @Slf4j
@@ -23,29 +22,18 @@ public class CartController {
     private final CartService cartService;
 
     @GetMapping("")
-    public String cart(@ModelAttribute CartRequestDto cartRequestDto, @ModelAttribute PageRequestDto pageRequestDto, Model model) {
+    public String cart(HttpSession httpSession, @ModelAttribute PageRequestDto pageRequestDto, Model model) {
 
         log.info("Cart Controller _ 기본 페이지 진입");
 
-        cartRequestDto.setUserId("U01357");
+        CartRequestDto cartRequestDto = CartRequestDto.builder().userId("U01357").build();
 
         CartResponseDto cartInfo = cartService.searchCart(cartRequestDto, pageRequestDto);
-
-        PageResponseDto pageInfo = cartInfo.getPageResponseDto();
-
-        PageResponseDto cartPageInfo = PageResponseDto.builder()
-                .page(pageInfo.getPage())
-                .size(pageInfo.getSize())
-                .totalElements(pageInfo.getTotalElements())
-                .totalPage(pageInfo.getTotalPage())
-                .first(pageInfo.isFirst())
-                .last(pageInfo.isLast()).
-                build();
 
         CartListViewModel cartListViewModel = CartListViewModel.builder()
                 .cartPriceInfo(cartInfo.getPriceInfo())
                 .cartList(cartInfo.getCartItems())
-                .pageInfo(cartPageInfo)
+                .pageInfo(cartInfo.getPageResponseDto())
                 .build();
 
         model.addAttribute("cartListViewModel", cartListViewModel);
@@ -53,10 +41,19 @@ public class CartController {
         return "cart";
     }
 
-
-    @GetMapping(value = "/option/size" , produces = "application/json")
+    @GetMapping("/items")
     @ResponseBody
-    public List<SizeResponseDto> getAvailableSizes(@ModelAttribute SizeRequestDto sizeRequestDto){
+    public CartResponseDto getCartItems(@ModelAttribute PageRequestDto pageRequestDto) {
+
+        CartRequestDto cartRequestDto = CartRequestDto.builder().userId("U01357").build();
+
+        return cartService.searchCart(cartRequestDto, pageRequestDto);
+    }
+
+
+    @GetMapping(value = "/option/size", produces = "application/json")
+    @ResponseBody
+    public List<SizeResponseDto> getAvailableSizes(@ModelAttribute SizeRequestDto sizeRequestDto) {
 
         log.info("Cart Controller _ /option/size");
 
@@ -64,16 +61,26 @@ public class CartController {
 
     }
 
-@PostMapping("/update")
-@ResponseBody
+    @PostMapping("/update")
+    @ResponseBody
     public ResponseEntity<Void> updateCart(@RequestBody CartUpdateRequestDto request) {
 
-    log.info("Cart Controller _ /update");
-    System.out.println(request.toString());
-    cartService.updateCartOption("U01357", request); // 내부적으로 삭제 후 insert 로직
-    return ResponseEntity.ok().build();
-}
+        log.info("Cart Controller _ /update");
+        System.out.println(request.toString());
+        cartService.updateCartOption("U01357", request); // 내부적으로 삭제 후 insert 로직
+        return ResponseEntity.ok().build();
+    }
 
+    @DeleteMapping("/delete")
+    @ResponseBody
+    public ResponseEntity<Void> deleteSelectedItems(HttpSession httpSession, @RequestBody CartDeleteRequestDto deleteRequestDto) {
+
+        log.info("Cart Controller _ /delete");
+
+        cartService.deleteCartItems("U01357", deleteRequestDto);
+
+        return ResponseEntity.ok().build();
+    }
 
 
 }

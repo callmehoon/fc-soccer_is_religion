@@ -20,7 +20,7 @@
             <table class="cart-table">
                 <thead>
                 <tr>
-                    <td><input type="checkbox"/></td>
+                    <td><input type="checkbox" id="selectAllCheckbox"/></td>
                     <td>상품/옵션 정보</td>
                     <td>수량</td>
                     <td>상품금액</td>
@@ -74,67 +74,61 @@
                             </strong>
                         </td>
                         <td>
-                            할인 -
-                            <fmt:formatNumber value="${cart.productPrice * cart.cartProductQuantity * 0.01}"
-                                              type="number"/>원<br/>
-                            적립 +
-                            <fmt:formatNumber value="${cart.productPrice * cart.cartProductQuantity * 0.01}"
-                                              type="number"/>원
+                            <c:set var="discount"
+                                   value="${(cart.productPrice * cart.cartProductQuantity * 0.01 + 9) - ((cart.productPrice * cart.cartProductQuantity * 0.01 + 9) % 10)}"/>
+                            할인 - <fmt:formatNumber value="${discount}" type="number" maxFractionDigits="0"/>원<br/>
+                            적립 + <fmt:formatNumber value="${discount}" type="number" maxFractionDigits="0"/>원
                         </td>
                     </tr>
                 </c:forEach>
                 </tbody>
             </table>
-            <div class="pagination">
-                <c:forEach begin="1" end="${cartListViewModel.pageInfo.totalPage}" var="i">
-                    <a href="?page=${i}&size=${cartListViewModel.pageInfo.size}"
-                       class="${i == cartListViewModel.pageInfo.page ? 'active' : ''}">
-                            ${i}
-                    </a>
-                </c:forEach>
+
+            <div class="cart-actions">
+                <span id="deleteSelectedBtn" class="delete-text">선택삭제</span>
+            </div>
+
+            <div id="loadMoreContainer" class="load-more-container">
+    <span id="loadMoreBtn" class="load-more-btn">
+        <span class="line"></span>
+        <span class="text">load more</span>
+        <span class="line"></span>
+    </span>
             </div>
         </div>
 
         <!-- 결제 정보 -->
         <div class="summary-box">
             <h3>
-                총 <strong>${cartListViewModel.cartPriceInfo.totalProductCount}</strong>개의 상품
+                총 <strong id="summary-count">0</strong>개의 상품
             </h3>
 
             <div class="summary-row">
                 총 상품금액
-                <span>
-            <fmt:formatNumber value="${cartListViewModel.cartPriceInfo.totalPrice}" type="number"/>원
-        </span>
+                <span><span id="summary-price">0</span>원</span>
             </div>
 
             <div class="summary-row">
                 총 할인금액
-                <span>
-            -<fmt:formatNumber value="${cartListViewModel.cartPriceInfo.totalDiscount}" type="number"/>원
-        </span>
+                <span>-<span id="summary-discount">0</span>원</span>
             </div>
 
             <div class="summary-row">
                 총 배송비
-                <span>+3,000원</span> <%-- 배송비가 고정이면 그대로 둬도 됨 --%>
+                <span id="summary-shipping">+0원</span>
             </div>
 
             <hr/>
 
             <div class="total-price">
                 결제예상금액
-                <strong>
-                    <fmt:formatNumber
-                            value="${cartListViewModel.cartPriceInfo.totalPrice - cartListViewModel.cartPriceInfo.totalDiscount + 3000}"
-                            type="number"/>원
-                </strong>
+                <strong><span id="summary-total">0</span>원</strong>
             </div>
 
             <button class="btn black">전체상품 구매하기</button>
             <button class="btn white" id="purchaseSelectedBtn">선택상품 구매하기</button>
-
         </div>
+
 
     </div>
 </div>

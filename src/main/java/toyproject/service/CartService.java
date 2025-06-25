@@ -148,11 +148,18 @@ public class CartService {
 
     }
 
+    @Transactional
+    public void deleteCartItems(String userId, CartDeleteRequestDto deleteRequestDto) {
+        for (CartOption item : deleteRequestDto.getItems()) {
+            UserCartDeleteQueryParam param = UserCartDeleteQueryParam.builder()
+                    .userId(userId)
+                    .productId(item.getProductId())
+                    .size(item.getSize())
+                    .build();
 
-//    public void deleteCartItems(CartDeleteRequestDto cartDeleteRequestDto){
-//
-//        cartMapper.deleteCartItems();
-//
-//    }
+            cartMapper.deleteCartItem(param);
+        }
+    }
+
 
 }

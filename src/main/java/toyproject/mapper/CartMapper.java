@@ -21,9 +21,7 @@ public interface CartMapper {
     Integer findCartItemBySize(UserCartItemQuantityQueryParam userCartItemQuantityQueryParam);
 
     void updateCartItemQuantity(UserCartUpdateQueryParam userCartUpdateQueryParam);
-
     void deleteCartItem(UserCartDeleteQueryParam cartDeleteQueryParam);
-    void deleteCartItems(UserCartDeleteQueryParam cartDeleteQueryParam);
     void insertCartItem(UserCartUpdateQueryParam cartUpdateQueryParam);
 
 }

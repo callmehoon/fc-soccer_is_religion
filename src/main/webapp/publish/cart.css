@@ -76,6 +76,9 @@ body {
     border: 1px solid #ddd;
     padding: 20px;
     background: #f9f9f9;
+    position: sticky;
+    top: 40px;
+    height: fit-content;
 }
 
 .summary-box h3 {
@@ -296,4 +299,80 @@ body {
 .sold-out {
     background-color: #f0f0f0;
     color: #999;
+}
+
+/* Load More 영역 */
+.load-more-container {
+    text-align: center;
+    margin: 40px 0;
+}
+
+.load-more-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 16px;
+    font-size: 14px;
+    color: #555;
+    cursor: pointer;
+    user-select: none;
+    padding: 10px 16px;
+    border-radius: 6px;
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    transition: background 0.2s;
+}
+
+.load-more-btn:hover {
+    background: #f0f0f0;
+}
+
+.load-more-btn .line {
+    flex: 1;
+    height: 1px;
+    background-color: #ccc;
+    min-width: 40px;
+}
+
+.load-more-btn .text {
+    white-space: nowrap;
+    font-weight: 500;
+    text-transform: uppercase;
+    font-family: 'Arial', sans-serif;
+}
+
+/* 로딩 상태 텍스트 */
+.load-more-btn.loading .text::after {
+    content: '...';
+    animation: dots 1s steps(3, end) infinite;
+}
+
+@keyframes dots {
+    0% {
+        content: '';
+    }
+    33% {
+        content: '.';
+    }
+    66% {
+        content: '..';
+    }
+    100% {
+        content: '...';
+    }
+}
+
+.cart-actions {
+    margin-top: 10px;
+    margin-left: 5px;
+}
+
+.delete-text {
+    color: #d32f2f;
+    font-weight: bold;
+    font-size: 14px;
+    cursor: pointer;
+    display: inline-block;
+}
+.delete-text:hover {
+    text-decoration: underline;
 }
