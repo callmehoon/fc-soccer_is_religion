@@ -97,26 +97,27 @@
         <button type="button" onclick="location.href='<c:url value='/brand/102' />'">
           <img src="https://via.placeholder.com/180x220?text=Nike" alt="Adidas">
         </button>
-    <div class="brand-logo-item">
-      <button type="button" onclick="location.href='<c:url value='/brand/103' />'">
-        <img src="https://via.placeholder.com/180x220?text=Nike" alt="Puma">
-      </button>
-    <div class="brand-logo-item">
-      <button type="button" onclick="location.href='<c:url value='/brand/104' />'">
-        <img src="https://via.placeholder.com/180x220?text=Nike" alt="Mizuno">
-      </button>
-    <div class="brand-logo-item">
-      <button type="button" onclick="location.href='<c:url value='/brand/105' />'">
-        <img src="https://via.placeholder.com/180x220?text=Nike" alt="Asics">
-      </button>
-    <div class="brand-logo-item">
-      <button type="button" onclick="location.href='<c:url value='/brand/108' />'">
-        <img src="https://via.placeholder.com/180x220?text=Nike" alt="Under Armor">
-      </button>
-    <div class="brand-logo-item">
-      <img src="https://capostore.co.kr/web/upload/category/logo/skechers.svg" alt="Skechers">
-    </div>
+        <div class="brand-logo-item">
+          <button type="button" onclick="location.href='<c:url value='/brand/103' />'">
+            <img src="https://via.placeholder.com/180x220?text=Nike" alt="Puma">
+          </button>
+          <div class="brand-logo-item">
+            <button type="button" onclick="location.href='<c:url value='/brand/104' />'">
+              <img src="https://via.placeholder.com/180x220?text=Nike" alt="Mizuno">
+            </button>
+            <div class="brand-logo-item">
+              <button type="button" onclick="location.href='<c:url value='/brand/105' />'">
+                <img src="https://via.placeholder.com/180x220?text=Nike" alt="Asics">
+              </button>
+              <div class="brand-logo-item">
+                <button type="button" onclick="location.href='<c:url value='/brand/108' />'">
+                  <img src="https://via.placeholder.com/180x220?text=Nike" alt="Under Armor">
+                </button>
+                <div class="brand-logo-item">
+                  <img src="https://capostore.co.kr/web/upload/category/logo/skechers.svg" alt="Skechers">
+                </div>
   </section>
 </main>
 </body>
 </html>
+마 commit이 안된다 뭐가 문제고
