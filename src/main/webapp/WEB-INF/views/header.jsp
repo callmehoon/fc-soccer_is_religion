@@ -25,8 +25,17 @@
       </a>
     </div>
     <div class="right-menu">
-      <a href="http://localhost:8080/login" style="text-decoration: none; color: inherit;">로그인</a>
-      <a href="http://localhost:8080/register" style="text-decoration: none; color: inherit;">회원가입</a>
+
+      <c:choose>
+        <c:when test="${not empty sessionScope.loginUser}">
+          <a href="/logout" style="text-decoration: none; color: inherit;">로그아웃</a>
+        </c:when>
+        <c:otherwise>
+          <a href="/login" style="text-decoration: none; color: inherit;">로그인</a>
+          <a href="/register" style="text-decoration: none; color: inherit;">회원가입</a>
+        </c:otherwise>
+      </c:choose>
+
       <a href="#" style="text-decoration: none; color: inherit;">주문조회</a>
       <div class="search-box"><input type="text" placeholder="검색어를 입력하세요..."></div>
       <span>마이페이지</span>
