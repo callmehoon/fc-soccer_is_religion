@@ -111,4 +111,16 @@ document.addEventListener("DOMContentLoaded", () => {
             }, 10000);
         });
     }
+
+  document.querySelectorAll(".faq-header").forEach(header => {
+        header.addEventListener("click", () => {
+            const detail = header.nextElementSibling;
+            const icon = header.querySelector(".faq-toggle-icon");
+            const isOpen = detail.style.display === "block";
+
+            detail.style.display = isOpen ? "none" : "block";
+            icon.textContent = isOpen ? "▾" : "▴";
+        });
+    });
+
 });
