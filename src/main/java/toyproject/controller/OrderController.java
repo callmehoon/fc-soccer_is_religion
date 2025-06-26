@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import toyproject.controller.dto.LoginUserDto;
 import toyproject.controller.dto.OrderItemRequestDto;
 import toyproject.controller.dto.OrderRequestDto;
 import toyproject.controller.dto.OrderResponseDto;
@@ -70,6 +71,10 @@ public class OrderController {
 
         model.addAttribute("orderListViewModel", orderListViewModel);
 
+        LoginUserDto loginUser = (LoginUserDto) session.getAttribute("loginUser");
+        if (loginUser != null) {
+            model.addAttribute("loginUser", loginUser);
+        }
 
         return "order";
     }

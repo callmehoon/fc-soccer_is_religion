@@ -176,17 +176,23 @@
                 </div>
                 <div class="content-form">
                     <label for="use_bonuspoint">적립금 사용</label>
+                    <c:set var="bonusPoint" value="${loginUser.bonusPoint}" />
                     <div class="point-info">
                         <div>
                             <input type="number" id="use_bonuspoint" name="use_bonuspoint" class="input-field-flex">
                             <div style="width: 45%">
                                 <span>원</span>
                                 <input type="checkbox" id="use_all_point" name="use_all_point" value="is_all">
-                                <label for="use_all_point" class="bonuspoint-label">전액 사용하기 (보유 적립금: 10,000원)</label>
+                                <label for="use_all_point" class="bonuspoint-label">전액 사용하기 (보유 적립금: <fmt:formatNumber value="${bonusPoint}" type="number"/>원)</label>
                             </div>
                         </div>
                         <div>
-                            ※ 1,000원부터 10,000원까지 사용 가능합니다.
+                            <c:if test="${bonusPoint >= 1000}">
+                                ※ 1,000원부터 <fmt:formatNumber value="${bonusPoint}" type="number"/>원까지 사용 가능합니다.
+                            </c:if>
+                            <c:if test="${bonusPoint < 1000}">
+                                ※ 적립금은 1,000원 이상부터 사용 가능합니다.
+                            </c:if>
                         </div>
                     </div>
                 </div>
