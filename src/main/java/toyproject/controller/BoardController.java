@@ -44,11 +44,15 @@ public class BoardController {
     public String inquiryPage(@RequestParam(defaultValue = "1") int page,
                               @RequestParam(defaultValue = "10") int size,
                               HttpServletRequest request, Model model) {
-        HttpSession session = request.getSession(false);
-        if (session == null || session.getAttribute("loginUser") == null)
-            return "redirect:/login";
-
+        HttpSession session = request.getSession();
         LoginUserDto loginUser = (LoginUserDto) session.getAttribute("loginUser");
+
+        if (loginUser == null) {
+            // 세션에 현재 요청 URL 저장
+            session.setAttribute("redirectAfterLogin", "/board/inquiry?page=" + page);
+            return "redirect:/login";
+        }
+
         String userId = loginUser.getUserId();
 
         List<GeneralBoardDto> inquiries = boardService.getUserInquiries(userId, page, size);

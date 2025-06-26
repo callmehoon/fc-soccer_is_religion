@@ -84,13 +84,18 @@
     <div class="modal-content">
         <span class="close">&times;</span>
         <h2>1:1 문의 작성</h2>
-<form class="inquiry-form" method="post" action="${pageContext.request.contextPath}/board/inquiry/write">
+        <form class="inquiry-form" method="post" action="${pageContext.request.contextPath}/board/inquiry/write">
             <label>말머리</label>
-            <select name="contentType">
+            <select name="contentType" required>
                 <option value="회원/정보관리">회원/정보관리</option>
+                <option value="주문/결제">주문/결제</option>
                 <option value="배송">배송</option>
-                <option value="환불">환불</option>
+                <option value="반품/환불/교환/AS">반품/환불/교환/AS</option>
+                <option value="영수증/증빙서류">영수증/증빙서류</option>
+                <option value="상품/이벤트">상품/이벤트</option>
+                <option value="기타">기타</option>
             </select>
+
 
             <label>제목</label>
             <input type="text" name="generalBoardTitle" placeholder="제목을 입력하세요"/>
