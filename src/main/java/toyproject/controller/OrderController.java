@@ -12,10 +12,7 @@ import toyproject.controller.viewmodel.OrderListViewModel;
 import toyproject.service.OrderService;
 
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 @RequestMapping("/order")
@@ -88,7 +85,6 @@ public class OrderController {
 
     @PostMapping("/summary")
     public String orderSummary(@RequestParam Map<String, String> params, Model model) {
-
         model.addAttribute("orderSummary", params);
 
         return "order_summary";

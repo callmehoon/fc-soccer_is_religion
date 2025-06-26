@@ -12,14 +12,16 @@
             USER_PWD,
             USER_NAME_KR,
             USER_PHONE,
-            USER_ADDRESS
+            USER_ADDRESS,
+            USER_ADDRESS_DETAIL
         ) VALUES (
             #{userId},
             #{email},
             #{password},
             #{name},
             #{phone},
-            #{address}
+            #{zipcode},
+            #{detailAddress}
         )
     </insert>
 

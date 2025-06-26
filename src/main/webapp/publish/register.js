@@ -175,17 +175,14 @@ function populateBirthSelects() {
     for (let y = thisYear; y >= 1940; y--) {
         yearSelect.innerHTML += `<option value="${y}">${y}년</option>`;
     }
-
     // 월 (1월부터 12월까지)
     for (let m = 1; m <= 12; m++) {
         monthSelect.innerHTML += `<option value="${m}">${m}월</option>`;
     }
-
     // 일 (1일부터 31일까지)
     for (let d = 1; d <= 31; d++) {
         daySelect.innerHTML += `<option value="${d}">${d}일</option>`;
     }
-
     // 월 변경 시 일수 조정
     monthSelect.addEventListener('change', updateDays);
     yearSelect.addEventListener('change', updateDays);
@@ -339,6 +336,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     }
+
 
     // 비밀번호 실시간 유효성 검사
     const pw1Input = document.getElementById("pw1");
