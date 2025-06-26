@@ -1,18 +1,5 @@
 /* Drop.css */
 
-/* Drop.css에 추가 */
-.wrapping_test {
-    min-height: 100vh;
-    position: relative;
-}
-
-header {
-    position: sticky;
-    top: 0;
-    z-index: 1000; /* 가장 높은 z-index */
-    background: #fff;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
 
 .top-banner {
     background-color: #000;
@@ -27,15 +14,17 @@ header {
     align-items: center;
     justify-content: space-between;
     padding: 20px 40px;
+    position: sticky;
     border-bottom: 1px solid #eee;
+    top: 0;
 }
 
-.logo { font-size: 24px; font-weight: bold;
+.logo {
+    font-size: 24px;
+    font-weight: bold;
     font-family: 'Bungee Spice', cursive;
     font-size: 48px;
 }
-
-
 
 
 .main-nav {
@@ -71,6 +60,7 @@ header {
     transition: color .15s;
     border-bottom: 3px solid transparent;
 }
+
 .nav-list > li > a:hover,
 .nav-list > li > a.active {
     color: #000;
@@ -88,7 +78,7 @@ header {
     transform: translateX(-50%);
     background: #fff;
     border: 1px solid #eee;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.10);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.10);
     z-index: 999;
     padding: 45px 30px;
     min-width: 1150px;
@@ -97,6 +87,7 @@ header {
     justify-content: center;
     gap: 40px;
 }
+
 .goods-dropdown {
     display: none;
     position: absolute;
@@ -105,7 +96,7 @@ header {
     transform: translateX(-50%);
     background: #fff;
     border: 1px solid #eee;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.10);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.10);
     z-index: 999;
     padding: 45px 90px 35px 5px;
     min-width: 1150px;
@@ -131,12 +122,14 @@ header {
     align-items: center;
     flex-wrap: nowrap;
 }
+
 .brand-grid button {
     background: none;
     border: none;
     padding: 0;
     cursor: pointer;
 }
+
 .brand-grid img {
     width: 180px;
     height: 220px;
@@ -164,11 +157,13 @@ header {
     border-bottom: 1px solid #ddd;
     padding-bottom: 5px;
 }
+
 .dropdown-group ul {
     list-style: none;
     padding: 0;
     margin: 0;
 }
+
 .dropdown-group ul li {
     font-size: 15px;
     color: #111;
@@ -176,6 +171,7 @@ header {
     cursor: pointer;
     white-space: nowrap;
 }
+
 /*.dropdown-group ul li:hover {*/
 /*    text-decoration: underline;*/
 /*}*/
@@ -190,18 +186,13 @@ header nav.main-nav .dropdown-group ul li a:visited {
     color: #111 !important;
     text-decoration: none !important;
 }
+
 header nav.main-nav .dropdown-group ul li a:hover,
 header nav.main-nav .dropdown-group ul li a:focus,
 header nav.main-nav .dropdown-group ul li a:active {
     color: #111 !important;
     text-decoration: none !important;
 }
-
-
-
-
-
-
 
 
 /*용 추가*/

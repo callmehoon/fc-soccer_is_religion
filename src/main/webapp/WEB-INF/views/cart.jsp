@@ -8,10 +8,11 @@
     <title>축구는 종교다</title>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/publish/cart.css"/>
 </head>
 <body>
+
+<%@ include file="header.jsp" %>
+
 <div class="container">
     <h1 class="title">장바구니 </h1>
     <div class="cart-wrapper">
@@ -29,7 +30,7 @@
                 </thead>
                 <tbody>
                 <c:forEach var="cart" items="${cartListViewModel.cartList}">
-                    <tr data-product-id="${cart.productId}">
+                    <tr data-product-id="${cart.productId}" data-size="${cart.size}">
                         <td><input type="checkbox" class="cart-item-checkbox"/></td>
                         <td>
                             <div class="product-info">
@@ -41,7 +42,11 @@
                                         <c:when test="${cart.size == 0}">Free</c:when>
                                         <c:otherwise><c:out value="${cart.size}"/></c:otherwise>
                                     </c:choose>
+                                    <div class="stock-warning-area"
+                                         style="color: red; font-weight: bold; margin-top: 5px;"></div>
                                 </div>
+
+
                             </div>
                         </td>
                         <td class="${cart.stockQuantity == 0 ? 'sold-out' : ''}">
@@ -119,8 +124,13 @@
                 <strong><span id="summary-total">0</span>원</strong>
             </div>
 
-            <button class="btn black">전체상품 구매하기</button>
+            <button class="btn black" id="purchaseAllBtn">전체상품 구매하기</button>
             <button class="btn white" id="purchaseSelectedBtn">선택상품 구매하기</button>
+
+            <div id="stock-issues-summary" class="issue-summary-box" style="display:none;">
+                <h4>🧾 주문 불가 상품 요약</h4>
+                <ul id="stock-issues-list"></ul>
+            </div>
         </div>
 
 
@@ -164,6 +174,10 @@
         </div>
     </div>
 </div>
+<link rel="stylesheet" href="<%= request.getContextPath() %>/publish/cart.css"/>
 <script src="<%= request.getContextPath() %>/publish/cart.js" defer></script>
 </body>
+
+<%@ include file="footer.jsp" %>
+
 </html>
