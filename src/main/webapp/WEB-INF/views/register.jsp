@@ -12,7 +12,7 @@
 <div class="main-body">
 <div class="container">
     <form action="/register" method="post">
-    <h2>회원가입</h2>
+    <h1>회원가입</h1>
     <div class="step">
         <span>01</span> 정보입력 및 약관동의 &nbsp; &gt; &nbsp; <span style="background:#eee; color:#999;">02</span> 가입완료
     </div>
@@ -28,10 +28,10 @@
     <p class="note">※ 수신가능한 이메일 주소로 입력해주세요.</p>
 
         <label class="required">비밀번호</label>
-        <input type="password" name="password" id="pw1">
+        <input type="password" name="password" id="pw1" placeholder="비밀번호는 8자 이상, 영문/숫자/특수문자를 포함">
 
         <label class="required">비밀번호 확인</label>
-        <input type="password" id="pw2">
+        <input type="password" id="pw2" placeholder="비밀번호는 8자 이상, 영문/숫자/특수문자를 포함">
         <p class="error-msg" id="pwError"></p>
 
     <label class="required">이름</label>

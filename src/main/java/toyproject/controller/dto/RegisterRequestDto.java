@@ -8,7 +8,10 @@ public class RegisterRequestDto {
     private String password;
     private String name;
     private String phone;
-    private String address; // This will hold the combined value of zipcode and detailAddress
+    private String zipcode;
+    private String detailAddress;
+    private String address; // 합쳐서 여기 저장할 것
+
 
     // Default constructor (no-args)
     public RegisterRequestDto() {
@@ -53,10 +56,23 @@ public class RegisterRequestDto {
         this.phone = phone;
     }
 
+    public String getDetailAddress() {
+        return detailAddress;
+    }
+    public void setDetailAddress(String detailAddress) {
+        this.detailAddress = detailAddress;
+    }
+
+    public String getZipcode() {
+        return zipcode;
+    }
+    public void setZipcode(String zipcode) {
+        this.zipcode = zipcode;
+    }
+
     public String getAddress() {
         return address;
     }
-
     public void setAddress(String address) {
         this.address = address;
     }
