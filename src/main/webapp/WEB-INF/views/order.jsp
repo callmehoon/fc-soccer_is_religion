@@ -262,7 +262,9 @@
         </div>
     </div>
 </div>
-
+<script>
+    const MAX_USABLE_POINT = ${loginUser.bonusPoint != null ? loginUser.bonusPoint : 0};
+</script>
 <script src="<%= request.getContextPath() %>/publish/order.js"></script>
 <%--suppress JSUnresolvedLibraryURL --%>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
