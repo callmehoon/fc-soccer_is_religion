@@ -1,12 +1,16 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
-<link rel="stylesheet" href="publish/football_shoes.css"/>
-
 <%@ include file="header.jsp" %>
+<link rel="stylesheet" href="<c:url value='/publish/football_shoes.css'/>">
+<link rel="stylesheet" href="<c:url value='/publish/new.css'/>">
+
+
 
 <main>
+    <div class="banner">
+        <img src=https://caposttr4591.cdn-nhncommerce.com/data/editor/goods/250623/20250623_Fear-Nothing_132556.jpg style="width:100%; object-fit: cover;"alt="용품 배너">
+    </div>
 <div class="filter-tags">
         <div class="filter-tag"><a href="/brand.html">브랜드</a></div>
         <div class="filter-tag"><a href="/silo.html">사일로</a></div>
@@ -31,8 +35,6 @@
         <div class="sort-bar">
             <label for="sort">정렬:</label>
             <form id="sortForm" method="get" action="/football_shoes" style="display:inline-block; margin:0;">
-                <input type="hidden" name="page" value="${page}" />
-                <input type="hidden" name="size" value="${size}" />
                 <select id="sort" name="sort" onchange="document.getElementById('sortForm').submit()">
                     <option value="recommend" ${param.sort=='recommend'?'selected':''}>추천순</option>
                     <option value="priceDesc" ${param.sort=='priceDesc'?'selected':''}>가격 높은순</option>
@@ -40,6 +42,8 @@
                     <option value="newest"    ${param.sort=='newest'?'selected':''}>등록일순</option>
                     <option value="review"    ${param.sort=='review'?'selected':''}>상품평순</option>
                 </select>
+                <input type="hidden" name="page" value="${page}" />
+                <input type="hidden" name="size" value="${size}" />
             </form>
         </div>
     </section>
@@ -50,8 +54,20 @@
                <div class="product-card">
                    <a href="${pageContext.request.contextPath}/product/detail?productID=${p.productId}"><img src="${p.img}" alt="${p.productName}"></a>
                    <p>${p.brandName}</p>
-                   <a href="${pageContext.request.contextPath}/product/detail?productID=${p.productId}style="text-decoration: none; color: inherit;""><p>${p.productName}</p></a>
+                   <a href="${pageContext.request.contextPath}/product/detail?productID=${p.productId}"style="text-decoration: none; color: #888;"><p>${p.productName}</p></a>
                    <p class="price"><fmt:formatNumber value="${p.price}" type="number" groupingUsed="true"/>원</p>
+                   <c:if test="${not empty p.size}">
+                       <p class="sizes"style="font-size: 12px; color: #999;">
+                           <c:choose>
+                               <c:when test="${p.size == '0'}">
+                                   Free
+                               </c:when>
+                               <c:otherwise>
+                                   ${p.size}
+                               </c:otherwise>
+                           </c:choose>
+                       </p>
+                   </c:if>
                </div>
            </c:forEach>
        </c:if>

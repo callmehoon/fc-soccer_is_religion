@@ -68,33 +68,38 @@
             <div class="order_info_content">
                 <div class="content-form">
                     <label for="order_member" class="required-label">주문하시는 분</label>
-                    <input type="text" id="order_member" name="order_member" class="input-field-flex" required>
+                    <input type="text" id="order_member" name="order_member" class="input-field-flex" value="${loginUser.userName}" required>
                 </div>
                 <div class="content-form">
                     <label for="address" class="required-label">주소</label>
-                    <input type="text" id="address" name="address" class="input-field-flex" required>
+                    <input type="text" id="address" name="address" class="input-field-flex" value="${loginUser.userAddress}" required>
                 </div>
                 <div class="content-form">
                     <label for="detail_address">상세주소</label>
-                    <input type="text" id="detail_address" name="detail_address" class="input-field-flex">
+                    <input type="text" id="detail_address" name="detail_address" class="input-field-flex" value="${loginUser.userAddressDetail}" >
                 </div>
                 <div class="content-form">
                     <label for="phone_number" class="required-label">휴대폰 번호</label>
-                    <input type="tel" id="phone_number" name="phone_number" class="input-field-flex" required>
+                    <input type="tel" id="phone_number" name="phone_number" class="input-field-flex"  value="${loginUser.userPhone}" required>
                 </div>
                 <div class="content-form">
+                    <%
+                        // 세션에서 로그인 사용자 정보 가져오기
+                        toyproject.controller.dto.LoginUserDto user = (toyproject.controller.dto.LoginUserDto) session.getAttribute("loginUser");
+
+                        String emailId = "";
+                        String emailDomain = "";
+
+                        if (user != null && user.getEmail() != null && user.getEmail().contains("@")) {
+                            String[] parts = user.getEmail().split("@");
+                            emailId = parts[0];
+                            emailDomain = parts[1];
+                        }
+                    %>
                     <label for="email-id" class="required-label">이메일</label>
-                    <input type="text" id="email-id" name="email-id" class="input-field-flex" required>@
+                    <input type="text" id="email-id" name="email-id" class="input-field-flex" value="<%= emailId %>" required />@
                     <%--suppress HtmlFormInputWithoutLabel --%>
-                    <input list="email-domains" id="email-domain" name="email-domain" class="input-field-flex" required>
-                    <datalist id="email-domains">
-                        <option value="naver.com">
-                        <option value="hanmail.net">
-                        <option value="nate.com">
-                        <option value="gmail.com">
-                        <option value="hotmail.com">
-                        <option value="yahoo.com">
-                    </datalist>
+                    <input list="email-domains" id="email-domain" name="email-domain" class="input-field-flex" value="<%= emailDomain %>" required />
                     <label for="email_type">
                         <select id="email_type" name="email_type" class="input-field-flex">
                             <option value="custom">직접 입력</option>
@@ -262,6 +267,38 @@
         </div>
     </div>
 </div>
+<script>
+    window.addEventListener('DOMContentLoaded', function () {
+        const domainInput = document.getElementById('email-domain');
+        const domainSelect = document.getElementById('email_type');
+        const currentDomain = domainInput.value;
+
+        let matched = false;
+        for (let i = 0; i < domainSelect.options.length; i++) {
+            if (domainSelect.options[i].value === currentDomain) {
+                domainSelect.selectedIndex = i;
+                domainInput.disabled = true;
+                matched = true;
+                break;
+            }
+        }
+
+        if (!matched) {
+            domainSelect.value = 'custom';
+            domainInput.disabled = false;
+        }
+
+        domainSelect.addEventListener('change', function () {
+            if (this.value === 'custom') {
+                domainInput.disabled = false;
+                domainInput.value = '';
+            } else {
+                domainInput.disabled = true;
+                domainInput.value = this.value;
+            }
+        });
+    });
+</script>
 <script>
     const MAX_USABLE_POINT = ${loginUser.bonusPoint != null ? loginUser.bonusPoint : 0};
 </script>

@@ -24,6 +24,7 @@ public class CategoryService {
     @Transactional(readOnly = true)
     @Cacheable("categoryTree")
     public List<BigCategoryDto> getFullCategoryTree() {
+        System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>[Cache MISS] 카테고리 트리 조회<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
         List<BigCategoryDto> bigs = mapper.selectAllBig();
         for (BigCategoryDto big : bigs) {
             // 미들

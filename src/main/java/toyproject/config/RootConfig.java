@@ -5,7 +5,7 @@ import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 
 @Configuration
 @PropertySource("classpath:application.properties")
-@ComponentScan(basePackages = "toyproject")
+@ComponentScan(basePackages = {"toyproject.config","toyproject.service","toyproject.mapper"})
 @Import({
     DataSourceConfig.class,  // DB 커넥션 관련
     TxConfig.class,          // 트랜잭션 설정

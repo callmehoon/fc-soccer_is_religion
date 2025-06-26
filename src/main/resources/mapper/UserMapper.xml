@@ -35,7 +35,11 @@
         SELECT USER_ID_EMAIL AS email,
                USER_PWD AS password,
                USER_ID AS userId,
-               USER_POINT AS bonusPoint
+               USER_POINT AS bonusPoint,
+               USER_NAME_KR AS userName,
+               USER_ADDRESS AS userAddress,
+               USER_ADDRESS_DETAIL AS userAddressDetail,
+               USER_PHONE AS userPhone
         FROM USER
         WHERE USER_ID_EMAIL = #{email}
     </select>
