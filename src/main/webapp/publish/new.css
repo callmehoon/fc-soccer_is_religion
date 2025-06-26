@@ -64,6 +64,10 @@ body {
     font-size: 13px;
     color: #777;
 }
+.banner img {
+    width: 100%;
+    object-fit: cover;
+}
 
 nav.pagination a,
 nav.pagination a:link,
