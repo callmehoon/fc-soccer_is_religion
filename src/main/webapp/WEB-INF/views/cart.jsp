@@ -147,9 +147,6 @@
 
         <div class="option-select">
             <label>사이즈</label>
-            <button class="size-btn">L</button>
-            <button class="size-btn">XL</button>
-            <button class="size-btn selected">2XL</button>
         </div>
 
         <div class="selected-option">
@@ -170,3 +167,4 @@
 </div>
 <link rel="stylesheet" href="<%= request.getContextPath() %>/publish/cart.css"/>
 <script src="<%= request.getContextPath() %>/publish/cart.js" defer></script>
+<%@ include file="footer.jsp" %>

@@ -68,7 +68,8 @@ document.querySelectorAll('.qty-btn').forEach(btn => {
         const input = this.parentElement.querySelector('input');
         let value = parseInt(input.value, 10);
 
-        const selectedSize = parseInt(document.querySelector(".size-btn.selected")?.innerText);
+        let selectedSizeText = document.querySelector(".size-btn.selected")?.innerText?.trim();
+        let selectedSize = selectedSizeText === "Free" ? 0 : parseInt(selectedSizeText);
         const maxStock = sizeStockMap.get(selectedSize) || 0;
 
         if (this.textContent === '+') {
@@ -277,7 +278,7 @@ function renderSizeButtons(dataList, prevSize, prevQuantity) {
 
         const btn = document.createElement("button");
         btn.classList.add("size-btn");
-        btn.textContent = item.size;
+        btn.textContent = item.size == 0 ? "Free" : item.size;
 
         if (item.stockQuantity === 0) {
             btn.disabled = true;
@@ -290,7 +291,8 @@ function renderSizeButtons(dataList, prevSize, prevQuantity) {
                 this.classList.add('selected');
 
                 currentStock = item.stockQuantity;
-                document.querySelector('.selected-option span').textContent = item.size;
+                document.querySelector('.selected-option span').textContent =
+                    item.size == 0 ? "Free" : item.size;
                 document.querySelector('.selected-option .quantity input').value = 1;
             });
 
@@ -300,7 +302,8 @@ function renderSizeButtons(dataList, prevSize, prevQuantity) {
                 const selectedSpan = document.querySelector('.selected-option span');
                 const qtyInput = document.querySelector('.selected-option .quantity input');
 
-                document.querySelector('.selected-option span').textContent = prevSize;
+                document.querySelector('.selected-option span').textContent =
+                    parseInt(prevSize) === 0 ? "Free" : prevSize;
                 document.querySelector('.selected-option .quantity input').value = prevQuantity;
             }
         }
@@ -309,11 +312,11 @@ function renderSizeButtons(dataList, prevSize, prevQuantity) {
     });
 
 
-    // ✅ selected-option 영역에 값 초기화
     const selectedSpan = document.querySelector('.selected-option span');
     const qtyInput = document.querySelector('.selected-option .quantity input');
 
-    if (selectedSpan) selectedSpan.textContent = prevSize;
+    if (selectedSpan) selectedSpan.textContent =
+        parseInt(prevSize) === 0 ? "Free" : prevSize;
     if (qtyInput) qtyInput.value = prevQuantity;
 }
 
