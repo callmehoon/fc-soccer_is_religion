@@ -31,6 +31,11 @@ public class UserService {
     public void register(RegisterRequestDto requestDto) {
         String userId = generateNewUserId();
         requestDto.setUserId(userId);
+
+        // 주소 합치기
+        String fullAddress = requestDto.getZipcode() + " " + requestDto.getDetailAddress();
+        requestDto.setAddress(fullAddress);
+
         userMapper.insertUser(requestDto);
     }
 
