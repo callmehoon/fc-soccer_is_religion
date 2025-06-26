@@ -36,29 +36,45 @@
         <div id="inquirySection" class="faq-list">
             <c:forEach var="q" items="${questions}">
                 <div class="faq-item">
-                    <div class="faq-question">
-                        <span class="faq-label">Q</span>
-                        <div style="flex: 1;">
+                    <!-- ✅ 헤더: 제목 행만 처음 표시 -->
+                    <div class="faq-header"
+                         style="display: flex; justify-content: space-between; align-items: center; cursor: pointer;">
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <span class="faq-label" style="font-weight: bold;">Q</span>
                             <div class="faq-title" style="font-weight: 500;">${q.generalBoardTitle}</div>
-                            <div class="faq-content" style="font-size: 13px; color: #555; margin-top: 4px;">
-                                    ${q.generalBoardContent}
-                            </div>
                         </div>
-                        <span class="faq-date">${q.createdAt}</span>
-                        <span class="faq-toggle-icon">▾</span>
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <span class="faq-date" style="font-size: 13px; color: #666;">${q.createdAt}</span>
+                            <span class="faq-toggle-icon">▾</span>
+                        </div>
                     </div>
 
-                    <div class="faq-answer">
-                        <span class="faq-label">A</span>
-                        <div class="faq-content">
-                            <c:choose>
-                                <c:when test="${q.replyContent == null || q.replyContent eq ''}">
-                                    <span style="font-style: italic; font-weight: bold;">관리자의 답변을 기다리는 중입니다.</span>
-                                </c:when>
-                                <c:otherwise>
-                                    ${q.replyContent}
-                                </c:otherwise>
-                            </c:choose>
+                    <!-- ✅ 디테일: 클릭 시 열릴 상세 질문/답변 영역 -->
+                    <div class="faq-detail" style="display: none; margin-top: 10px;">
+                        <!-- 질문 내용 -->
+                        <div class="faq-content" style="font-size: 13px; color: #555; margin-left: 24px;">
+                                ${q.generalBoardContent}
+                            <c:if test="${not empty q.img}">
+                                <div style="margin-top: 12px; text-align: center;">
+                                    <img src="${q.img}" alt="문의 이미지"
+                                         style="max-width: 60%; max-height: 150px; height: auto; border-radius: 6px; object-fit: contain;"/>
+                                </div>
+                            </c:if>
+                        </div>
+
+                        <!-- 답변 내용 -->
+                        <div class="faq-answer" style="margin-top: 12px; display: flex;">
+                            <span class="faq-label">A</span>
+                            <div class="faq-content" style="margin-left: 8px;">
+                                <c:choose>
+                                    <c:when test="${q.replyContent == null || q.replyContent eq ''}">
+                                        <span style="font-style: italic; font-weight: bold;">관리자의 답변을 기다리는 중입니다.</span>
+                                    </c:when>
+                                    <c:otherwise>
+                                        ${q.replyContent}
+                                    </c:otherwise>
+                                </c:choose>
+                            </div>
                         </div>
                     </div>
                 </div>

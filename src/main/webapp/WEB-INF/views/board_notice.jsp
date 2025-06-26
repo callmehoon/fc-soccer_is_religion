@@ -52,7 +52,8 @@
                            data-title="${notice.noticeTitle}"
                            data-content="${notice.noticeContent}"
                            data-created="${notice.createdAt}"
-                           data-admin="${notice.adminId}">
+                           data-admin="${notice.adminId}"
+                           data-img="${notice.img}">
                                 ${notice.noticeTitle}
                         </a>
                     </td>
@@ -81,13 +82,14 @@
 
 <div id="noticeModal" class="modal">
     <div class="modal-content" style="
-        width: 90%;
-        max-width: 1000px;
-        padding: 30px 60px 30px 160px; /* 왼쪽 여백 더 넓게 */
-        margin: 10vh auto;
-        background-color: #fff;
-        border-radius: 8px;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+    width: 90%;
+    max-width: 1000px;
+    padding: 30px 60px 30px 160px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    position: relative;
+">
         <span class="close" style="font-size: 28px; position: absolute; top: 20px; right: 30px; cursor: pointer;">&times;</span>
 
         <h2 id="modalTitle"
@@ -95,6 +97,10 @@
 
         <div id="modalContent"
              style="white-space: pre-line; line-height: 1.7; font-size: 15px; color: #333; border-bottom: 1px solid #ccc; padding-bottom: 20px;">
+        </div>
+
+        <div id="modalImageContainer" style="margin-top: 30px; text-align: center;">
+            <img id="modalImage" src="" alt="공지 이미지" style="max-width: 100%; height: auto; display: none;"/>
         </div>
 
         <div style="margin-top: 20px; font-size: 13px; color: #666; display: flex; justify-content: flex-end; gap: 16px;">
@@ -117,6 +123,8 @@
         const modal = document.getElementById("noticeModal");
         const modalTitle = document.getElementById("modalTitle");
         const modalContent = document.getElementById("modalContent");
+        const modalImage = document.getElementById("modalImage");
+
         const modalCreated = document.getElementById("modalCreated");
         const modalAdmin = document.getElementById("modalAdmin");
         const closeBtn = modal.querySelector(".close");
@@ -128,6 +136,16 @@
                 modalContent.textContent = link.dataset.content;
                 modalCreated.textContent = link.dataset.created;
                 modalAdmin.textContent = link.dataset.admin;
+                const imageUrl = link.dataset.img;
+
+                console.log(imageUrl);
+
+                if (imageUrl) {
+                    modalImage.src = imageUrl;
+                    modalImage.style.display = "block";
+                } else {
+                    modalImage.style.display = "none";
+                }
                 modal.style.display = "block";
             });
         });
