@@ -30,13 +30,13 @@
                 </thead>
                 <tbody>
                 <c:forEach var="cart" items="${cartListViewModel.cartList}">
-                    <tr data-product-id="${cart.productId}" data-size="${cart.size}">
+                    <tr data-product-id="${cart.productId}" data-size="${cart.size}" style="white-space: nowrap;">
                         <td><input type="checkbox" class="cart-item-checkbox"/></td>
                         <td>
                             <div class="product-info">
                                 <img src="${cart.productImg}" alt="상품 이미지">
                                 <div>
-                                    <strong><c:out value="${cart.productName}"/></strong><br/>
+                                    <strong><c:out value="${cart.productName}"/></strong><br/><br/>
                                     사이즈 :
                                     <c:choose>
                                         <c:when test="${cart.size == 0}">Free</c:when>
@@ -49,7 +49,7 @@
 
                             </div>
                         </td>
-                        <td class="${cart.stockQuantity == 0 ? 'sold-out' : ''}">
+                        <td class="${cart.stockQuantity == 0 ? 'sold-out' : ''}" style="align-content: center; text-align: center;">
                             <c:out value="${cart.cartProductQuantity}"/>개<br/>
 
                             <c:choose>
@@ -71,18 +71,19 @@
                                data-prev-quantity="${cart.cartProductQuantity}">
                                 옵션/수정변경
                             </a></td>
-                        <td>
+                        <td style="align-content: center; text-align: center;">
                             <strong>
                                 <fmt:formatNumber value="${cart.productPrice * cart.cartProductQuantity}"
                                                   type="number"
                                 />원
                             </strong>
                         </td>
-                        <td>
+                        <td style="align-content: center; text-align: center;">
                             <c:set var="discount"
                                    value="${(cart.productPrice * cart.cartProductQuantity * 0.01 + 9) - ((cart.productPrice * cart.cartProductQuantity * 0.01 + 9) % 10)}"/>
-                            할인 - <fmt:formatNumber value="${discount}" type="number" maxFractionDigits="0"/>원<br/>
-                            적립 + <fmt:formatNumber value="${discount}" type="number" maxFractionDigits="0"/>원
+                            할인 -<fmt:formatNumber value="${discount}" type="number" maxFractionDigits="0"/>원
+                            <br/><br/>
+                            적립 +<fmt:formatNumber value="${discount}" type="number" maxFractionDigits="0"/>원
                         </td>
                     </tr>
                 </c:forEach>
