@@ -1,7 +1,6 @@
 package toyproject.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -10,15 +9,12 @@ import toyproject.controller.dto.LoginUserDto;
 import toyproject.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
-import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
 public class LoginController {
 
     private final UserService userService;
-
     // 로그인 폼 화면
     @GetMapping("/login")
     public String loginForm() {
@@ -48,38 +44,6 @@ public class LoginController {
             return "redirect:/login"; // 실패 시 다시 로그인 폼으로
         }
     }
-
-    // 이메일 중복확인 API
-    @PostMapping("/api/check-email")
-    @ResponseBody
-    public ResponseEntity<Map<String, Object>> checkEmailDuplicate(@RequestBody Map<String, String> request) {
-        Map<String, Object> response = new HashMap<>();
-
-        try {
-            String email = request.get("email");
-
-            // 이메일 형식 검증
-            if (email == null || !email.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$")) {
-                response.put("success", false);
-                response.put("message", "올바른 이메일 형식이 아닙니다.");
-                return ResponseEntity.badRequest().body(response);
-            }
-
-            // DB에서 이메일 중복 확인
-            boolean isDuplicate = userService.isEmailExists(email);
-
-            response.put("success", true);
-            response.put("isDuplicate", isDuplicate);
-
-            return ResponseEntity.ok(response);
-
-        } catch (Exception e) {
-            response.put("success", false);
-            response.put("message", "서버 오류가 발생했습니다.");
-            return ResponseEntity.internalServerError().body(response);
-        }
-    }
-
     // 메인페이지 이동
     @GetMapping("/main")
     public String home(Model model) {
