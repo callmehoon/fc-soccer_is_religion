@@ -106,6 +106,7 @@ body {
     background: #eee;
     border: 1px solid #ccc;
     cursor: pointer;
+    border-radius: inherit;
 }
 
 .faq-answer {
@@ -182,7 +183,7 @@ body {
 .faq-icons {
     display: grid;
     grid-template-columns: repeat(5, 1fr); /* 👉 무조건 5개로 고정 */
-    gap: 12px;
+    gap: 40px;
     margin-bottom: 30px;
     justify-items: center;
 }
