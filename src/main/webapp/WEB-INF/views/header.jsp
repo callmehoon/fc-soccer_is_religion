@@ -20,7 +20,7 @@
   <div class="header">
     <div class="logo">
       <a href="http://localhost:8080/main" style="text-decoration: none; color: inherit;">
-         NO.10 TEAM FOOTBALL
+        Soccer is religion
       </a>
     </div>
     <div class="right-menu">
@@ -36,7 +36,7 @@
       </c:choose>
 
       <a href="#" style="text-decoration: none; color: inherit;">주문조회</a>
-      <div class="search-box"><input type="text" placeholder="검색어를 입력하세요..."></div>
+      <div class="search-box"><input type="text" placeholder="검색어를 입력하세요."></div>
       <span>마이페이지</span>
       <span>장바구니</span>
     </div>
@@ -190,7 +190,7 @@
       <!-- 용품 -->
       <li class="goods-menu">
         <a href="<c:url value='/goods'/>">용품</a>
-        <div class="dropdown goods-dropdown">
+        <div class="dropdown goods-dropdown" style="overflow-x: hidden">
           <div class="dropdown-group">
             <h4>신상품</h4>
             <ul>
