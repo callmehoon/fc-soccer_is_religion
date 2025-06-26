@@ -17,11 +17,14 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Controller
 public class List_Controller {
     private static final Logger log = LoggerFactory.getLogger(List_Controller.class);
     private final ListService service;
     private final CategoryService categoryService;
+    private final ListService listService;
 
 
     @Autowired
@@ -29,7 +32,7 @@ public class List_Controller {
                            CategoryService categoryService, ListService listService) {
         this.service = service;
         this.categoryService = categoryService;
-
+        this.listService = listService;
     }
 
     /** 모든 요청에 공통으로 넘어갈 카테고리 트리 */
@@ -188,4 +191,31 @@ public class List_Controller {
 
         return "clothes";  // layout.jsp 에서 viewName include
     }
+
+    @GetMapping({"/womens", "/youth"})
+    public String MajorCat(
+            @RequestParam(defaultValue = "1") int page,
+            @RequestParam(defaultValue = "9") int size,
+            @RequestParam(defaultValue = "recommend") String sort,
+            HttpServletRequest req,
+            Model model
+    ){
+        String uri = req.getRequestURI();
+        int majorId = uri.contains("womens") ? 2 : 4;
+        String title = majorId == 2 ? "WOMENS" : "YOUTH";
+
+        int total = service.countByMajorCategory(majorId);
+        int totalPages = (int) Math.ceil(total/(double)size);
+        List<ProductDto> list = listService.getByMajorCategory(majorId, page, size, sort);
+
+        model.addAttribute("productList", list);
+        model.addAttribute("totalCount",  total);
+        model.addAttribute("page",        page);
+        model.addAttribute("size",        size);
+        model.addAttribute("totalPages",  totalPages);
+        model.addAttribute("sort",        sort);
+        model.addAttribute("pageTitle", title);
+        return "new";
+    }
+
 }

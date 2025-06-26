@@ -53,7 +53,8 @@ a{
 
 }
 .info-box p{
-    margin: 5px;
+    padding-bottom: 15px;
+    font-size: 14px;
 }
 
 
@@ -248,13 +249,16 @@ a{
 }
 
 .tab-content p {
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 400;
     line-height: 1.8;
     margin-bottom: 10px;
     color: #000; /* 또는 원하는 색상 */
 }
 
+.tab-content p:nth-child(1){
+    padding-top: 10px;
+}
 
 .review-summary {
     background: #f5f5f5;

@@ -80,10 +80,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 //해당 수량에 따라 가격을 계산해서 표시
                 updateTotal();
                 //총 가격 업데이트 함수 ㅊ=호출
-            } else {
+            } else{
                 alert(`최대 수량은 ${stock}개입니다.`);
                 //재고 초과시 경고창
             }
+
         }
 
         if (e.target.classList.contains('minus')) {
@@ -123,7 +124,7 @@ document.addEventListener("DOMContentLoaded", function () {
         //선택된 상품(selectec-info)이 1개 이상이면 true 반환
     }
 
-
+//장바구니
     cartBtn.addEventListener('click', () => {
         // 선택 안 했을 경우
         if (!hasSelectedItems()) {
@@ -140,31 +141,37 @@ document.addEventListener("DOMContentLoaded", function () {
             const quantity = parseInt(item.querySelector('.count').innerText);
 
             selectedItems.push({
-                userId: userId,
+                userId: userId || null,
                 productId: productId,
                 size: size,
                 productQuantity: quantity
             });
         });
 
-        // 서버에 insert 요청
-        fetch('/cart/add', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(selectedItems)
-        })
-            .then(response => {
-                if (response.ok) {
-                    // 모달 띄우기
-                    cartModal.style.display = 'block';
-                } else {
-                    alert('상품이 이미 장바구니에 담겨있습니다');
-                }
+        if (userId) {
+            // 로그인 상태 → 서버에 전송
+            fetch('/cart/add', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(selectedItems)
             })
-            .catch(error => {
-                console.error('장바구니 요청 중 오류:', error);
-                alert('요청 중 오류 발생');
-            });
+                .then(response => {
+                    if (response.ok) {
+                        cartModal.style.display = 'block';
+                    } else {
+                        alert('상품이 이미 장바구니에 담겨있습니다');
+                    }
+                })
+                .catch(error => {
+                    console.error('장바구니 요청 중 오류:', error);
+                    alert('요청 중 오류 발생');
+                });
+        } else {
+            //비로그인 상태 일때
+            alert('로그인이 필요합니다.');
+            window.location.href = '/login'; // 로그인 페이지 경로로 이동
+        }
+
     });
 
      closeModalBtn.addEventListener('click',() => {
@@ -176,7 +183,7 @@ document.addEventListener("DOMContentLoaded", function () {
         window.location.href = '/cart';
     })
 
-
+//구매하기
     buyBtn.addEventListener('click', () => {
         const userIdInput = document.getElementById('email');
         const productIdInput = document.getElementById('productId');

@@ -21,20 +21,20 @@
 - Java
 - HTML
 - CSS
-- Spring
+- JavaScript
 
 ### ERD
 ![축구는 종교다_통합 ERD](https://github.com/user-attachments/assets/ab39a3c5-8ee4-4a52-8c43-c84c009c1a7c)
 
 ### 개발환경 Developement Environment
-- IntelliJ IDEA Ultimate
+- IntelliJ IDEA Ultimate(JDK 17)
 - Visual Studio Code
 - Apache Tomcat 9
+- Spring 5
 
 ### 팀원 Contributors
 - [홍성훈](https://github.com/callmehoon) Seonghoon Hong
 - [김지승](https://github.com/kkj5158) Jiseung Kim
 - [이우용](https://github.com/dev365code) Wooyong Lee
-- [이은영](https://github.com/leeunryoung) Unryoung Lee
 - [손장호](https://github.com/son-j-h) Jangho Son
 - [이지현](https://github.com/leejihyun2) Jihyun Lee

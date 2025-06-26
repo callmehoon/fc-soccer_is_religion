@@ -1,7 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ include file="/WEB-INF/views/Drop.jsp" %>
+<%@ include file="/WEB-INF/views/header.jsp" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -25,6 +25,7 @@
     <!-- 정렬 폼은 오른쪽 상단 -->
     <!-- ▼ action="/new" 속성을 제거했습니다 -->
     <form id="sortForm" method="get"
+          action="${pageTitle == 'Womens' ? '/womens' : '/youth'}"
           style="position: absolute; right: 0; top: 0;
                  display: flex; align-items: center; gap: 8px; margin: 0;">
       <label for="sort">정렬:</label>
@@ -51,10 +52,10 @@
   <div class="product-grid">
     <c:forEach var="p" items="${productList}">
       <div class="product-card">
-        <a href="product/detail?productID=${p.productId}"><img src="${p.img}" alt="${p.productName}" /></a>
+        <a href="${pageContext.request.contextPath}/product/detail?productID=${p.productId}"><img src="${p.img}" alt="${p.productName}" /></a>
         <div class="product-info">
           <h3 class="brand">${p.brandName}</h3>
-          <a href="product/detail?productID=${p.productId}"><p class="product-name">${p.productName}</p></a>
+          <a href="${pageContext.request.contextPath}/product/detail?productID=${p.productId}"style="text-decoration: none; color: inherit;"><p class="product-name">${p.productName}</p></a>
           <p class="price"><fmt:formatNumber value="${p.price}" type="number" groupingUsed="true"/>원</p>
           <c:if test="${not empty p.size}">
             <p class="sizes">${p.size}</p>
@@ -74,7 +75,7 @@
   <!-- 페이지네이션 -->
   <nav class="pagination" style="text-align:center; margin:20px 0;">
     <c:if test="${page > 1}">
-      <a href="?page=${page-1}&size=${size}&sort=${param.sort}">‹ Prev</a>
+      <a href="?page=${page-1}&size=${size}&sort=${sort}">‹ Prev</a>
     </c:if>
 
     <c:forEach var="i" begin="1" end="${totalPages}">
@@ -83,16 +84,17 @@
           <span style="font-weight:bold; margin:0 5px;">${i}</span>
         </c:when>
         <c:otherwise>
-          <a href="?page=${i}&size=${size}&sort=${param.sort}"
+          <a href="?page=${i}&size=${size}&sort=${sort}"
              style="margin:0 5px;">${i}</a>
         </c:otherwise>
       </c:choose>
     </c:forEach>
 
     <c:if test="${page < totalPages}">
-      <a href="?page=${page+1}&size=${size}&sort=${param.sort}">Next ›</a>
+      <a href="?page=${page+1}&size=${size}&sort=${sort}">Next ›</a>
     </c:if>
   </nav>
 </main>
 </body>
 </html>
+<%@ include file="footer.jsp" %>

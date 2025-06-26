@@ -34,4 +34,11 @@ public interface ListMapper {
             @Param("offset") int offset, @Param("pageSize") int limit, @Param("sort") String sort
     );
     int countByMiddleCategories(@Param("midCategoryIds") List<Integer> midCategoryIds);
+
+
+    List<ProductDto> selectPageByMajorCategory(
+            @Param("majorCategoryId") int majorCategoryId,
+            @Param("offset")          int offset, @Param("pageSize") int limit, @Param("sort") String sort
+    );
+    int selectCountByMajorCategory(@Param("majorCategoryId") int majorCategoryId);
 }

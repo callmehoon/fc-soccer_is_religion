@@ -12,8 +12,6 @@
 <%@ include file="header.jsp" %>
     <link rel="stylesheet" href="<%= request.getContextPath() %>/publish/product_detail.css"/>
 
-
-
 <div class="product">
     <div class="product-detail">
         <!-- 좌측: 이미지 -->
@@ -26,8 +24,8 @@
         <div class="info-box">
             <p>${productDto.brandName}</p>
             <h2 class="product-title">
-                ${productDto.productName}<br>
-                    <fmt:formatNumber value="${productDto.productPrice}" type="number" />원
+                ${productDto.productName}</h2>
+                  <h2 class="product-title">  <fmt:formatNumber value="${productDto.productPrice}" type="number" />원
                     <input type="hidden" id="productPrice" value="${productDto.productPrice}">
             </h2>
 
@@ -42,11 +40,16 @@
                 <div class="size-label">사이즈</div>
 
                 <div class="size-options">
-
                     <c:forEach var="size" items="${sizeList}">
-                        <button class="size-btn" data-stock="${size.stock}">${size.size}</button>
+                        <c:choose>
+                            <c:when test="${size.size==0}">
+                                <button class="size-btn"  data-size="0" data-stock="${size.stock}">Free</button>
+                            </c:when>
+                            <c:otherwise>
+                                <button class="size-btn" data-size="${size.size}" data-stock="${size.stock}">${size.size}</button>
+                            </c:otherwise>
+                        </c:choose>
                     </c:forEach>
-
                 </div>
             </div>
 
@@ -59,7 +62,7 @@
             <div class="selected-product"></div>
 
             <div class="total">
-                총 상품금액 <span class="total-price">139,000원</span>
+                총 상품금액 <span class="total-price">0원</span>
             </div>
 
             <div class="buttons">

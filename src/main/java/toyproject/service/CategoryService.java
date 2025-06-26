@@ -2,6 +2,8 @@
 package toyproject.service;
 
 import java.util.List;
+
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,6 +22,7 @@ public class CategoryService {
 
     /** 모든 카테고리를 계층 구조로 조립해서 반환 */
     @Transactional(readOnly = true)
+    @Cacheable("categoryTree")
     public List<BigCategoryDto> getFullCategoryTree() {
         List<BigCategoryDto> bigs = mapper.selectAllBig();
         for (BigCategoryDto big : bigs) {
