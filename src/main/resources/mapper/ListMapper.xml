@@ -260,4 +260,48 @@
                 </if>
             </where>
         </select>
+
+
+        <select id="selectCountByMajorCategory" parameterType="int" resultType="int">
+            SELECT COUNT(*)
+            FROM PRODUCT p
+                     JOIN SMALL_CATEGORY sc ON p.SUB_CATEGORY_ID = sc.SUB_CATEGORY_ID
+                     JOIN MIDDLE_CATEGORY mc ON sc.MID_CATEGORY_ID = mc.MID_CATEGORY_ID
+            WHERE mc.MAJOR_CATEGORY_ID = #{majorCategoryId}
+        </select>
+
+        <select id="selectPageByMajorCategory" parameterType="map" resultType="toyproject.controller.dto.ProductDto">
+            SELECT
+            p.PRODUCT_ID      AS productId,
+            p.BRAND_ID        AS brandId,
+            b.BRAND_NAME      AS brandName,
+            p.SUB_CATEGORY_ID AS subCategoryId,
+            p.PRODUCT_NAME    AS productName,
+            p.IMG             AS img,
+            p.PRICE           AS price,
+            p.AVG_SCORE       AS avgScore
+            FROM PRODUCT p
+            JOIN BRAND b   ON p.BRAND_ID = b.BRAND_ID
+            JOIN SMALL_CATEGORY sc ON p.SUB_CATEGORY_ID = sc.SUB_CATEGORY_ID
+            JOIN MIDDLE_CATEGORY mc ON sc.MID_CATEGORY_ID = mc.MID_CATEGORY_ID
+            WHERE mc.MAJOR_CATEGORY_ID = #{majorCategoryId}
+            <choose>
+                <when test="sort == 'priceAsc'">
+                    ORDER BY p.PRICE ASC
+                </when>
+                <when test="sort == 'priceDesc'">
+                    ORDER BY p.PRICE DESC
+                </when>
+                <when test="sort == 'newest'">
+                    ORDER BY p.PRODUCT_ID DESC
+                </when>
+                <when test="sort == 'review'">
+                    ORDER BY p.AVG_SCORE DESC
+                </when>
+                <otherwise>
+                    ORDER BY p.PRODUCT_ID DESC
+                </otherwise>
+            </choose>
+            LIMIT #{offset}, #{pageSize}
+        </select>
 </mapper>

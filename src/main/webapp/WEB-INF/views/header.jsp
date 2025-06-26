@@ -84,17 +84,17 @@
       <li class="football-menu">
         <a href="<c:url value='/football_shoes'/>">축구화</a>
         <div class="dropdown football-dropdown">
-          <div class="dropdown-group">
-            <h4>런칭캘린더</h4>
-            <ul>
-              <li><a href="<c:url value='/football_shoes?tab=launch_calendar'/>">런칭캘린더</a></li>
-              <li><a href="<c:url value='/football_shoes?tab=new_arrivals'/>">신상품</a></li>
-              <li><a href="<c:url value='/football_shoes?tab=special_edition'/>">스페셜에디션</a></li>
-              <li><a href="<c:url value='/football_shoes?tab=youth'/>">유소년축구화</a></li>
-              <li><a href="<c:url value='/football_shoes?tab=sneakers'/>">운동화</a></li>
-              <li><a href="<c:url value='/football_shoes?tab=slippers'/>">슬리퍼</a></li>
-            </ul>
-          </div>
+<%--          <div class="dropdown-group">--%>
+<%--            <h4>런칭캘린더</h4>--%>
+<%--            <ul>--%>
+<%--              <li><a href="<c:url value='/football_shoes?tab=launch_calendar'/>">런칭캘린더</a></li>--%>
+<%--              <li><a href="<c:url value='/football_shoes?tab=new_arrivals'/>">신상품</a></li>--%>
+<%--              <li><a href="<c:url value='/football_shoes?tab=special_edition'/>">스페셜에디션</a></li>--%>
+<%--              <li><a href="<c:url value='/football_shoes?tab=youth'/>">유소년축구화</a></li>--%>
+<%--              <li><a href="<c:url value='/football_shoes?tab=sneakers'/>">운동화</a></li>--%>
+<%--              <li><a href="<c:url value='/football_shoes?tab=slippers'/>">슬리퍼</a></li>--%>
+<%--            </ul>--%>
+<%--          </div>--%>
           <div class="dropdown-group">
             <h4>브랜드</h4>
             <ul>

@@ -82,6 +82,9 @@
 </head>
 <body>
 <main>
+  <div class="banner">
+    <img src=https://caposttr4591.cdn-nhncommerce.com/data/editor/goods/250512/20250512_marking_154608.jpg alt="의류 배너">
+  </div>
   <div class="filter-tags">
     <div class="filter-tag"><a href="#">상의</a></div>
     <div class="filter-tag"><a href="#">하의</a></div>
@@ -121,7 +124,7 @@
       <div class="product-card">
         <a href="${pageContext.request.contextPath}/product/detail?productID=${p.productId}"><img src="${p.img}" alt="${p.productName}"></a>
         <p><c:out value="${p.brandName}" /></p>
-        <a href="${pageContext.request.contextPath}/product/detail?productID=${p.productId}"><p><c:out value="${p.productName}" /></p></a>
+        <a href="${pageContext.request.contextPath}/product/detail?productID=${p.productId}"style="text-decoration: none; color: inherit;"><p><c:out value="${p.productName}" /></p></a>
         <p class="price"><fmt:formatNumber value="${p.price}" type="number" groupingUsed="true"/>원</p>
 <%--        <p>--%>
 <%--          <fmt:formatNumber value="${p.price}" type="currency" />--%>

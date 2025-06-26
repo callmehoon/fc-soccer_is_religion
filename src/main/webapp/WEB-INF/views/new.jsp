@@ -25,6 +25,7 @@
     <!-- 정렬 폼은 오른쪽 상단 -->
     <!-- ▼ action="/new" 속성을 제거했습니다 -->
     <form id="sortForm" method="get"
+          action="${pageTitle == 'Womens' ? '/womens' : '/youth'}"
           style="position: absolute; right: 0; top: 0;
                  display: flex; align-items: center; gap: 8px; margin: 0;">
       <label for="sort">정렬:</label>
@@ -54,7 +55,7 @@
         <a href="${pageContext.request.contextPath}/product/detail?productID=${p.productId}"><img src="${p.img}" alt="${p.productName}" /></a>
         <div class="product-info">
           <h3 class="brand">${p.brandName}</h3>
-          <a href="${pageContext.request.contextPath}/product/detail?productID=${p.productId}"><p class="product-name">${p.productName}</p></a>
+          <a href="${pageContext.request.contextPath}/product/detail?productID=${p.productId}"style="text-decoration: none; color: inherit;"><p class="product-name">${p.productName}</p></a>
           <p class="price"><fmt:formatNumber value="${p.price}" type="number" groupingUsed="true"/>원</p>
           <c:if test="${not empty p.size}">
             <p class="sizes">${p.size}</p>

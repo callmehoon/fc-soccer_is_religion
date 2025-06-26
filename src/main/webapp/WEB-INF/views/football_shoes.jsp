@@ -50,7 +50,7 @@
                <div class="product-card">
                    <a href="${pageContext.request.contextPath}/product/detail?productID=${p.productId}"><img src="${p.img}" alt="${p.productName}"></a>
                    <p>${p.brandName}</p>
-                   <a href="${pageContext.request.contextPath}/product/detail?productID=${p.productId}"><p>${p.productName}</p></a>
+                   <a href="${pageContext.request.contextPath}/product/detail?productID=${p.productId}style="text-decoration: none; color: inherit;""><p>${p.productName}</p></a>
                    <p class="price"><fmt:formatNumber value="${p.price}" type="number" groupingUsed="true"/>원</p>
                </div>
            </c:forEach>

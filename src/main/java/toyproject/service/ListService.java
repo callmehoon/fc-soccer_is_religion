@@ -93,5 +93,22 @@ public class ListService {
             return listMapper.countByMiddleCategories(midCategoryIds);
         }
 
+        @Transactional(readOnly = true)
+        public List<ProductDto> getByMajorCategory(Integer majorCategoryId, int page, int size, String sort) {
+            int offset = (page - 1) * size;
+            if(offset < 0){
+                offset=0;
+            }
+            List<ProductDto> list = listMapper.selectPageByMajorCategory(majorCategoryId, offset, size, sort);
+            for (ProductDto p : list) {
+                String sizes = String.join("/", productOptionMapper.selectSizeByProductId(p.getProductId()));
+                p.setSize(sizes);
+            }
+            return list;
+        }
+        @Transactional(readOnly = true)
+        public int countByMajorCategory(Integer majorCategoryId) {
+        return listMapper.selectCountByMajorCategory(majorCategoryId);
+        }
 
 }
