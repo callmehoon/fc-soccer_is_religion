@@ -16,7 +16,7 @@
                IS_TOP         AS isTop
         FROM NOTICE_BOARD
         WHERE IS_TOP = 1
-        ORDER BY NOTICE_ID DESC
+        ORDER BY CREATED_AT DESC
     </select>
 
     <!-- 일반 공지 페이징 처리 - 정렬 기준: 생성일자 최신순 -->
