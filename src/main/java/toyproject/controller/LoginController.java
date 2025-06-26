@@ -90,6 +90,11 @@ public class LoginController {
             return "redirect:/main"; // 기본 리다이렉트
 
         } catch (IllegalArgumentException e) {
+            // 일반 로그인 실패 처리 (비밀번호 틀림 등)
+            redirectAttributes.addFlashAttribute("error", e.getMessage());
+            return "redirect:/login";
+        } catch (RuntimeException e) {
+            // 계정 잠금 등의 기타 RuntimeException 처리
             redirectAttributes.addFlashAttribute("error", e.getMessage());
             return "redirect:/login";
         }

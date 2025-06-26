@@ -15,4 +15,13 @@ public interface UserMapper {
 
     // 필요하면 이후에 이메일 중복 체크 등 추가
     boolean isEmailDuplicated(String email);
+
+    // 로그인 실패 횟수 증가
+    void incrementFailCount(String email);
+
+    // 로그인 실패 횟수 초기화 (로그인 성공 시)
+    void resetFailCount(String email);
+
+    // 실패 횟수 조회
+    int getFailCount(String email);
 }

@@ -49,5 +49,19 @@
         WHERE USER_ID_EMAIL = #{email}
     </select>
 
+    <!-- 로그인 실패 횟수 증가 -->
+    <update id="incrementFailCount" parameterType="String">
+        UPDATE USER SET PWD_FAIL_COUNT = PWD_FAIL_COUNT + 1 WHERE USER_ID_EMAIL = #{email}
+    </update>
+
+    <!-- 로그인 실패 횟수 초기화 -->
+    <update id="resetFailCount" parameterType="String">
+        UPDATE USER SET PWD_FAIL_COUNT = 0 WHERE USER_ID_EMAIL = #{email}
+    </update>
+
+    <!-- 실패 횟수 조회 -->
+    <select id="getFailCount" parameterType="String" resultType="int">
+        SELECT PWD_FAIL_COUNT FROM USER WHERE USER_ID_EMAIL = #{email}
+    </select>
 
 </mapper>

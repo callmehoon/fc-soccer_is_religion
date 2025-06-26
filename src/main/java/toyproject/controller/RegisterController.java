@@ -25,10 +25,21 @@ public class RegisterController {
     public String register(@ModelAttribute RegisterRequestDto requestDto,
                            RedirectAttributes redirectAttributes) {
         String email = requestDto.getEmail();
+        String password = requestDto.getPassword();
+
 
         // 이메일 정규식 검사
         if (!email.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$")) {
             redirectAttributes.addFlashAttribute("error", "올바른 이메일 형식이 아닙니다.");
+            return "redirect:/register";
+        }
+
+        // 비밀번호 유효성 검사 (추가)
+        if (password.length() < 8 ||
+                !password.matches(".*[a-zA-Z].*") ||
+                !password.matches(".*\\d.*") ||
+                !password.matches(".*[!@#$%^&*(),.?\":{}|<>].*")) {
+            redirectAttributes.addFlashAttribute("error", "비밀번호는 8자 이상, 영문/숫자/특수문자를 포함해야 합니다.");
             return "redirect:/register";
         }
 

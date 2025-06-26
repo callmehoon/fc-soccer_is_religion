@@ -15,15 +15,32 @@ public class UserService {
 
 
 
-    // 로그인
+    // 로그인 - 여기서 계정 잠금 설정
     public LoginUserDto login(String email, String password) {
         LoginUserDto user = userMapper.findByEmail(email);
         if (user == null) {
             throw new IllegalArgumentException("존재하지 않는 사용자입니다.");
         }
-        if (!user.getPassword().equals(password)) {
-            throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
+
+        // 실패 횟수 체크 (사용자가 존재할 때만)
+        int failCount = userMapper.getFailCount(email);
+        if (failCount >= 3) {
+            throw new RuntimeException("계정이 잠겼습니다. 관리자에게 문의하세요.");
         }
+
+        if (!user.getPassword().equals(password)) {
+            userMapper.incrementFailCount(email);
+
+            int newFailCount = userMapper.getFailCount(email);
+            if (newFailCount >= 3) {
+                throw new RuntimeException("계정이 잠겼습니다. 관리자에게 문의하세요.");
+            } else {
+                throw new IllegalArgumentException("비밀번호가 일치하지 않습니다. (" + newFailCount + "/3)");
+            }
+        }
+
+        // 로그인 성공 시 실패 횟수 초기화
+        userMapper.resetFailCount(email);
         return user;
     }
 
@@ -53,4 +70,6 @@ public class UserService {
     public boolean isEmailDuplicated(String email) {
         return userMapper.isEmailDuplicated(email);
     }
+
+
 }
