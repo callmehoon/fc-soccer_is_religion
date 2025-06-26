@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
     sizeButtons.forEach(btn => {
         //재고가 0이면 size btn 클릭 X
         const stock = parseInt(btn.dataset.stock, 10);
-        if(stock==0){
+        if (stock == 0) {
             btn.disabled = true;
             return;
         }
@@ -80,7 +80,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 //해당 수량에 따라 가격을 계산해서 표시
                 updateTotal();
                 //총 가격 업데이트 함수 ㅊ=호출
-            } else{
+            } else {
                 alert(`최대 수량은 ${stock}개입니다.`);
                 //재고 초과시 경고창
             }
@@ -152,7 +152,7 @@ document.addEventListener("DOMContentLoaded", function () {
             // 로그인 상태 → 서버에 전송
             fetch('/cart/add', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(selectedItems)
             })
                 .then(response => {
@@ -167,32 +167,34 @@ document.addEventListener("DOMContentLoaded", function () {
                     alert('요청 중 오류 발생');
                 });
         } else {
-            //비로그인 상태 일때
-            alert('로그인이 필요합니다.');
-            window.location.href = '/login'; // 로그인 페이지 경로로 이동
+            const actionType = "ADD_TO_CART"; // 또는 "BUY_NOW"
+            const requestData = selectedItems;
+
+            fetch('/prelogin/store', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({type: actionType, payload: requestData})
+            }).then(() => {
+                window.location.href = "/login";
+            });
         }
 
     });
 
-     closeModalBtn.addEventListener('click',() => {
-        cartModal.style.display='none';
+    closeModalBtn.addEventListener('click', () => {
+        cartModal.style.display = 'none';
     });
 
-    goCartBtn.addEventListener('click',() => {
+    goCartBtn.addEventListener('click', () => {
         // 장바구니 페이지로 이동
         window.location.href = '/cart';
     })
 
 //구매하기
     buyBtn.addEventListener('click', () => {
-        const userIdInput = document.getElementById('email');
+        const userIdInput = document.getElementById('email'); // 로그인 여부 판단용
         const productIdInput = document.getElementById('productId');
 
-        if (!userIdInput || !userIdInput.value) {
-            alert('로그인이 필요합니다.');
-            window.location.href = '/login'; // 로그인 페이지 경로로 이동
-            return;
-        }
         if (!productIdInput) {
             alert('상품 ID를 찾을 수 없습니다.');
             return;
@@ -217,31 +219,43 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-        fetch('/order/prepare', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            // 백엔드에 맞춰 key 이름을 productId로 맞춤
-            body: JSON.stringify({ productId: selectedItems })
-        })
-            .then(response => {
-                if (response.redirected) {
-                    window.location.href = response.url;
-                } else if (response.ok) {
-                    window.location.href = '/order';
-                } else {
-                    alert('서버 오류가 발생했습니다.');
-                }
+        // ✅ 로그인 상태인 경우: 바로 주문 진행
+        if (userIdInput && userIdInput.value) {
+            fetch('/order/prepare', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({productId: selectedItems})
             })
-            .catch(error => {
-                console.error('fetch 오류:', error);
-                alert('요청 중 오류가 발생했습니다.');
+                .then(response => {
+                    if (response.redirected) {
+                        window.location.href = response.url;
+                    } else {
+                        window.location.href = '/order';
+                    }
+                })
+                .catch(error => {
+                    console.error('fetch 오류:', error);
+                    alert('요청 중 오류가 발생했습니다.');
+                });
+
+        } else {
+            // ✅ 비로그인 상태일 경우: 세션에 BUY_NOW 임시 저장 후 로그인 페이지로 이동
+            fetch('/prelogin/store', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    type: "BUY_NOW",
+                    payload: {
+                        productId: selectedItems
+                    }
+                })
+            }).then(() => {
+                window.location.href = '/login';
             });
+        }
     });
-
-
-
 
     // 탭 이동 (상세정보/리뷰/문의)
     document.querySelectorAll(".scroll_move").forEach(function (el) {
@@ -249,9 +263,9 @@ document.addEventListener("DOMContentLoaded", function () {
             e.preventDefault();
             const target = document.querySelector(this.getAttribute("href"));
             if (target) {
-                const headerHeight =document.querySelector("header").offsetHeight;//헤더 높이
-                const targetPosition=target.offsetTop-headerHeight;// 헤더 높이만큼 뺌
-                window.scrollTo({ top: targetPosition, behavior: "smooth" });
+                const headerHeight = document.querySelector("header").offsetHeight;//헤더 높이
+                const targetPosition = target.offsetTop - headerHeight;// 헤더 높이만큼 뺌
+                window.scrollTo({top: targetPosition, behavior: "smooth"});
             }
         });
     });

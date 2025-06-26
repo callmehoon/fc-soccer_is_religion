@@ -1,20 +1,31 @@
 package toyproject.controller;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import toyproject.controller.dto.CartInsertDto;
 import toyproject.controller.dto.LoginUserDto;
+import toyproject.controller.dto.OrderRequestDto;
+import toyproject.controller.dto.PreLoginAction;
+import toyproject.service.CartService;
 import toyproject.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
 public class LoginController {
 
     private final UserService userService;
+    private final CartService cartService;
+
     // 로그인 폼 화면
     @GetMapping("/login")
     public String loginForm() {
@@ -33,17 +44,57 @@ public class LoginController {
             redirectAttributes.addFlashAttribute("error", "올바른 이메일 형식이 아닙니다.");
             return "redirect:/login";
         }
-
         try {
             LoginUserDto user = userService.login(email, password);
-            request.getSession().setAttribute("loginUser", user);
-            //다른 컨트롤러나 JSP에서 sessionScope.loginUser로 접근
-            return "redirect:/main"; // 로그인 성공 후 메인 페이지로 이동
+            HttpSession session = request.getSession(true);
+            session.setAttribute("loginUser", user);
+
+            PreLoginAction action = (PreLoginAction) session.getAttribute("preLoginAction");
+            if (action != null) {
+                session.removeAttribute("preLoginAction");
+
+                if ("ADD_TO_CART".equals(action.getType())) {
+
+                    ObjectMapper objectMapper = new ObjectMapper();
+                    List<CartInsertDto> items = objectMapper.convertValue(
+                            action.getPayload(),
+                            new TypeReference<List<CartInsertDto>>() {
+                            }
+                    );
+
+                    for (CartInsertDto item : items) {
+                        item.setUserId(user.getUserId());
+                        cartService.insertCartItem(item);
+                    }
+                    return "redirect:/cart";
+                }
+
+                if ("BUY_NOW".equals(action.getType())) {
+                    ObjectMapper objectMapper = new ObjectMapper();
+                    OrderRequestDto orderRequest = objectMapper.convertValue(
+                            action.getPayload(),
+                            OrderRequestDto.class
+                    );
+                    session.setAttribute("orderRequestDto", orderRequest);
+                    return "redirect:/order";
+                }
+            }
+
+            // 일반 리다이렉션 처리 (Interceptor에 의해 저장된 URL)
+            String redirectUri = (String) session.getAttribute("redirectAfterLogin");
+            if (redirectUri != null) {
+                session.removeAttribute("redirectAfterLogin");
+                return "redirect:" + redirectUri;
+            }
+
+            return "redirect:/main"; // 기본 리다이렉트
+
         } catch (IllegalArgumentException e) {
             redirectAttributes.addFlashAttribute("error", e.getMessage());
-            return "redirect:/login"; // 실패 시 다시 로그인 폼으로
+            return "redirect:/login";
         }
     }
+
     // 메인페이지 이동
     @GetMapping("/main")
     public String home(Model model) {
@@ -56,5 +107,12 @@ public class LoginController {
     public String logout(HttpServletRequest request) {
         request.getSession().invalidate(); // 세션 완전 초기화
         return "redirect:/main"; // 로그아웃 후 메인으로 이동
+    }
+
+    @PostMapping("/prelogin/store")
+    @ResponseBody
+    public ResponseEntity<Void> storePreLoginAction(@RequestBody PreLoginAction action, HttpSession session) {
+        session.setAttribute("preLoginAction", action);
+        return ResponseEntity.ok().build();
     }
 }

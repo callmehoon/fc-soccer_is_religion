@@ -24,9 +24,19 @@ public class OrderController {
     // 주문 페이지: 세션에 저장된 주문 정보를 기반으로 ViewModel 구성
     @GetMapping("")
     public String order(HttpSession session, Model model) {
-        OrderRequestDto orderRequestDto = (OrderRequestDto) session.getAttribute("orderRequestDto");
 
-        // 상품 id 만 추출해서 DB 조회
+        OrderRequestDto orderRequestDto = (OrderRequestDto)
+                Optional.ofNullable(session.getAttribute("orderRequestDto"))
+                        .orElse(session.getAttribute("orderRequest"));
+
+        System.out.println("🔍 orderRequestDto in session: " + orderRequestDto);
+
+        if (orderRequestDto == null) {
+            return "redirect:/main";
+        }
+
+
+
         List<Integer> productIdList = orderRequestDto.getProductId().stream()
                 .map(OrderItemRequestDto::getProductId)
                 .distinct()
@@ -34,13 +44,11 @@ public class OrderController {
 
         List<OrderResponseDto> orderResponseDtoList = orderService.searchProducts(productIdList);
 
-        // 3. Map<productId, DB상품정보> 생성
         Map<Integer, OrderResponseDto> productInfoMap = new HashMap<>();
         for (OrderResponseDto product : orderResponseDtoList) {
             productInfoMap.put(product.getProductId(), product);
         }
 
-        // 4. 세션에 저장된 요청 기준으로 병합
         List<OrderResponseDto> finalOrderList = new ArrayList<>();
         for (OrderItemRequestDto sessionItem : orderRequestDto.getProductId()) {
             OrderResponseDto dbProduct = productInfoMap.get(sessionItem.getProductId());
@@ -52,16 +60,14 @@ public class OrderController {
                         .productName(dbProduct.getProductName())
                         .productPrice(dbProduct.getProductPrice())
                         .quantity(sessionItem.getQuantity())
-                        .size(sessionItem.getSize()) // 요청된 사이즈
+                        .size(sessionItem.getSize())
                         .build();
-
                 finalOrderList.add(mergedOrder);
             } else {
                 System.out.println("DB에 존재하지 않는 상품ID: " + sessionItem.getProductId());
             }
         }
 
-        // 5. ViewModel 구성
         OrderListViewModel orderListViewModel = OrderListViewModel.builder()
                 .orderList(finalOrderList)
                 .build();
@@ -84,8 +90,11 @@ public class OrderController {
     }
 
     @PostMapping("/summary")
-    public String orderSummary(@RequestParam Map<String, String> params, Model model) {
+    public String orderSummary(HttpSession session, @RequestParam Map<String, String> params, Model model) {
         model.addAttribute("orderSummary", params);
+
+        session.removeAttribute("orderRequestDto");
+        session.removeAttribute("orderRequest");
 
         return "order_summary";
     }
