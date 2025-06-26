@@ -72,4 +72,20 @@
           AND PRODUCT_ID = #{productId}
           AND SIZE = #{size}
     </update>
+
+        <select id="findStocksByProductOptions"
+            parameterType="java.util.List"
+            resultType="toyproject.mapper.result.StockCheckResult">
+        SELECT
+            p.PRODUCT_ID AS productId,
+            p.PRODUCT_NAME AS productName,
+            i.SIZE AS size,
+            i.CURRENT_QUANTITY AS stock
+        FROM INVENTORY i
+        JOIN PRODUCT p ON i.PRODUCT_ID = p.PRODUCT_ID
+        WHERE (i.PRODUCT_ID, i.SIZE) IN
+        <foreach item="item" collection="list" open="(" separator="," close=")">
+            (#{item.productId}, #{item.size})
+        </foreach>
+    </select>
 </mapper>

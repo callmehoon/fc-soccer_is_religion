@@ -13,11 +13,7 @@ public class UserService {
 
     private final UserMapper userMapper;
 
-    // 회원가입
-    public void registerUser(RegisterRequestDto dto) {
-        // 현재는 별도 처리 없이 바로 DB에 저장(패스워드 암호화/복호화 미구현)
-        userMapper.insertUser(dto);
-    }
+
 
     // 로그인
     public LoginUserDto login(String email, String password) {
@@ -29,5 +25,22 @@ public class UserService {
             throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
         }
         return user;
+    }
+
+    // RegisterController에서... 회원가입
+    public void register(RegisterRequestDto requestDto) {
+        String userId = generateNewUserId();
+        requestDto.setUserId(userId);
+        userMapper.insertUser(requestDto);
+    }
+
+    // USER_ID(사내 관리용 회원부여번호) 신규 생성
+    public String generateNewUserId() {
+        String maxId = userMapper.getMaxUserId();  // e.g. "U00127"
+        int nextNum = 1;
+        if (maxId != null && maxId.length() == 6) {
+            nextNum = Integer.parseInt(maxId.substring(1)) + 1;
+        }
+        return String.format("U%05d", nextNum);
     }
 }

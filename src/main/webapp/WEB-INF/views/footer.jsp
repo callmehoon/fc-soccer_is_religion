@@ -2,8 +2,9 @@
 
 <footer class="footer">
     <div class="footer-container">
-        <div class="footer-column">
-            <h3>© 2025 ToyProject CODED BY TEAM No.10. All rights reserved.</h3>
+        <h3 class="footer-center-text">© 2025 ToyProject CODED BY TEAM No.10. All rights reserved.</h3>
+        <div class="footer-link">
+            <a href="${pageContext.request.contextPath}/board/notice">고객센터</a>
         </div>
     </div>
 </footer>
