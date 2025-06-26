@@ -1,15 +1,8 @@
 <%--suppress ALL --%>
 <%@ page contentType="text/html; charset=UTF-8" %>
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>축구는 종교다</title>
+
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-</head>
-<body>
 
 <%@ include file="header.jsp" %>
 
@@ -177,8 +170,3 @@
 </div>
 <link rel="stylesheet" href="<%= request.getContextPath() %>/publish/cart.css"/>
 <script src="<%= request.getContextPath() %>/publish/cart.js" defer></script>
-</body>
-
-<%@ include file="footer.jsp" %>
-
-</html>
