@@ -7,19 +7,33 @@
 
     <insert id="insertUser" parameterType="toyproject.controller.dto.RegisterRequestDto">
         INSERT INTO USER (
-            email, password, name, phone, gender, birth_year, birth_month, birth_day,
-            zipcode, address, address_detail, rest_period, created_at
+            USER_ID,
+            USER_ID_EMAIL,
+            USER_PWD,
+            USER_NAME_KR,
+            USER_PHONE,
+            USER_ADDRESS
         ) VALUES (
-                     #{email}, #{password}, #{name}, #{phone}, #{gender}, #{birthYear}, #{birthMonth}, #{birthDay},
-                     #{zipcode}, #{address}, #{addressDetail}, #{restPeriod}, NOW()
-                 )
+            #{userId},
+            #{email},
+            #{password},
+            #{name},
+            #{phone},
+            #{address}
+        )
     </insert>
+
+    <!--USER_ID(사내 관리용 유저아이디) 최대번호 조회용 -> 조회 후 다음번호로 넘버링-->
+    <select id="getMaxUserId" resultType="string">
+        SELECT MAX(user_id) FROM USER
+    </select>
 
     <!--  로그인용 SELECT 문 추가 -->
     <select id="findByEmail" parameterType="String" resultType="toyproject.controller.dto.LoginUserDto">
         SELECT USER_ID_EMAIL AS email,
                USER_PWD AS password,
-               USER_ID AS userId
+               USER_ID AS userId,
+               USER_POINT AS bonusPoint
         FROM USER
         WHERE USER_ID_EMAIL = #{email}
     </select>
