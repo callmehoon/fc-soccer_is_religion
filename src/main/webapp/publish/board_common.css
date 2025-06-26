@@ -53,6 +53,7 @@ body {
 
 .content {
     flex: 1;
+    padding-bottom: 40px;
 }
 
 .page-title {
