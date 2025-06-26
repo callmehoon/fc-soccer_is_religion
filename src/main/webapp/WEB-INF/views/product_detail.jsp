@@ -43,7 +43,7 @@
                     <c:forEach var="size" items="${sizeList}">
                         <c:choose>
                             <c:when test="${size.size==0}">
-                                <button class="size-btn"  data-size="0" data-stock="${size.stock}">free</button>
+                                <button class="size-btn"  data-size="0" data-stock="${size.stock}">Free</button>
                             </c:when>
                             <c:otherwise>
                                 <button class="size-btn" data-size="${size.size}" data-stock="${size.stock}">${size.size}</button>
