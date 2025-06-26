@@ -48,4 +48,9 @@ public class UserService {
         }
         return String.format("U%05d", nextNum);
     }
+
+    // 이메일 중복 확인을 위한 AJAX 호출작업
+    public boolean isEmailDuplicated(String email) {
+        return userMapper.isEmailDuplicated(email);
+    }
 }
