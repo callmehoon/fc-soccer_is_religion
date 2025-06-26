@@ -30,6 +30,11 @@
         SELECT MAX(user_id) FROM USER
     </select>
 
+    <!-- 이메일 중복 체크 -->
+    <select id="isEmailDuplicated" parameterType="String" resultType="boolean">
+        SELECT COUNT(*) > 0 FROM USER WHERE USER_ID_EMAIL = #{email}
+    </select>
+
     <!--  로그인용 SELECT 문 추가 -->
     <select id="findByEmail" parameterType="String" resultType="toyproject.controller.dto.LoginUserDto">
         SELECT USER_ID_EMAIL AS email,

@@ -453,10 +453,8 @@ document.addEventListener("DOMContentLoaded", function () {
                     alert('인증 메일이 발송되었습니다. 이메일을 확인해주세요.');
                     // 실제로는 사용자가 이메일에서 인증 링크를 클릭하면 emailVerified = true로 설정
                     // 여기서는 데모용으로 3초 후 자동 인증 처리
-                    setTimeout(() => {
-                        emailVerified = true;
-                        showMessage('emailError', '이메일 인증이 완료되었습니다.', 'success');
-                    }, 3000);
+                    emailVerified = true;
+                    showMessage('emailError', '이메일 인증이 완료되었습니다.', 'success');
                 } else {
                     alert(result.message || '인증 메일 발송 중 오류가 발생했습니다.');
                 }
@@ -482,7 +480,7 @@ document.addEventListener("DOMContentLoaded", function () {
             if (validateForm()) {
                 // 여기서 실제 회원가입 처리
                 alert('회원가입이 완료되었습니다!');
-                // this.submit(); // 실제 제출
+                this.submit(); // 실제 제출
             }
         });
     }
