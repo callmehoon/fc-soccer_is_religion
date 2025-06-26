@@ -35,10 +35,8 @@
         </c:otherwise>
       </c:choose>
 
-      <a href="#" style="text-decoration: none; color: inherit;">주문조회</a>
       <div class="search-box"><input type="text" placeholder="검색어를 입력하세요."></div>
-      <span>마이페이지</span>
-      <span>장바구니</span>
+      <div><a href="/cart"  style="text-decoration: none; color: inherit;">장바구니</a></div>
     </div>
   </div>
 

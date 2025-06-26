@@ -28,6 +28,13 @@ public class LoginController {
                         @RequestParam String password,
                         HttpServletRequest request,
                         RedirectAttributes redirectAttributes) {
+
+        // 이메일 정규식 : 서버단에서 이메일 형식 유효성 검증 - js에서 검증 및 서버 체크
+        if (!email.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$")) {
+            redirectAttributes.addFlashAttribute("error", "올바른 이메일 형식이 아닙니다.");
+            return "redirect:/login";
+        }
+
         try {
             LoginUserDto user = userService.login(email, password);
             request.getSession().setAttribute("loginUser", user);

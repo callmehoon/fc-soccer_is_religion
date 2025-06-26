@@ -23,27 +23,29 @@
         <label class="required">아이디(이메일)</label>
         <input type="email" name="email" id="email" placeholder="이메일 입력">
         <p class="error-msg" id="emailError"></p>
+        <button type="button" id="btn-email-check">중복 확인</button>
+        <button type="button" id="btn-email-verify">인증 요청</button>
     <p class="note">※ 수신가능한 이메일 주소로 입력해주세요.</p>
 
         <label class="required">비밀번호</label>
-        <input type="password" id="pw1">
+        <input type="password" name="password" id="pw1">
 
         <label class="required">비밀번호 확인</label>
         <input type="password" id="pw2">
         <p class="error-msg" id="pwError"></p>
 
     <label class="required">이름</label>
-    <input type="text">
+    <input type="text" name="name">
 
     <label class="required">휴대전화</label>
-    <input type="text" placeholder="- 없이 입력해주세요.">
+    <input type="tel" name="phone" placeholder="- 없이 입력해주세요.">
 
         <label>주소</label>
         <div class="row">
             <input type="text" name="zipcode" id="receiver_address">
-            <button type="button" onclick="execDaumPostcode()">우편번호 검색</button>
+            <button type="button" id="btn-postcode" onclick="execDaumPostcode()">우편번호 검색</button>
         </div>
-        <input type="text" name="address" id="receiver_detail_address">
+        <input type="text" name="detailAddress" id="receiver_detail_address">
 
 
         <div class="section-title">부가 정보</div>
@@ -93,8 +95,8 @@
     </div>
 
     <div class="buttons">
-        <button>취소</button>
-        <button class="join">회원가입</button>
+        <button type="button" onclick="history.back()">취소</button>
+        <button class="join" type="submit" id="btn-register-submit">회원가입</button>
     </div>
     </form>
 </div>

@@ -72,6 +72,16 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
+
+document.getElementById("btn-email-check").addEventListener("click", function() {
+    // AJAX로 중복 여부 확인
+});
+
+document.getElementById("btn-email-verify").addEventListener("click", function() {
+    // AJAX로 인증 메일 발송
+});
+
+
 // 📌 우편번호 API 연동
 function execDaumPostcode() {
     new daum.Postcode({
