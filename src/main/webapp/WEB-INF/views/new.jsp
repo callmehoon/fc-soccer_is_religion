@@ -58,7 +58,16 @@
           <a href="${pageContext.request.contextPath}/product/detail?productID=${p.productId}"style="text-decoration: none; color: inherit;"><p class="product-name">${p.productName}</p></a>
           <p class="price"><fmt:formatNumber value="${p.price}" type="number" groupingUsed="true"/>원</p>
           <c:if test="${not empty p.size}">
-            <p class="sizes">${p.size}</p>
+            <p class="sizes"style="font-size: 12px; color: #999;">
+              <c:choose>
+                <c:when test="${p.size == '0'}">
+                  Free
+                </c:when>
+                <c:otherwise>
+                  ${p.size}
+                </c:otherwise>
+              </c:choose>
+            </p>
           </c:if>
         </div>
       </div>

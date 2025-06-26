@@ -12,6 +12,27 @@
         ORDER BY MAJOR_CATEGORY_ID
     </select>
 
+    <select id="selectAllMiddle"
+            resultType="toyproject.controller.dto.BigCategoryDto">
+        SELECT
+            MID_CATEGORY_ID AS midCategoryId,
+            MAJOR_CATEGORY_ID as majorCategoryId,
+            MID_CATEGORY as midCategoryName,
+            FROM MIDDLE_CATEGORY
+        ORDER BY MAJOR_CATEGORY_ID, MID_CATEGORY_ID
+    </select>
+
+    <select id="selectAllSmall"
+            resultType="toyproject.controller.dto.BigCategoryDto">
+        SELECT
+            SMALL_CATEGORY_ID as smallCategoryId,
+            MID_CATEGORY_ID AS midCategoryId,
+            SMALL_CATEGORY as smallCategoryName
+        FROM SMALL_CATEGORY
+        ORDER BY MID_CATEGORY_ID, SMALL_CATEGORY_ID
+    </select>
+
+
     <select id="selectMiddleByBigId" parameterType="int" resultType="toyproject.controller.dto.MiddleCategoryDto">
         SELECT MID_CATEGORY_ID   as midCategoryId,
                MAJOR_CATEGORY_ID as majorCategoryId,

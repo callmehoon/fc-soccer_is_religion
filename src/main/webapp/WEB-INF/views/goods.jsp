@@ -7,7 +7,7 @@
 <head>
   <meta charset="UTF-8">
   <title>축구는 종교다</title>
-  <link rel="stylesheet" href="/publish/new.css">
+  <link rel="stylesheet" href="<c:url value='/publish/new.css'/>">
   <style>
     .filter-sort-section {
       display: flex;
@@ -64,21 +64,6 @@
       color: black;
     }
 
-    .product-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 40px;
-      padding: 40px 60px;
-    }
-
-    .product-card {
-      text-align: center;
-    }
-
-    .product-card img {
-      width: 100%;
-      max-width: 300px;
-    }
 
     .banner {
       text-align: center;
@@ -142,8 +127,20 @@
     <div class="product-card">
       <a href="${pageContext.request.contextPath}/product/detail?productID=${p.productId}"><img src="${p.img}" alt="${p.productName}"></a>
       <p><c:out value="${p.brandName}"/></p>
-      <a href="${pageContext.request.contextPath}/product/detail?productID=${p.productId}"style="text-decoration: none; color: inherit;"><p><c:out value="${p.productName}"/></p></a>
+      <a href="${pageContext.request.contextPath}/product/detail?productID=${p.productId}"style="text-decoration: none; color: #888;"><p><c:out value="${p.productName}"/></p></a>
       <p class="price"><fmt:formatNumber value="${p.price}" type="number" groupingUsed="true"/>원</p>
+      <c:if test="${not empty p.size}">
+        <p class="sizes"style="font-size: 12px; color: #999;">
+          <c:choose>
+            <c:when test="${p.size == '0'}">
+              Free
+            </c:when>
+            <c:otherwise>
+              ${p.size}
+            </c:otherwise>
+          </c:choose>
+        </p>
+      </c:if>
     </div>
     </c:forEach>
   </section>

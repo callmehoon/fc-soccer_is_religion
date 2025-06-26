@@ -75,6 +75,12 @@ public class ListService {
         if(offset < 0){
             offset=0;
         }
+        List<ProductDto> list = listMapper.selectByMiddleCategory(midCategoryId, offset, size, sort);
+        for (ProductDto p : list) {
+            List<String> sizes = productOptionMapper.selectSizeByProductId(p.getProductId());
+            String joined = sizes.stream().collect(Collectors.joining("/"));
+            p.setSize(joined);
+        }
         return listMapper.selectByMiddleCategory(midCategoryId, offset, size, sort);
     }
     public int countByMiddleCategory(Integer midCategoryId) {
@@ -85,6 +91,12 @@ public class ListService {
         @Transactional(readOnly = true)
         public List<ProductDto> getByMiddleCategories(List<Integer> midCategoryIds, int page, int size, String sort) {
             int offset = (page - 1) * size;
+            List<ProductDto> list = listMapper.selectByMiddleCategories(midCategoryIds, offset, size, sort);
+            for (ProductDto p : list) {
+                List<String> sizes = productOptionMapper.selectSizeByProductId(p.getProductId());
+                String joined = sizes.stream().collect(Collectors.joining("/"));
+                p.setSize(joined);
+            }
             return listMapper.selectByMiddleCategories(midCategoryIds, offset, size, sort);
         }
 

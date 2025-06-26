@@ -9,4 +9,6 @@ public interface CategoryMapper {
     List<BigCategoryDto> selectAllBig();
     List<MiddleCategoryDto> selectMiddleByBigId(int majorCategoryId);
     List<SmallCategoryDto>  selectSmallByMiddleId(int midCategoryId);
+    List<MiddleCategoryDto> selectAllMiddle();
+    List<SmallCategoryDto>  selectSmall();
 }
