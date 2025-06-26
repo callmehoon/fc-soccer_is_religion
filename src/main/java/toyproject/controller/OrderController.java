@@ -86,13 +86,6 @@ public class OrderController {
 
     @PostMapping("/summary")
     public String orderSummary(@RequestParam Map<String, String> params, Model model) {
-        String rawJson = params.get("products");
-        if (rawJson != null) {
-            String base64Encoded = Base64.getEncoder().encodeToString(rawJson.getBytes(StandardCharsets.UTF_8));
-            model.addAttribute("rawProductsJson", base64Encoded);
-        }
-
-        params.remove("products");
         model.addAttribute("orderSummary", params);
 
         return "order_summary";
