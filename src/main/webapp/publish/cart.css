@@ -21,11 +21,13 @@ body {
 .cart-wrapper {
     display: flex;
     gap: 30px;
+    align-items: flex-start; /* 혹시 높이가 안 맞으면 추가 */
 }
 
 .cart-items {
-    flex: 2;
+    flex: 3; /* 기존보다 더 넓게 */
 }
+
 
 .cart-table {
     width: 100%;
@@ -72,9 +74,11 @@ body {
 }
 
 .summary-box {
-    flex: 1;
+    flex: 1.3; /* 기존 1 → 1.3 정도로 넓힘 */
+    min-width: 320px; /* 너무 좁아지지 않게 보장 */
+    max-width: 400px;  /* 필요시 최대폭 제한 */
     border: 1px solid #ddd;
-    padding: 20px;
+    padding: 24px;
     background: #f9f9f9;
     position: sticky;
     top: 40px;
@@ -373,6 +377,26 @@ body {
     cursor: pointer;
     display: inline-block;
 }
+
 .delete-text:hover {
     text-decoration: underline;
+}
+
+.page-wrapper {
+    min-height: 100vh; /* 뷰포트 전체 높이 */
+    display: flex;
+    flex-direction: column;
+}
+
+.content-wrapper {
+    flex: 1; /* 남은 영역 모두 차지 → footer는 아래로 내려감 */
+}
+
+.footer {
+    background-color: #111;
+    color: #fff;
+    padding: 40px 20px;
+    font-size: 12px;
+    text-align: center;
+    position: relative;
 }

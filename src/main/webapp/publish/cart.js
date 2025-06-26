@@ -6,6 +6,7 @@ function openModal(e) {
     currentRow = e.target.closest('tr');
 
     const productId = e.target.getAttribute("data-product-id");
+
     const prevSize = e.target.getAttribute("data-prev-size");
     const prevQuantity = e.target.getAttribute("data-prev-quantity");
 
@@ -13,6 +14,14 @@ function openModal(e) {
     modal.setAttribute("data-product-id", productId);
     modal.setAttribute("data-prev-size", prevSize);
     modal.setAttribute("data-prev-quantity", prevQuantity);
+
+    // ✅ 상품명 직접 설정
+    const productNameText = currentRow.querySelector('.product-info strong')?.textContent || "상품명 없음";
+    const productNameStrong = modal.querySelector(".popup-title + strong");
+    if (productNameStrong) {
+        productNameStrong.textContent = productNameText;
+    }
+
 
     // 기존 이미지 동기화 (생략 가능)
     const productImg = currentRow.querySelector('.product-info img');
@@ -247,14 +256,11 @@ document.getElementById("purchaseSelectedBtn").addEventListener("click", () => {
 function renderSizeButtons(dataList, prevSize, prevQuantity) {
     sizeStockMap.clear(); // 기존 데이터 초기화
 
+
     const optionModal = document.getElementById("optionModal");
 
     // 1. productName 설정
-    const productName = dataList[0]?.productName || "상품명 없음";
-    const productNameStrong = optionModal.querySelector(".popup-title + strong");
-    if (productNameStrong) {
-        productNameStrong.textContent = productName;
-    }
+
 
     // 2. productId 저장용 hidden input 추가 (없으면 생성)
     let hiddenInput = document.getElementById("modalProductId");
