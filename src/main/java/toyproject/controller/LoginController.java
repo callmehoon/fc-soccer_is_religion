@@ -26,6 +26,13 @@ public class LoginController {
     private final UserService userService;
     private final CartService cartService;
 
+    // 8080에서 main으로 포워딩
+    @GetMapping("/")
+    public String mainHomePage() {
+        return "redirect:/main";
+    }
+
+
     // 로그인 폼 화면
     @GetMapping("/login")
     public String loginForm() {
