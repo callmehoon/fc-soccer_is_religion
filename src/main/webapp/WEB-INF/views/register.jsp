@@ -17,28 +17,33 @@
         <span>01</span> 정보입력 및 약관동의 &nbsp; &gt; &nbsp; <span style="background:#eee; color:#999;">02</span> 가입완료
     </div>
 
-    <div class="section-title">기본정보</div>
-        <p class="note">※필수입력사항</p>
+    <div class="section-title">기본정보  <p class="note">※필수입력사항</p> </div>
 
         <label class="required">아이디(이메일)</label>
-        <input type="email" name="email" id="email" placeholder="이메일 입력">
+        <input type="email" name="email" id="email" placeholder="이메일 입력 : 수신가능한 이메일 주소로 입력해주세요.">
         <p class="error-msg" id="emailError"></p>
         <button type="button" id="btn-email-check">중복 확인</button>
         <button type="button" id="btn-email-verify">인증 요청</button>
-    <p class="note">※ 수신가능한 이메일 주소로 입력해주세요.</p>
+    <p class="note"></p><br>
 
         <label class="required">비밀번호</label>
         <input type="password" name="password" id="pw1" placeholder="비밀번호는 8자 이상, 영문/숫자/특수문자를 포함">
-
+        <br><br>
         <label class="required">비밀번호 확인</label>
         <input type="password" id="pw2" placeholder="비밀번호는 8자 이상, 영문/숫자/특수문자를 포함">
         <p class="error-msg" id="pwError"></p>
 
+        <br><br>
+
     <label class="required">이름</label>
     <input type="text" name="name">
 
+        <br><br>
+
     <label class="required">휴대전화</label>
     <input type="tel" name="phone" placeholder="- 없이 입력해주세요.">
+
+        <br><br>
 
         <label>주소</label>
         <div class="row">
@@ -54,14 +59,14 @@
     <div class="radio-group">
         <label><input type="radio" name="gender"> 남자</label>
         <label><input type="radio" name="gender"> 여자</label>
-    </div>
+    </div><br><br>
 
     <label class="required">생일</label>
     <div class="row">
         <select name="birthYear" id="birthYear"><option>년</option></select>
         <select name="birthMonth" id="birthMonth"><option>월</option></select>
         <select name="birthDay" id="birthDay"><option>일</option></select>
-    </div>
+    </div><br><br>
 
     <label class="required">휴면회원 방지기간</label>
     <div class="radio-group">
@@ -69,7 +74,7 @@
         <label><input type="radio" name="rest"> 3년</label>
         <label><input type="radio" name="rest"> 5년</label>
         <label><input type="radio" name="rest"> 탈퇴시-평생회원</label>
-    </div>
+    </div><br><br>
 
     <div class="section-title">약관동의</div>
     <div class="agreements">
