@@ -72,11 +72,8 @@
         </div>
     </main>
 </div>
-
 <script src="https://kit.fontawesome.com/f350009f47.js" crossorigin="anonymous"></script>
 <script src="${pageContext.request.contextPath}/publish/board_common.js"></script>
-
 </body>
-
 <%@ include file="footer.jsp" %>
 </html>

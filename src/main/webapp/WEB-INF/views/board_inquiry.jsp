@@ -3,7 +3,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!-- ⭐ -->
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -16,6 +15,7 @@
 </head>
 
 <%@ include file="header.jsp" %>
+
 <body>
 <div class="layout full-centered">
     <aside class="sidebar">

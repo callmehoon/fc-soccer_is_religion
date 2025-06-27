@@ -27,7 +27,6 @@ public class RegisterController {
         String email = requestDto.getEmail();
         String password = requestDto.getPassword();
 
-
         // 이메일 정규식 검사
         if (!email.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$")) {
             redirectAttributes.addFlashAttribute("error", "올바른 이메일 형식이 아닙니다.");
@@ -95,5 +94,4 @@ public class RegisterController {
 
         return result;
     }
-
 }

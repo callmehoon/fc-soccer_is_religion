@@ -122,5 +122,4 @@ document.addEventListener("DOMContentLoaded", () => {
             icon.textContent = isOpen ? "▾" : "▴";
         });
     });
-
 });

@@ -44,4 +44,3 @@ public class LoginUserDto {
     public String getUserAddressDetail() { return userAddressDetail; }
     public String getUserPhone() { return userPhone; }
 }
-

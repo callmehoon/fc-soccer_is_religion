@@ -1,7 +1,6 @@
 package toyproject.controller.dto;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 
 public class ProductDto {
     private Integer productId;
@@ -21,8 +20,9 @@ public class ProductDto {
     private String size;
     private String brandName;
 
+    public ProductDto() {
+    }
 
-public ProductDto() {}
     public ProductDto(Integer productId, Integer brandId, Integer subCategoryId, String productName, String img, String sailo, String material, String color, BigDecimal avgScore, String detailInfo, Integer price, String basicInfo, Boolean isNew, Boolean isEvent, String size) {
         this.productId = productId;
         this.brandId = brandId;

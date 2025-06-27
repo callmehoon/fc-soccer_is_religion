@@ -50,7 +50,6 @@
                 </div>
             </template>
 
-
             <div class="order_info_title">주문자 정보</div>
             <div class="order_info_content">
                 <div class="content-form">

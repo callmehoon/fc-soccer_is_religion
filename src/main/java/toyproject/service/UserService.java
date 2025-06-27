@@ -1,4 +1,3 @@
-
 package toyproject.service;
 
 import lombok.RequiredArgsConstructor;
@@ -12,8 +11,6 @@ import toyproject.mapper.UserMapper;
 public class UserService {
 
     private final UserMapper userMapper;
-
-
 
     // 로그인 - 여기서 계정 잠금 설정
     public LoginUserDto login(String email, String password) {
@@ -70,6 +67,4 @@ public class UserService {
     public boolean isEmailDuplicated(String email) {
         return userMapper.isEmailDuplicated(email);
     }
-
-
 }

@@ -55,7 +55,6 @@ function displayProductInfo(data) {
     });
 }
 
-
 function displayOrdererInfo(data) {
     const ordererName = data.ordererName || '-';
     let fullAddress = data.ordererAddress || '';

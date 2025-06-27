@@ -8,7 +8,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import javax.sql.DataSource;
 
-
 @Configuration
 @MapperScan(basePackages = "toyproject.mapper")
 public class MyBatisConfig {

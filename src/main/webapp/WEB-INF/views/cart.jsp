@@ -41,8 +41,6 @@
                                             <div class="stock-warning-area"
                                                  style="color: red; font-weight: bold; margin-top: 5px;"></div>
                                         </div>
-
-
                                     </div>
                                 </td>
                                 <td class="${cart.stockQuantity == 0 ? 'sold-out' : ''}"
@@ -90,8 +88,6 @@
                     <div class="cart-actions">
                         <span id="deleteSelectedBtn" class="delete-text">선택삭제</span>
                     </div>
-
-
                 </div>
 
                 <!-- 결제 정보 -->
@@ -171,5 +167,4 @@
     <link rel="stylesheet" href="<%= request.getContextPath() %>/publish/cart.css"/>
     <script src="<%= request.getContextPath() %>/publish/cart.js" defer></script>
     <%@ include file="footer.jsp" %>
-
 </div>

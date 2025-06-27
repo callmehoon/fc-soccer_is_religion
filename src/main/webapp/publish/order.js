@@ -1,5 +1,3 @@
-//const MAX_USABLE_POINT = 10000; // 최대 사용 가능 적립금 상수화
-
 // 유틸리티 함수: 숫자 추출
 function extractNumber(text) {
     return parseInt(text.replace(/[^\d]/g, '')) || 0;

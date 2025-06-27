@@ -17,7 +17,4 @@ public class RootConfig {
     public static PropertySourcesPlaceholderConfigurer propertyConfigInDev() {
         return new PropertySourcesPlaceholderConfigurer();
     }
-
-
-
 }

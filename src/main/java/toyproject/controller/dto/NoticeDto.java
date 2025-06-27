@@ -1,6 +1,5 @@
 package toyproject.controller.dto;
 
-
 import lombok.Data;
 
 @Data

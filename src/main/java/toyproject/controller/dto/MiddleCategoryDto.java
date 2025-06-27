@@ -7,7 +7,10 @@ public class MiddleCategoryDto {
     private Integer majorCategoryId;     // MIDDLE_CATEGORY.MAJOR_CATEGORY_ID (FK)
     private String  midCategoryName;     // MIDDLE_CATEGORY.MID_CATEGORY
     private List<SmallCategoryDto> smalls;
-public MiddleCategoryDto() {}
+
+    public MiddleCategoryDto() {
+    }
+
     public MiddleCategoryDto(Integer midCategoryId, Integer majorCategoryId, String midCategoryName, List<SmallCategoryDto> smalls) {
         this.midCategoryId = midCategoryId;
         this.majorCategoryId = majorCategoryId;

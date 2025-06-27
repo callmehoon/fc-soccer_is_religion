@@ -189,7 +189,6 @@ header {
 /*    text-decoration: underline;*/
 /*}*/
 
-
 /* ──────────────────────────────────────────
    드롭다운 메뉴의 모든 링크 검정 + 밑줄 제거
 ─────────────────────────────────────────── */
@@ -206,7 +205,6 @@ header nav.main-nav .dropdown-group ul li a:active {
     color: #111 !important;
     text-decoration: none !important;
 }
-
 
 /*용 추가*/
 

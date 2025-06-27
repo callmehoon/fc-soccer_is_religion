@@ -4,7 +4,6 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="toyproject.mapper.CategoryMapper">
-
     <select id="selectAllBig" resultType="toyproject.controller.dto.BigCategoryDto">
         SELECT MAJOR_CATEGORY_ID as majorCategoryId,
                MAJOR_CATEGORY    as majorCategoryName
@@ -32,7 +31,6 @@
         ORDER BY MID_CATEGORY_ID, SMALL_CATEGORY_ID
     </select>
 
-
     <select id="selectMiddleByBigId" parameterType="int" resultType="toyproject.controller.dto.MiddleCategoryDto">
         SELECT MID_CATEGORY_ID   as midCategoryId,
                MAJOR_CATEGORY_ID as majorCategoryId,
@@ -50,5 +48,4 @@
         WHERE MID_CATEGORY_ID = #{midCategoryId}
         ORDER BY SUB_CATEGORY_ID
     </select>
-
 </mapper>

@@ -22,9 +22,6 @@ public class ListService {
         this.listMapper = listMapper;
         this.productOptionMapper = productOptionMapper;
     }
-
-
-
     /** NEW 상품 전체 개수 */
     @Transactional(readOnly = true)
     public int getNewCount() {
@@ -44,7 +41,6 @@ public class ListService {
             p.setSize(joined);
         }
         return list;
-
     }
 
     /** 브랜드별 전체 개수 */
@@ -87,7 +83,6 @@ public class ListService {
         return listMapper.countByMiddleCategory(midCategoryId);
     }
 
-
         @Transactional(readOnly = true)
         public List<ProductDto> getByMiddleCategories(List<Integer> midCategoryIds, int page, int size, String sort) {
             int offset = (page - 1) * size;
@@ -122,5 +117,4 @@ public class ListService {
         public int countByMajorCategory(Integer majorCategoryId) {
         return listMapper.selectCountByMajorCategory(majorCategoryId);
         }
-
 }

@@ -43,5 +43,4 @@ public class WebConfig implements WebMvcConfigurer {
                 .addPathPatterns("/cart/**",  "/board/inquiry/**") // 로그인 필요한 경로
                 .excludePathPatterns("/", "/login", "/css/**", "/js/**", "/images/**"); // 예외
     }
-
 }

@@ -35,8 +35,6 @@ public class OrderController {
             return "redirect:/main";
         }
 
-
-
         List<Integer> productIdList = orderRequestDto.getProductId().stream()
                 .map(OrderItemRequestDto::getProductId)
                 .distinct()

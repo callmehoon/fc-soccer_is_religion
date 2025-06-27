@@ -5,8 +5,6 @@
 <link rel="stylesheet" href="<c:url value='/publish/football_shoes.css'/>">
 <link rel="stylesheet" href="<c:url value='/publish/new.css'/>">
 
-
-
 <main>
     <div class="banner">
         <img src=https://caposttr4591.cdn-nhncommerce.com/data/editor/goods/250623/20250623_Fear-Nothing_132556.jpg style="width:100%; object-fit: cover;"alt="용품 배너">

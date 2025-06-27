@@ -29,6 +29,4 @@ public interface CartMapper {
     void insertCartItem(CartInsertDto CartInsertDto);
 
     List<StockCheckResult> findStocksByProductOptions(List<StockCheckParam> items);
-
-
 }

@@ -21,20 +21,16 @@ public interface ListMapper {
                                             @Param("pageSize") int pageSize,
                                             @Param("sort") String sort);
 
-
-
     List<ProductDto> selectByMiddleCategory(@Param("midCategoryId") Integer midCategoryId
     ,@Param("offset") int offset, @Param("limit") int limit, @Param("sort") String sort);
 
     int countByMiddleCategory(@Param("midCategoryId") Integer midCategoryId);
-
 
     List<ProductDto> selectByMiddleCategories(
             @Param("midCategoryIds") List<Integer> midCategoryIds,
             @Param("offset") int offset, @Param("pageSize") int limit, @Param("sort") String sort
     );
     int countByMiddleCategories(@Param("midCategoryIds") List<Integer> midCategoryIds);
-
 
     List<ProductDto> selectPageByMajorCategory(
             @Param("majorCategoryId") int majorCategoryId,

@@ -1,6 +1,5 @@
 package toyproject.interceptor;
 
-
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.servlet.HandlerInterceptor;
 
@@ -24,7 +23,6 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
             response.sendRedirect("/login");
             return false;
         }
-
         return true; // 통과
     }
 }

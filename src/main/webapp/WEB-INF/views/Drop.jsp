@@ -221,7 +221,6 @@
 <%--            <li><a href="<c:url value='/referee-kit'/>">레프리킷</a></li>--%>
             <li><a href="<c:url value='/womens'/>">우먼스</a></li>
             <li><a href="<c:url value='/youth'/>">유소년</a></li>
-
         </ul>
     </nav>
 </header>

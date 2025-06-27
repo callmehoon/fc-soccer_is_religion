@@ -87,7 +87,6 @@
         </div>
     </div>
 
-
     <div class="product-tabs" id="review">
         <ul class="tab-menu">
             <li class="tab"><a href="#detail" class="scroll_move">상세정보</a></li>
@@ -162,8 +161,6 @@
         <button id="closeModal">취소</button>
     </div>
 </div>
-
-
 
 <script src="<%= request.getContextPath() %>/publish/product_detail.js" defer></script>
 

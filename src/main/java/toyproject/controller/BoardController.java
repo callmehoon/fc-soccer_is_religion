@@ -1,6 +1,5 @@
 package toyproject.controller;
 
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -80,6 +79,4 @@ public class BoardController {
 
         return "redirect:/board/inquiry"; // 저장 후 목록으로 이동
     }
-
-
 }

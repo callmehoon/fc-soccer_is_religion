@@ -9,7 +9,6 @@
   <title>축구는 종교다</title>
   <link rel="stylesheet" href="<c:url value='/publish/new.css'/>">
 
-
 </head>
 <body>
 <main>

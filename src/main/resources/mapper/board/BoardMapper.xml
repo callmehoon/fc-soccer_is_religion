@@ -4,7 +4,6 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="toyproject.mapper.BoardMapper">
-
     <!-- 상단 고정 공지 전체 조회 (기존 유지) -->
     <select id="selectTopNotices" resultType="NoticeDto">
         SELECT NOTICE_ID      AS noticeId,
@@ -40,7 +39,6 @@
         FROM NOTICE_BOARD
         WHERE IS_TOP = 0
     </select>
-
 
     <select id="selectAllFaqs" resultType="FaqDto">
         SELECT FAQ_ID       AS faqId,
@@ -89,5 +87,4 @@
                 0,
                 NOW())
     </insert>
-
 </mapper>

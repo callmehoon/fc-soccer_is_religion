@@ -1,18 +1,14 @@
 package toyproject.SON;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.StopWatch;
 import org.springframework.web.bind.annotation.*;
 import toyproject.controller.dto.BigCategoryDto;
 import toyproject.controller.dto.ProductDto;
 import toyproject.service.CategoryService;
 import toyproject.service.ListService;
 
-
-import java.util.ArrayList;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,7 +21,6 @@ public class List_Controller {
     private final ListService service;
     private final CategoryService categoryService;
     private final ListService listService;
-
 
     @Autowired
     public List_Controller(ListService service,
@@ -55,7 +50,6 @@ public class List_Controller {
             @RequestParam(defaultValue = "recommend")String sort,
             Model model
     ) {
-
         int totalCount = service.getNewCount();
         List<ProductDto> list = service.getNewPage(page, size, sort);
         int totalPages = (int) Math.ceil(totalCount / (double) size);
@@ -124,7 +118,6 @@ public class List_Controller {
                                 int total = service.countByMiddleCategory(midCategoryId);
                                 int totalPages = (int) Math.ceil(total/(double)size);
 
-
                                 model.addAttribute("productList", list);
                                // model.addAttribute("midCategoryId", midCategoryId);
                                 model.addAttribute("totalCount",  total);
@@ -134,10 +127,7 @@ public class List_Controller {
                                 model.addAttribute("sort",        sort);
 
                                 return "football_shoes";
-
     }
-
-
 
     @GetMapping("/goods")
     public String goods(
@@ -163,7 +153,6 @@ public class List_Controller {
 
         return "goods";
     }
-
 
     @GetMapping("/clothes")
     public String clothes(
@@ -217,5 +206,4 @@ public class List_Controller {
         model.addAttribute("pageTitle", title);
         return "new";
     }
-
 }

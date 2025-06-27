@@ -1,6 +1,5 @@
 package toyproject.service;
 
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import toyproject.controller.dto.FaqDto;
@@ -36,7 +35,6 @@ public class BoardService {
         return (int) Math.ceil((double) count / size);
     }
 
-
     public List<GeneralBoardDto> getUserInquiries(String userId, int page, int size) {
         int offset = (page - 1) * size;
         return boardMapper.selectUserInquiries(userId, size, offset);
@@ -49,6 +47,4 @@ public class BoardService {
     public void saveInquiry(GeneralBoardDto dto) {
     boardMapper.insertInquiry(dto);
 }
-
-
 }

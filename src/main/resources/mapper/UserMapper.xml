@@ -4,7 +4,6 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="toyproject.mapper.UserMapper">
-
     <insert id="insertUser" parameterType="toyproject.controller.dto.RegisterRequestDto">
         INSERT INTO USER (
             USER_ID,
@@ -63,5 +62,4 @@
     <select id="getFailCount" parameterType="String" resultType="int">
         SELECT PWD_FAIL_COUNT FROM USER WHERE USER_ID_EMAIL = #{email}
     </select>
-
 </mapper>

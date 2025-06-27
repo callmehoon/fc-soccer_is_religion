@@ -4,7 +4,6 @@ import org.apache.ibatis.annotations.Param;
 import toyproject.controller.dto.FaqDto;
 import toyproject.controller.dto.GeneralBoardDto;
 import toyproject.controller.dto.NoticeDto;
-import toyproject.controller.dto.UserQuestionDto;
 
 import java.util.List;
 
@@ -16,7 +15,6 @@ public interface BoardMapper {
     int countNormalNotices();
 
     List<FaqDto> selectAllFaqs();
-
 
     void insertInquiry(GeneralBoardDto dto);
 

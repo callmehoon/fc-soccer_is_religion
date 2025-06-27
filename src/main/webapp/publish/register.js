@@ -157,7 +157,6 @@ function validateForm() {
         alert('필수 약관에 모두 동의해주세요.');
         return false;
     }
-
     return true;
 }
 
@@ -309,7 +308,6 @@ function recordLoginAttempt() {
         alert(`로그인 ${MAX_LOGIN_ATTEMPTS}회 실패로 계정이 30분간 잠겼습니다.`);
         return true;
     }
-
     return false;
 }
 
@@ -336,7 +334,6 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     }
-
 
     // 비밀번호 실시간 유효성 검사
     const pw1Input = document.getElementById("pw1");

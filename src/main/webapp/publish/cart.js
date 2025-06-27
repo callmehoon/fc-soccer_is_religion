@@ -22,7 +22,6 @@ function openModal(e) {
         productNameStrong.textContent = productNameText;
     }
 
-
     // 기존 이미지 동기화 (생략 가능)
     const productImg = currentRow.querySelector('.product-info img');
     const modalImg = modal.querySelector('.product-info img');
@@ -90,17 +89,14 @@ document.querySelectorAll('.qty-btn').forEach(btn => {
         } else if (this.textContent === '-') {
             value = Math.max(1, value - 1);
         }
-
         input.value = value;
     });
 });
-
 
 // 취소 버튼
 document.querySelector('.btn.cancel').addEventListener('click', () => {
     closeModal();
 });
-
 
 document.querySelector(".btn.confirm").addEventListener("click", function () {
     const modal = document.getElementById("optionModal");
@@ -231,7 +227,6 @@ document.getElementById("purchaseSelectedBtn").addEventListener("click", () => {
                                 message = "⚠️ 알 수 없는 문제";
                         }
 
-
                         if (warningArea) {
                             warningArea.textContent = message;
                         } else {
@@ -256,11 +251,9 @@ document.getElementById("purchaseSelectedBtn").addEventListener("click", () => {
 function renderSizeButtons(dataList, prevSize, prevQuantity) {
     sizeStockMap.clear(); // 기존 데이터 초기화
 
-
     const optionModal = document.getElementById("optionModal");
 
     // 1. productName 설정
-
 
     // 2. productId 저장용 hidden input 추가 (없으면 생성)
     let hiddenInput = document.getElementById("modalProductId");
@@ -313,10 +306,8 @@ function renderSizeButtons(dataList, prevSize, prevQuantity) {
                 document.querySelector('.selected-option .quantity input').value = prevQuantity;
             }
         }
-
         container.appendChild(btn);
     });
-
 
     const selectedSpan = document.querySelector('.selected-option span');
     const qtyInput = document.querySelector('.selected-option .quantity input');
@@ -325,7 +316,6 @@ function renderSizeButtons(dataList, prevSize, prevQuantity) {
         parseInt(prevSize) === 0 ? "Free" : prevSize;
     if (qtyInput) qtyInput.value = prevQuantity;
 }
-
 
 function renderStockStatus(cart) {
     if (cart.stockQuantity === 0) {
@@ -400,7 +390,6 @@ document.addEventListener("change", e => {
         updateSummary();
     }
 });
-
 
 document.getElementById("deleteSelectedBtn").addEventListener("click", () => {
     const selectedItems = [];
@@ -539,7 +528,6 @@ document.getElementById("purchaseAllBtn").addEventListener("click", () => {
         });
 });
 
-
 // 배송비 적용: 선택된 항목 1개 이상일 경우 3000원
 function updateSummary() {
     const checkboxes = document.querySelectorAll(".cart-item-checkbox:checked");
@@ -548,4 +536,3 @@ function updateSummary() {
     document.getElementById("summary-shipping").textContent = `+${shipping.toLocaleString()}원`;
     // 여기에 total 계산 등 추가 처리 가능
 }
-

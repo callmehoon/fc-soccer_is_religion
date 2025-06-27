@@ -124,7 +124,7 @@ document.addEventListener("DOMContentLoaded", function () {
         //선택된 상품(selectec-info)이 1개 이상이면 true 반환
     }
 
-//장바구니
+    //장바구니
     cartBtn.addEventListener('click', () => {
         // 선택 안 했을 경우
         if (!hasSelectedItems()) {
@@ -190,7 +190,7 @@ document.addEventListener("DOMContentLoaded", function () {
         window.location.href = '/cart';
     })
 
-//구매하기
+    //구매하기
     buyBtn.addEventListener('click', () => {
         const userIdInput = document.getElementById('email'); // 로그인 여부 판단용
         const productIdInput = document.getElementById('productId');

@@ -26,7 +26,6 @@ public class CartService {
 
         log.info("CartService_searchCart 진입");
 
-
         UserCartByIDQueryParam userCartByIDQueryParam = UserCartByIDQueryParam.builder()
                 .userId(requestDto.getUserId())
                 .build();
@@ -43,12 +42,9 @@ public class CartService {
                 .productPrice(userCartResult.getProductPrice()).build()
         ).toList();
 
-
         return CartResponseDto.builder()
                 .cartItems(userCartInfoList)
                 .build();
-
-
     }
 
     public List<SizeResponseDto> getSizesByProductId(SizeRequestDto sizeRequestDto) {
@@ -62,15 +58,12 @@ public class CartService {
         List<SizeResponseDto> sizeResponseDtoList = availableSizes.stream().map(result -> SizeResponseDto.builder().size(result.getSize()).stockQuantity(result.getStockQuantity()).build()).toList();
 
         return sizeResponseDtoList;
-
-
     }
 
     @Transactional
     public void updateCartOption(String userId, CartUpdateRequestDto dto) {
 
         if (dto.getPrevSize() != dto.getNewSize()) {
-
             UserCartDeleteQueryParam userCartDeleteQueryParam = UserCartDeleteQueryParam
                     .builder()
                     .userId(userId)
@@ -105,9 +98,7 @@ public class CartService {
                 cartMapper.updateCartItemQuantity(userCartUpdateQueryParam);
             }
 
-
         } else {
-
             UserCartUpdateQueryParam userCartUpdateQueryParam = UserCartUpdateQueryParam
                     .builder()
                     .userId(userId)
@@ -117,9 +108,7 @@ public class CartService {
                     .build();
 
             cartMapper.updateCartItemQuantity(userCartUpdateQueryParam);
-
         }
-
     }
 
     @Transactional
@@ -181,17 +170,11 @@ public class CartService {
                 // 문제가 없으면 응답에 포함하지 않음
                 continue;
             }
-
             result.add(builder.build());
         }
-
         return result;
     }
-
-
     public void insertCartItem(CartInsertDto dto) {
         cartMapper.insertCartItem(dto);
     }
-
-
 }

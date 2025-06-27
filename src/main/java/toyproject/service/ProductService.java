@@ -23,8 +23,5 @@ public class ProductService {
         List<Map<String,Object>> productSize = productMapper.productSize(productResponseDto.getProductID());
 
         return productSize;
-
-
     }
-
 }

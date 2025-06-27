@@ -12,5 +12,4 @@ public class PageResponseDto {
     private int     totalPage;
     private boolean first;
     private boolean last;
-
 }

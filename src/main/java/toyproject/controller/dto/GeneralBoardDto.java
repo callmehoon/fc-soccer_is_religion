@@ -2,8 +2,6 @@ package toyproject.controller.dto;
 
 import lombok.Data;
 
-import java.time.LocalDateTime;
-
 @Data
 public class GeneralBoardDto {
     private int generalBoardId;
@@ -17,6 +15,4 @@ public class GeneralBoardDto {
     private String createdAt;
     private String repliedAt;
     private String adminId;
-
-
 }

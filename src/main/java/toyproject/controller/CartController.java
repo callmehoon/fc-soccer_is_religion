@@ -51,7 +51,6 @@ public class CartController {
         return "cart";
     }
 
-
     @GetMapping(value = "/option/size", produces = "application/json")
     @ResponseBody
     public List<SizeResponseDto> getAvailableSizes(@ModelAttribute SizeRequestDto sizeRequestDto) {
@@ -69,7 +68,6 @@ public class CartController {
         HttpSession session = httpServletRequest.getSession(false); // false → 세션 없으면 null 반환
 
         LoginUserDto loginUser = (LoginUserDto) session.getAttribute("loginUser");
-
 
         log.info("Cart Controller _ /update");
         System.out.println(request.toString());
@@ -119,6 +117,4 @@ public class CartController {
                         .build()
         );
     }
-
-
 }

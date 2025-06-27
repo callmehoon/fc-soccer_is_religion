@@ -9,7 +9,5 @@ import java.util.List;
 @Data
 @Builder
 public class CartListViewModel {
-
     List<CartInfoDto> cartList;
-
 }

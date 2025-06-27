@@ -10,5 +10,4 @@ public class SizeResponseDto {
     private String productName;
     private int size;
     private int stockQuantity;
-
 }
