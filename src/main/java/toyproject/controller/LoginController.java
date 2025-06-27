@@ -32,7 +32,6 @@ public class LoginController {
         return "redirect:/main";
     }
 
-
     // 로그인 폼 화면
     @GetMapping("/login")
     public String loginForm() {
