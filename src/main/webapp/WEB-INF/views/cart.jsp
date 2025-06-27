@@ -5,7 +5,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ include file="header.jsp" %>
 
-
 <div class="page-wrapper">
     <div class="content-wrapper">
 
@@ -136,7 +135,7 @@
         <div class="modal-content">
             <button class="close-btn" onclick="closeModal()">×</button>
             <h2 class="popup-title">옵션선택</h2>
-            <strong>리가 베이스 레이어 숏 타이츠</strong> <span class="code">(65592403)</span><br/>
+            <strong></strong> <span class="code"></span><br/>
 
             <div class="product-info">
                 <img src="https://capostoreimg.godohosting.com/store5/PMW/NPMW65592403.jpg" alt="상품 이미지">
@@ -156,7 +155,7 @@
                     <input type="text" value="1"/>
                     <button class="qty-btn">+</button>
                 </div>
-                <span class="price">27,300원</span>
+                <span class="price">0원</span>
             </div>
 
             <div class="popup-footer">

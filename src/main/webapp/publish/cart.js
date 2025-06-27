@@ -2,7 +2,6 @@ let sizeStockMap = new Map();
 
 let currentProductPrice = 0; // 전역 변수 추가
 
-
 function openModal(e) {
     e.preventDefault();
     const modal = document.getElementById("optionModal");
