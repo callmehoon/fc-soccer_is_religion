@@ -4,9 +4,6 @@
 
 <%@ include file="header.jsp" %>
 
-
-
-
 <%--참조 CSS --%>
 <%--body 로 걸려있는 CSS 를 "main-body" 와 같이 감싸고, 재조정 필요--%>
 <div class="main-body">
@@ -51,7 +48,6 @@
             <button type="button" id="btn-postcode" onclick="execDaumPostcode()">우편번호 검색</button>
         </div>
         <input type="text" name="detailAddress" id="receiver_detail_address">
-
 
         <div class="section-title">부가 정보</div>
 
@@ -106,9 +102,5 @@
     </form>
 </div>
 </div>
-
-
-
-
 
 <%@ include file="footer.jsp" %>
