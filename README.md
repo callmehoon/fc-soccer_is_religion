@@ -15,6 +15,8 @@
 2. 상품 목록 & 상세 내용 기능
 3. 주문 & 장바구니 기능
 4. 게시판 기능
+### ERD
+![축구는 종교다_통합 ERD](https://github.com/user-attachments/assets/ab39a3c5-8ee4-4a52-8c43-c84c009c1a7c)
 
 ## 프로젝트 적용 기술 Technology List
 ### 사용언어 Main Languages
@@ -23,14 +25,12 @@
 - CSS
 - JavaScript
 
-### ERD
-![축구는 종교다_통합 ERD](https://github.com/user-attachments/assets/ab39a3c5-8ee4-4a52-8c43-c84c009c1a7c)
-
 ### 개발환경 Developement Environment
 - IntelliJ IDEA Ultimate(JDK 17)
 - Visual Studio Code
 - Apache Tomcat 9
 - Spring 5
+- MySQL
 
 ### 팀원 Contributors
 - [홍성훈](https://github.com/callmehoon) Seonghoon Hong
