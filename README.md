@@ -19,18 +19,21 @@
 ![축구는 종교다_통합 ERD](https://github.com/user-attachments/assets/ab39a3c5-8ee4-4a52-8c43-c84c009c1a7c)
 
 ## 프로젝트 적용 기술 Technology List
-### 사용언어 Main Languages
-- Java
-- HTML
-- CSS
-- JavaScript
+### Frontend
+- HTML, CSS, JavaScript(ES6+)
+- JSP (Java Server Pages)
+- JSTL (Java Standard Tag Library)
+
+### Backend
+- Java 17
+- Spring Framework 5, Spring MVC
+- MyBatis, MySQL 8
 
 ### 개발환경 Developement Environment
 - IntelliJ IDEA Ultimate(JDK 17)
 - Visual Studio Code
 - Apache Tomcat 9
-- Spring 5
-- MySQL
+- Git & Github
 
 ### 팀원 Contributors
 - [홍성훈](https://github.com/callmehoon) Seonghoon Hong
