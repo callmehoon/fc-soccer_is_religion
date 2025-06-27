@@ -1,5 +1,8 @@
 let sizeStockMap = new Map();
 
+let currentProductPrice = 0; // 전역 변수 추가
+
+
 function openModal(e) {
     e.preventDefault();
     const modal = document.getElementById("optionModal");
@@ -9,6 +12,10 @@ function openModal(e) {
 
     const prevSize = e.target.getAttribute("data-prev-size");
     const prevQuantity = e.target.getAttribute("data-prev-quantity");
+
+    currentProductPrice = parseInt(
+        currentRow.querySelector("td:nth-child(4) strong").innerText.replace(/[^0-9]/g, "")
+    ) / parseInt(prevQuantity || 1);
 
     // 👉 모달 내부 hidden input 또는 JS 전역 변수로 저장 (예시)
     modal.setAttribute("data-product-id", productId);
@@ -80,16 +87,27 @@ document.querySelectorAll('.qty-btn').forEach(btn => {
         let selectedSize = selectedSizeText === "Free" ? 0 : parseInt(selectedSizeText);
         const maxStock = sizeStockMap.get(selectedSize) || 0;
 
-        if (this.textContent === '+') {
+
+        if (this.textContent === '+')
+        {
             if (value < maxStock) {
                 value++;
             } else {
                 console.log("재고 수량을 초과할 수 없습니다.");
             }
-        } else if (this.textContent === '-') {
+        }
+    else
+        if (this.textContent === '-') {
             value = Math.max(1, value - 1);
         }
         input.value = value;
+
+// ✅ 가격 업데이트
+        const priceSpan = document.querySelector(".selected-option .price");
+        if (priceSpan) {
+            const total = currentProductPrice * value;
+            priceSpan.textContent = `${total.toLocaleString()}원`;
+        }
     });
 });
 
@@ -293,6 +311,17 @@ function renderSizeButtons(dataList, prevSize, prevQuantity) {
                 document.querySelector('.selected-option span').textContent =
                     item.size == 0 ? "Free" : item.size;
                 document.querySelector('.selected-option .quantity input').value = 1;
+
+                const qty = 1;
+                document.querySelector('.selected-option .quantity input').value = qty;
+
+// ✅ 가격 초기화
+                const priceSpan = document.querySelector(".selected-option .price");
+                if (priceSpan) {
+                    const total = currentProductPrice * qty;
+                    priceSpan.textContent = `${total.toLocaleString()}원`;
+                }
+
             });
 
             if (size === parseInt(prevSize)) {

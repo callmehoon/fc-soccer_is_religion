@@ -3,10 +3,11 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ include file="header.jsp" %>
+
 
 <div class="page-wrapper">
     <div class="content-wrapper">
-        <%@ include file="header.jsp" %>
 
         <div class="container">
             <h1 class="title">장바구니 </h1>
